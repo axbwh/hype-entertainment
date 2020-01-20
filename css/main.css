@@ -1,0 +1,39 @@
+.he-sub-title {
+    font-weight: 900 !important;
+}
+
+.he-nav-link {
+    writing-mode: vertical-lr;
+    padding-bottom: calc(20px - 0.6em);
+}
+
+.left .he-nav-link {
+    transform: rotate(180deg);
+}
+
+.body::-webkit-scrollbar {
+    display: none;
+}
+
+.body {
+    -ms-overflow-style: none;
+    opacity: 0;
+}
+
+.he-drop-spacer{
+    transition : transform 0.3s ease-out;
+  transform-origin: center left;
+    transform : scaleX(1)
+}
+
+.he-drop-link:hover .he-drop-spacer{
+    transform : scaleX(3)
+}
+
+.he-nav-wrap{
+    pointer-events: none;
+}
+
+.he-nav-wrap  a{
+    pointer-events: all;
+}
