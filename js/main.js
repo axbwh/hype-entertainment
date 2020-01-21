@@ -1,7 +1,8 @@
 import {addListen, navigateTo} from './section.js'
-import addSub from './subsection.js'
-import {addScroll, addCollapse} from './articles.js'
-import visorInit from './visor.js'
+import initSub from './subsection.js'
+import initArticles from './articles.js'
+import initVisor from './visor.js'
+import {initScrollbars} from './utils.js'
 
 let aboutLink = document.getElementById('about-link'),
     articlesLink = document.getElementById('articles-link'),
@@ -42,8 +43,6 @@ let curInd = {
     }
 }
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
     let hidearray = [icons]
     let noneArray = []
@@ -64,15 +63,17 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     window.addEventListener('popstate', (event) => {
-        navigateTo(window.location.pathname.split('/').pop(), false, sections, icons)
+        navigateTo(window.location.pathname.split('/').pop(), false)
     });
-    navigateTo(window.location.pathname.split('/').pop(), true, sections, icons)
-    addScroll()
+    navigateTo(window.location.pathname.split('/').pop(), true)
+    initScrollbars()
+
     addListen()
-    addSub(aboutWrap, true, curInd.about)
-    addSub(homeWrap, false, curInd.home)
-    addCollapse()
-    visorInit(visorCanvas, homeWrap.querySelector('.simplebar-content-wrapper'))
+
+    initSub(aboutWrap, true, curInd.about)
+    initSub(homeWrap, false, curInd.home)
+    initArticles()
+    initVisor(visorCanvas, homeWrap.querySelector('.simplebar-content-wrapper'))
 })
 
-export {current}
+export {sections, icons}

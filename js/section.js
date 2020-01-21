@@ -1,3 +1,5 @@
+import {sections, icons} from './main.js'
+
 let current
 
 const slideIn = (e, t, d, s) => {
@@ -42,7 +44,7 @@ const slideOut = (e, t, d, s, callback) => {
 
 }
 
-const navigateTo = (key, push, sections, icons) => {
+const navigateTo = (key, push) => {
     key = key in sections ? key : 'home'
 
     let pathName = key == 'home' ? '' : key

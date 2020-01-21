@@ -127,7 +127,7 @@ const articleModal = a => {
     }
 }
 
-const addCollapse = () => {
+const initArticles = () => {
     Array.from(document.querySelectorAll(".he-article")).forEach(a => {
         const collapse = a.querySelector(".he-collapse")
 
@@ -143,13 +143,4 @@ const addCollapse = () => {
     })
 }
 
-const addScroll = () => {
-    Array.prototype.forEach.call(
-        document.querySelectorAll(".he-scroll"),
-        el => {
-            new SimpleBar(el)
-        }
-    )
-}
-
-export {addCollapse, addScroll}
+export default initArticles

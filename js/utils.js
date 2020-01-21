@@ -9,28 +9,27 @@ const clamp = (num, min, max) => {
     return num <= min ? min : num >= max ? max : num;
 }
 
-function toRad(degrees) {
+const toRad = (degrees) => {
     return degrees * (Math.PI / 180);
 }
 
-let vHeight =
-    window.innerHeight ||
-    document.documentElement.clientHeight ||
-    document.body.clientHeight;
-let vWidth =
-    window.innerWidth ||
-    document.documentElement.clientWidth ||
-    document.body.clientWidth;
+const initScrollbars = () => {
+    Array.prototype.forEach.call(
+        document.querySelectorAll(".he-scroll"),
+        el => {
+            new SimpleBar(el)
+        }
+    )
+}
+
+let vHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+
+let vWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
 
 const setSize = () => {
-    vHeight =
-        window.innerHeight ||
-        document.documentElement.clientHeight ||
-        document.body.clientHeight;
-    vWidth =
-        window.innerWidth ||
-        document.documentElement.clientWidth ||
-        document.body.clientWidth;
-};
+    vHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
 
-export {map, clamp, toRad, vHeight, vWidth, setSize}
+    vWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+}
+
+export {map, clamp, toRad, vHeight, vWidth, setSize, initScrollbars}
