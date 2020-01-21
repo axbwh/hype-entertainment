@@ -151,3 +151,5 @@ const addScroll = () => {
         }
     )
 }
+
+export {addCollapse, addScroll}

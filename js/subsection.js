@@ -1,22 +1,4 @@
-let vHeight =
-    window.innerHeight ||
-    document.documentElement.clientHeight ||
-    document.body.clientHeight;
-let vWidth =
-    window.innerWidth ||
-    document.documentElement.clientWidth ||
-    document.body.clientWidth;
-
-const setSize = () => {
-    vHeight =
-        window.innerHeight ||
-        document.documentElement.clientHeight ||
-        document.body.clientHeight;
-    vWidth =
-        window.innerWidth ||
-        document.documentElement.clientWidth ||
-        document.body.clientWidth;
-};
+import {map, clamp, vHeight, vWidth, setSize} from './utils.js'
 
 class Sub {
     constructor(el, index, object, elements, nav, spacer, label, array, group) {
@@ -347,3 +329,7 @@ const addSub = (wrap, group, object) => {
     scrollWrap.addEventListener("scroll", throttle);
     window.addEventListener("resize", resizeNav);
 };
+
+export default addSub
+
+

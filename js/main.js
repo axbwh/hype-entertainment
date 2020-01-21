@@ -1,3 +1,8 @@
+import {addListen, navigateTo} from './section.js'
+import addSub from './subsection.js'
+import {addScroll, addCollapse} from './articles.js'
+import visorInit from './visor.js'
+
 let aboutLink = document.getElementById('about-link'),
     articlesLink = document.getElementById('articles-link'),
     homeLinkL = document.getElementById('home-link-left'),
@@ -7,7 +12,7 @@ let aboutLink = document.getElementById('about-link'),
 
 let aboutWrap = document.getElementById('about-wrap'),
     articlesWrap = document.getElementById('articles-wrap'),
-    homeWrap = document.getElementById('home-wrap')
+    homeWrap = document.getElementById('home-wrap'),
     visorCanvas = document.getElementById('canvas-visor')
 
 let sections = {
@@ -27,6 +32,7 @@ let sections = {
         wrap: articlesWrap
     }
 }
+
 let curInd = {
     about: {
         index: 0
@@ -58,9 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     window.addEventListener('popstate', (event) => {
-        navigateTo(window.location.pathname.split('/').pop(), false)
+        navigateTo(window.location.pathname.split('/').pop(), false, sections, icons)
     });
-    navigateTo(window.location.pathname.split('/').pop())
+    navigateTo(window.location.pathname.split('/').pop(), true, sections, icons)
     addScroll()
     addListen()
     addSub(aboutWrap, true, curInd.about)
@@ -68,3 +74,5 @@ document.addEventListener("DOMContentLoaded", () => {
     addCollapse()
     visorInit(visorCanvas, homeWrap.querySelector('.simplebar-content-wrapper'))
 })
+
+export {current}
