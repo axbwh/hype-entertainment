@@ -1,6 +1,7 @@
 import {addListen, navigateTo} from './section.js'
 import initSub from './subsection.js'
 import initArticles from './articles.js'
+import initLogo from './logo.js'
 import initVisor from './visor.js'
 import {initScrollbars} from './utils.js'
 
@@ -14,7 +15,10 @@ let aboutLink = document.getElementById('about-link'),
 let aboutWrap = document.getElementById('about-wrap'),
     articlesWrap = document.getElementById('articles-wrap'),
     homeWrap = document.getElementById('home-wrap'),
-    visorCanvas = document.getElementById('canvas-visor')
+    canvasVisor = document.getElementById('canvas-visor'),
+    canvasLogo = document.getElementById('canvas-logo'),
+    canvasProjects = document.getElementById('canvas-projects'),
+    canvasAbout = document.getElementById('canvas-about')
 
 let sections = {
     about: {
@@ -73,7 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
     initSub(aboutWrap, true, curInd.about)
     initSub(homeWrap, false, curInd.home)
     initArticles()
-    initVisor(visorCanvas, homeWrap.querySelector('.simplebar-content-wrapper'))
+
+    initVisor(canvasVisor, homeWrap.querySelector('.simplebar-content-wrapper'))
+    initLogo(canvasLogo)
 })
 
 export {sections, icons}

@@ -1,19 +1,16 @@
 import * as THREE from '../build/three.module.js'
 import { EffectComposer } from '../jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from '../jsm/postprocessing/RenderPass.js'
+import { ShaderPass } from '../jsm/postprocessing/ShaderPass.js'
 import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js'
+import { alphaVertex, alphaFragment } from './alpha.js'
 import { OBJLoader } from '../jsm/loaders/OBJLoader.js'
 import { toRad, map, clamp, vWidth, vHeight } from './utils.js'
 
-let camera, scene, renderer, composer
+let camera, scene, renderer, bloomComposer, composer
 
-var windowHalfX = window.innerWidth / 2
-var windowHalfY = window.innerHeight / 2
+let objects = [];
 
-
-var objects = [];
-
-//Visor Varibles
 let obj, obj2
 let visorTl
 
@@ -35,7 +32,7 @@ let mouseAxes = {
 }
 
 //SceneManagement Componenets
-var SceneManager = 1
+let SceneManager = 1
 let timer = 2
 
 function init(canvas, scrollWrap) {
@@ -47,31 +44,29 @@ function init(canvas, scrollWrap) {
   scene = new THREE.Scene()
   scene.fog = new THREE.Fog(0xcccccc, 100, 1500)
 
-  var ambient = new THREE.AmbientLight(0x101030)
+  let ambient = new THREE.AmbientLight(0x101030)
   scene.add(ambient)
 
-  var directionalLight1 = new THREE.DirectionalLight(0xffeedd)
+  let directionalLight1 = new THREE.DirectionalLight(0xffeedd)
   directionalLight1.position.set(4, 0, 0)
   scene.add(directionalLight1)
 
-  var directionalLight2 = new THREE.DirectionalLight(0xffeedd)
+  let directionalLight2 = new THREE.DirectionalLight(0xffeedd)
   directionalLight2.position.set(-4, 0, 0)
   scene.add(directionalLight2)
 
-  var material = new THREE.MeshStandardMaterial({
+  let material = new THREE.MeshStandardMaterial({
     metalness: 0.1,
     roughness: 0.5
   });
 
   //-------------------------------model 1-------------------------------//
-  var manager = new THREE.LoadingManager()
+  let manager = new THREE.LoadingManager()
   manager.onProgress = function (item, loaded, total) {
-
-    console.log(item, loaded, total)
 
   };
 
-  var loader = new OBJLoader(manager);
+  let loader = new OBJLoader(manager);
   loader.load('Models/AstronautIntro.obj', function (object) {
 
     object.traverse(function (child) {
@@ -92,10 +87,10 @@ function init(canvas, scrollWrap) {
   });
 
   //-------------------------------model 2-------------------------------//
-  var manager2 = new THREE.LoadingManager()
+  let manager2 = new THREE.LoadingManager()
 
 
-  var loader2 = new OBJLoader(manager2)
+  let loader2 = new OBJLoader(manager2)
   loader2.load('Models/AstronautIntroVisor.obj', function (object2) {
     object2.position.y = 70
     object2.position.x = -2
@@ -109,19 +104,49 @@ function init(canvas, scrollWrap) {
 
   //-------------------------------Renderer-------------------------------//
   renderer = new THREE.WebGLRenderer({
-    antialias: true
+    antialias: true,
+    alpha: true
   })
+
   renderer.setSize(window.innerWidth, window.innerHeight)
+  // renderer.setClearColor( 0xffffff, 0.5 );
   renderer.toneMapping = THREE.ReinhardToneMapping
 
-  var renderScene = new RenderPass(scene, camera)
-  var bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85)
+  let renderScene = new RenderPass(scene, camera)
+  // renderScene.clearColor = new THREE.Color( 0, 0, 0 );
+	// renderScene.clearAlpha = 0;
+
+
+  let bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85)
   bloomPass.threshold = 0.05
   bloomPass.strength = 0.4
   bloomPass.radius = 0.1
-  composer = new EffectComposer(renderer)
-  composer.addPass(renderScene)
-  composer.addPass(bloomPass)
+  // bloomPass.clearColor = new THREE.Color( 0, 0, 0 );
+  // bloomPass.clearAlpha = 0;
+
+
+  bloomComposer = new EffectComposer(renderer)
+
+  bloomComposer.addPass(renderScene)
+  bloomComposer.addPass(bloomPass)
+
+  let finalPass = new ShaderPass(
+    new THREE.ShaderMaterial( {
+      uniforms: {
+        baseTexture: { value: null },
+        bloomTexture: { value: bloomComposer.renderTarget2.texture }
+      },
+      vertexShader: alphaVertex,
+      fragmentShader: alphaFragment,
+      defines: {}
+    } ), "baseTexture"
+  )
+
+  finalPass.needsSwap = true;
+
+  composer = new EffectComposer( renderer );
+  composer.addPass( renderScene );
+  composer.addPass( finalPass );
 
   canvas.appendChild(renderer.domElement)
 
@@ -196,11 +221,11 @@ function init(canvas, scrollWrap) {
 }
 
 function onWindowResize() {
-  windowHalfX = window.innerWidth / 2
-  windowHalfY = window.innerHeight / 2
   camera.aspect = window.innerWidth / window.innerHeight
   camera.updateProjectionMatrix()
   renderer.setSize(window.innerWidth, window.innerHeight)
+  bloomComposer.setSize(window.innerWidth, window.innerHeight)
+  composer.setSize(window.innerWidth, window.innerHeight)
 }
 
 function render() {
@@ -210,7 +235,7 @@ function render() {
   obj2.rotation.x = toRad(visorAxes.r)
 
   camera.lookAt(visorAxes.tx, visorAxes.ty, visorAxes.tz)
-
+  bloomComposer.render(scene, camera)
   composer.render(scene, camera)
 }
 
