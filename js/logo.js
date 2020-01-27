@@ -1,22 +1,47 @@
 import * as THREE from '../build/three.module.js'
 import { OBJLoader } from '../jsm/loaders/OBJLoader.js'
+import { vHeight } from './utils.js'
 
 var clock = new THREE.Clock();
 var delta = clock.getDelta(); // seconds.
 var rotateAngle = Math.PI / 2 * delta;   // pi/2 radians (90 degrees) per second
-var container, stats;
+var canvas, stats;
 
 var camera, scene, renderer, LogoObject;
 var mouseX = 0, mouseY = 0;
 
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
+
 let lights = []
+let frameRequest
+let inFrame = true
+let scrollWrap, scrollTarget
 
-function init(container) {
+let scroll = _.throttle(
+    () => {
+        let sPos = scrollWrap.scrollTop - scrollTarget.offsetTop;
+        let sEnd = scrollTarget.offsetHeight
+        if (sPos > -vHeight && sPos <= sEnd) {
+            inFrame = true
+            start()
+        } else {
+            inFrame = false
+            stop()
+        }
+    },
+    1, {
+        trailing: true,
+        leading: true
+    }
+)
 
-  camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
-  camera.position.z = 1100;
+function init(canvas, wrap) {
+    scrollTarget = canvas
+    scrollWrap = wrap
+
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
+    camera.position.z = 1100;
 
   //-------------------------------scene-------------------------------//
 
@@ -81,8 +106,6 @@ function init(container) {
   var manager = new THREE.LoadingManager();
   manager.onProgress = function ( item, loaded, total ) {
 
-    console.log( item, loaded, total );
-
   };
 
   //-------------------------------model-------------------------------//
@@ -92,9 +115,7 @@ function init(container) {
     LogoObject.traverse( function ( child ) {
 
       if ( child instanceof THREE.Mesh ) {
-
         child.material = material;
-
       }
 
     } );
@@ -106,17 +127,16 @@ function init(container) {
 
     scene.add( LogoObject );
 
-    animate()
+    render()
 
   } );
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
-  //renderer.setSize( window.innerWidth, window.innerHeight );
   renderer.setSize( window.innerWidth, window.innerHeight );
-  container.appendChild( renderer.domElement );
+  canvas.appendChild( renderer.domElement );
 
   window.addEventListener( 'mousemove', onDocumentMouseMove, false );
-
+  scrollWrap.addEventListener("scroll", scroll)
   window.addEventListener( 'resize', onWindowResize, false );
   
 }
@@ -137,11 +157,26 @@ function onDocumentMouseMove( event ) {
 }
 
 function animate() {
-  requestAnimationFrame( animate );
+  frameRequest = requestAnimationFrame( animate );
   render();
 }
 
+function start() {
+    if (!frameRequest && inFrame) {
+        animate()
+    }
+}
+
+function stop() {
+    if (frameRequest) {
+        cancelAnimationFrame(frameRequest)
+        frameRequest = undefined
+    }
+}
+
 function render() {
+    console.log('Logo is render')
+  
   //obj.rotation.x += (0.2*(Math.PI / 180));
   //obj.rotation.x %=360;
   camera.position.x += ( mouseX - camera.position.x ) * .03;
@@ -183,4 +218,4 @@ function render() {
   renderer.render( scene, camera );
 }
 
-export default init
+export {init, start, stop}

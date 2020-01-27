@@ -980,13 +980,24 @@
 }
 
 .he-canvas {
+  width: 100%;
+  height: 100vh;
+}
+
+#canvas-visor{
   position: -webkit-sticky;
   position: sticky;
   left: 0px;
   top: 0px;
-  width: 100%;
-  height: 100vh;
+  z-index: 9;
 }
+
+#canvas-about{
+  position: fixed;
+  left: 0px;
+  top: 0px;
+}
+
 
 .he-canvas.abs {
   position: absolute;

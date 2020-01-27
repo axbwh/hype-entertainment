@@ -22,6 +22,7 @@ const initScrollbars = () => {
     )
 }
 
+
 let vHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
 
 let vWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth

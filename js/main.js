@@ -1,8 +1,9 @@
-import {addListen, navigateTo} from './section.js'
+import * as Section from './section.js'
 import initSub from './subsection.js'
 import initArticles from './articles.js'
-import initLogo from './logo.js'
-import initVisor from './visor.js'
+import * as Logo from './logo.js'
+import * as Visor from './visor.js'
+import * as About from './about.js'
 import {initScrollbars} from './utils.js'
 
 let aboutLink = document.getElementById('about-link'),
@@ -66,20 +67,26 @@ document.addEventListener("DOMContentLoaded", () => {
         opacity: '1'
     })
 
-    window.addEventListener('popstate', (event) => {
-        navigateTo(window.location.pathname.split('/').pop(), false)
-    });
-    navigateTo(window.location.pathname.split('/').pop(), true)
     initScrollbars()
 
-    addListen()
+    Visor.init(canvasVisor, homeWrap.querySelector('.simplebar-content-wrapper'))
+    Logo.init(canvasLogo, homeWrap.querySelector('.simplebar-content-wrapper'))
+    About.init(canvasAbout, aboutWrap.querySelector('.simplebar-content-wrapper'))
+
+    window.addEventListener('popstate', (event) => {
+        Section.navigateTo(window.location.pathname.split('/').pop(), false)
+    });
+
+    Section.navigateTo(window.location.pathname.split('/').pop(), true)
+
+    Section.init()
 
     initSub(aboutWrap, true, curInd.about)
     initSub(homeWrap, false, curInd.home)
     initArticles()
 
-    initVisor(canvasVisor, homeWrap.querySelector('.simplebar-content-wrapper'))
-    initLogo(canvasLogo)
+    
+
 })
 
 export {sections, icons}

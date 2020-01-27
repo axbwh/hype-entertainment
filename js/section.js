@@ -1,4 +1,7 @@
 import {sections, icons} from './main.js'
+import * as Visor from './visor.js'
+import * as Logo from './logo.js'
+import * as About from './about.js'
 
 let current
 
@@ -55,12 +58,33 @@ const navigateTo = (key, push) => {
         history.replaceState('', '', `./${pathName}`)
     }
 
+    if(key !== current){
+        if(current === 'home'){
+            Visor.stop()
+            Logo.stop()
+        }
+
+        if(current === 'about'){
+            About.stop()
+        }
+
+        if(key === 'home'){
+            Visor.start()
+            Logo.start()
+        }
+        
+        if(key === 'about'){
+            About.start()
+        }
+    }
+
 
     if (typeof current !== "string") {
         let inList = Object.values(sections[key])
         inList.push(icons)
         slideIn(inList, 1000, 0, 150)
     } else if (key != current) {
+
         let outList = [sections[current].wrap]
         let inList = [sections[key].wrap]
 
@@ -84,7 +108,7 @@ const navigateTo = (key, push) => {
     current = key
 }
 
-const addListen = () => {
+const init = () => {
     let navLinks = Array.from(document.querySelectorAll('[data-section]'));
 
     navLinks.forEach(nl => {
@@ -94,4 +118,4 @@ const addListen = () => {
     })
 }
 
-export {addListen, navigateTo}
+export {init, navigateTo}

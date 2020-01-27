@@ -9,7 +9,7 @@ import { toRad, map, clamp, vWidth, vHeight} from './utils.js'
 let camera, scene, renderer, composer
 
 let frameRequest
-let inFrame = false
+let inFrame = true
 let scrollWrap, scrollTarget
 
 let objects = [];
@@ -220,7 +220,7 @@ function stop() {
 }
 
 function render(reset = false) {
-  console.log('visor is render')
+  console.log('about is render')
 
   if(reset){
     camera.position.x = visorAxes.x + mouseAxes.x
