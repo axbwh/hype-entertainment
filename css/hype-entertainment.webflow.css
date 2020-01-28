@@ -259,6 +259,10 @@
   align-items: flex-start;
 }
 
+.he-content-flex.fixed {
+  margin-bottom: -100vh;
+}
+
 .he-content-flex.abs {
   position: absolute;
   -webkit-box-pack: end;
@@ -994,8 +998,9 @@
 
 #canvas-about{
   position: fixed;
-  left: 0px;
+  right: 0;
   top: 0px;
+  width: 70%;
 }
 
 

@@ -10,23 +10,26 @@ let camera, scene, renderer, composer
 
 let frameRequest
 let inFrame = true
-let scrollWrap, scrollTarget
+let canvas
 
 let objects = [];
 
-let obj, obj2
-let visorTl
+let obj
+let timeline
 
-let visorAxes = {
+let axes = {
   x: 0,
-  y: 120,
-  z: 65,
-  r: 0,
+  y: 0,
+  z: 135,
+  r: -90,
   tx: 0,
-  ty: 60,
+  ty: 0,
   tz: 0,
   ox: 10,
   oy: 10,
+  sx:0,
+  sy:25,
+  sz:0
 }
 
 let mouseAxes = {
@@ -38,9 +41,10 @@ let mouseAxes = {
 let SceneManager = 1
 let timer = 2
 
-function init(canvas, scrollWrap) {
+function init(cvs, scrollWrap) {
+    canvas = cvs
   const scrollTarget = canvas.parentElement
-  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000)
+  camera = new THREE.PerspectiveCamera(45, canvas.offsetWidth / canvas.offsetHeight, 1, 2000)
 
   //-------------------------------scene-------------------------------//
 
@@ -70,7 +74,7 @@ function init(canvas, scrollWrap) {
   };
 
   let loader = new OBJLoader(manager);
-  loader.load('Models/AstronautIntro.obj', function (object) {
+  loader.load('Models/AstronautFloating.obj', function (object) {
 
     object.traverse(function (child) {
       if (child instanceof THREE.Mesh) {
@@ -78,7 +82,9 @@ function init(canvas, scrollWrap) {
       }
     });
 
-    object.position.y = -145
+    object.position.x = axes.sx
+    object.position.y = axes.sy
+    object.position.z = axes.sz
     object.scale.x = 10
     object.scale.y = 10
     object.scale.z = 10
@@ -89,36 +95,20 @@ function init(canvas, scrollWrap) {
     render(true)
   });
 
-  //-------------------------------model 2-------------------------------//
-  let manager2 = new THREE.LoadingManager()
-
-
-  let loader2 = new OBJLoader(manager2)
-  loader2.load('Models/AstronautIntroVisor.obj', function (object2) {
-    object2.position.y = 70
-    object2.position.x = -2
-    object2.scale.x = 10
-    object2.scale.y = 10
-    object2.scale.z = 10
-    obj2 = object2
-    objects.push(obj2) //Push required for RayCasting Detect
-    scene.add(obj2)
-  });
-
   //-------------------------------Renderer-------------------------------//
   renderer = new THREE.WebGLRenderer({
     antialias: true,
     alpha:true
   })
 
-  renderer.setSize(window.innerWidth, window.innerHeight)
+  renderer.setSize(canvas.offsetWidth, canvas.offsetHeight)
   // renderer.toneMapping = THREE.ReinhardToneMapping
 
   let renderScene = new RenderPass(scene, camera)
 
 
 
-  let bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85)
+  let bloomPass = new UnrealBloomPass(new THREE.Vector2(canvas.offsetWidth, canvas.offsetHeight), 1.5, 0.4, 0.85)
   bloomPass.threshold = 0.05
   bloomPass.strength = 0.4
   bloomPass.radius = 0.1
@@ -131,25 +121,36 @@ function init(canvas, scrollWrap) {
 
   canvas.appendChild(renderer.domElement)
 
-  visorTl = anime.timeline({
-    targets: visorAxes,
-    duration: 250,
-    easing: 'linear',
-    autoplay: false
+  timeline = anime.timeline({
+      targets: axes,
+      duration: 100,
+      easing: 'linear',
+      autoplay: false
   }).add({
-    y: 70,
-    ty: 70,
-    tz: -65,
-    ox: 1,
-    oy: 1,
-    duration: 750
-  }, 0).add({
-    r:-100,
-    duration:350
-  }, 250).add({
-    z:-10,
-    duration:250
-  },600)
+      r: -75,
+      duration: 200
+  }, 300).add({
+      r: 0,
+      duration: 200
+  }, '+=200').add({
+      r: 10,
+      duration: 200
+  }, '+=200').add({
+      r: 20,
+      duration: 200
+  }, '+=200').add({
+      r: 30,
+      duration: 200
+  }, '+=200').add({
+      r: 40,
+      duration: 200
+  }, '+=200').add({
+      r: 50,
+      duration: 200
+  }, '+=200').add({
+      r:50,
+      duration: 300
+  })
 
 
   let _scroll = _.throttle(
@@ -157,7 +158,7 @@ function init(canvas, scrollWrap) {
       sPos = scrollWrap.scrollTop - scrollTarget.offsetTop;
       sEnd = scrollTarget.offsetHeight - vHeight
       let pPercent = map(clamp(sPos, 0, sEnd), 0, sEnd, 0, 100)
-        visorTl.seek(visorTl.duration * (pPercent / 100))
+        timeline.seek(timeline.duration * (pPercent / 100))
       if (sPos > -vHeight && sPos <= sEnd) { 
         inFrame = true       
         start()   
@@ -175,8 +176,8 @@ function init(canvas, scrollWrap) {
   let _mousemove = _.throttle(
     (e) => {
       if (sPos <= sEnd) {
-        mouseAxes.x = map(e.clientX, 0, vWidth, -visorAxes.ox, visorAxes.ox)
-        mouseAxes.y = map(e.clientY, 0, vHeight, -visorAxes.oy, visorAxes.oy)
+        mouseAxes.x = map(e.clientX, 0, vWidth, -axes.ox, axes.ox)
+        mouseAxes.y = map(e.clientY, 0, vHeight, -axes.oy, axes.oy)
       }
     },
     1, {
@@ -194,10 +195,10 @@ function init(canvas, scrollWrap) {
 }
 
 function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight
+  camera.aspect = canvas.offsetWidth / canvas.offsetHeight
   camera.updateProjectionMatrix()
-  renderer.setSize(window.innerWidth, window.innerHeight)
-  composer.setSize(window.innerWidth, window.innerHeight)
+  renderer.setSize(canvas.offsetWidth, canvas.offsetHeight)
+  composer.setSize(canvas.offsetWidth, canvas.offsetHeight)
 }
 
 function animate() {
@@ -223,18 +224,28 @@ function render(reset = false) {
   console.log('about is render')
 
   if(reset){
-    camera.position.x = visorAxes.x + mouseAxes.x
-    camera.position.y = visorAxes.y + mouseAxes.y 
-    camera.position.z = visorAxes.z
-    obj2.rotation.x = toRad(visorAxes.r)
+    camera.position.x = axes.x + mouseAxes.x
+    camera.position.y = axes.y + mouseAxes.y 
+    camera.position.z = axes.z
+
+    obj.position.x = axes.sx
+    obj.position.y = axes.sy
+    obj.position.z = axes.sz
+    obj.rotation.y = toRad(axes.r)
+
   }else{
-    camera.position.x += (visorAxes.x + mouseAxes.x - camera.position.x) * .1
-    camera.position.y += (visorAxes.y + mouseAxes.y - camera.position.y) * .1
-    camera.position.z += (visorAxes.z - camera.position.z) * .1
-    obj2.rotation.x = map(.1, 0, 1, obj2.rotation.x, toRad(visorAxes.r))
+
+    camera.position.x += (axes.x + mouseAxes.x - camera.position.x) * .1
+    camera.position.y += (axes.y + mouseAxes.y - camera.position.y) * .1
+    camera.position.z += (axes.z - camera.position.z) * .1
+
+    obj.position.x += (axes.sx - obj.position.x) *.1
+    obj.position.y += (axes.sy - obj.position.y) *.1
+    obj.position.z += (axes.sz - obj.position.z) *.1
+    obj.rotation.y = map(.1, 0, 1, obj.rotation.y, toRad(axes.r))
   }
  
-  camera.lookAt(visorAxes.tx, visorAxes.ty, visorAxes.tz)
+  camera.lookAt(axes.tx, axes.ty, axes.tz)
   renderer.render(scene, camera)
 }
 
