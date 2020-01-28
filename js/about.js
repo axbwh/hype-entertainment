@@ -21,7 +21,9 @@ let axes = {
   x: 0,
   y: 0,
   z: 135,
-  r: -90,
+  rx: 0,
+  ry: -90,
+  rz: 0,
   tx: 0,
   ty: 0,
   tz: 0,
@@ -127,29 +129,55 @@ function init(cvs, scrollWrap) {
       easing: 'linear',
       autoplay: false
   }).add({
-      r: -75,
+      ry: -65,
+      z: 100,
+      sy: 15,
       duration: 200
   }, 300).add({
-      r: 0,
+      ry: -30,
+      z: 85,
+      sy: 10,
+      y: 10,
       duration: 200
   }, '+=200').add({
-      r: 10,
+      ry: -20,
+      z: 110,
+      y: 30,
       duration: 200
   }, '+=200').add({
-      r: 20,
+      ry: 25,
+      z: 130,
+      y: 60,
+      ox: 20,
+      oy: 20,
       duration: 200
   }, '+=200').add({
-      r: 30,
+      ry: 40,
+      z: 200,
+      y: 60,
+      sy: 30,
+      ox:30,
+      oy:30,
       duration: 200
   }, '+=200').add({
-      r: 40,
+      ry: 50,
+      z: 400,
+      y: 100,
+      sy: 75,
+      ox:60,
+      oy:60,
       duration: 200
   }, '+=200').add({
-      r: 50,
+      ry: 180,
+      z: 10,
+      y: 500,
+      ox: 2,
+      oy: 2,
+      sy: 0,
       duration: 200
   }, '+=200').add({
-      r:50,
-      duration: 300
+      ry: 180,
+      duration: 100
   })
 
 
@@ -221,7 +249,7 @@ function stop() {
 }
 
 function render(reset = false) {
-  console.log('about is render')
+//   console.log('about is render')
 
   if(reset){
     camera.position.x = axes.x + mouseAxes.x
@@ -231,7 +259,9 @@ function render(reset = false) {
     obj.position.x = axes.sx
     obj.position.y = axes.sy
     obj.position.z = axes.sz
-    obj.rotation.y = toRad(axes.r)
+    obj.rotation.x = toRad(axes.rx)
+    obj.rotation.y = toRad(axes.ry)
+    obj.rotation.z = toRad(axes.rz)
 
   }else{
 
@@ -242,7 +272,9 @@ function render(reset = false) {
     obj.position.x += (axes.sx - obj.position.x) *.1
     obj.position.y += (axes.sy - obj.position.y) *.1
     obj.position.z += (axes.sz - obj.position.z) *.1
-    obj.rotation.y = map(.1, 0, 1, obj.rotation.y, toRad(axes.r))
+    obj.rotation.x = map(.1, 0, 1, obj.rotation.x, toRad(axes.rx))
+    obj.rotation.y = map(.1, 0, 1, obj.rotation.y, toRad(axes.ry))
+    obj.rotation.z = map(.1, 0, 1, obj.rotation.z, toRad(axes.rz))
   }
  
   camera.lookAt(axes.tx, axes.ty, axes.tz)

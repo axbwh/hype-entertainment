@@ -220,7 +220,7 @@ function stop() {
 }
 
 function render(reset = false) {
-  console.log('visor is render')
+  // console.log('visor is render')
 
   if(reset){
     camera.position.x = visorAxes.x + mouseAxes.x
