@@ -2,6 +2,7 @@ import {sections, icons} from './main.js'
 import * as Visor from './visor.js'
 import * as Logo from './logo.js'
 import * as About from './about.js'
+import * as Proj from './proj.js'
 
 let current
 
@@ -62,6 +63,7 @@ const navigateTo = (key, push) => {
         if(current === 'home'){
             Visor.stop()
             Logo.stop()
+            Proj.stop()
         }
 
         if(current === 'about'){
@@ -71,11 +73,13 @@ const navigateTo = (key, push) => {
         if(key === 'home'){
             Visor.start()
             Logo.start()
+            Proj.start()
         }
 
         if(key === 'about'){
-            About.start()
+            About.start()           
         }
+        
     }
 
 

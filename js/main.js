@@ -4,6 +4,7 @@ import initArticles from './articles.js'
 import * as Logo from './logo.js'
 import * as Visor from './visor.js'
 import * as About from './about.js'
+import * as Proj from './proj.js'
 import {initScrollbars} from './utils.js'
 
 let aboutLink = document.getElementById('about-link'),
@@ -71,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     Visor.init(canvasVisor, homeWrap.querySelector('.simplebar-content-wrapper'))
     Logo.init(canvasLogo, homeWrap.querySelector('.simplebar-content-wrapper'))
+    Proj.init(canvasProjects, homeWrap.querySelector('.simplebar-content-wrapper'), homeWrap.querySelector('.he-section'))
     About.init(canvasAbout, aboutWrap.querySelector('.simplebar-content-wrapper'))
 
     window.addEventListener('popstate', (event) => {

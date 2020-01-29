@@ -8,6 +8,7 @@
   <meta content="Webflow" name="generator">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/webflow.css" rel="stylesheet" type="text/css">
+  <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
   <link href="css/hype-entertainment.webflow.css" rel="stylesheet" type="text/css">
   <link href="css/main.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css">
@@ -31,7 +32,6 @@
   <link href="images/webclip.png" rel="apple-touch-icon">
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
 </head>
 
 <body class="body">
@@ -326,8 +326,8 @@
         <div id='canvas-visor' class="he-canvas"></div>
       </div>
       <div class="he-content-flex first">
-        <div class="he-canvas abs"></div>
         <div class="he-sub">
+          <div id='canvas-projects' class="he-canvas"></div>
           <div class="he-content-wrap">
             <div class="he-subnav-superwrap">
               <div class="he-subnav-wrap">
@@ -392,14 +392,15 @@
             </div>
           </div>
           <div class="he-wrap center">
-            <div data-sub="0" class="he-project-title">SPACE</div>
-            <div data-sub="1" class="he-project-title">Under the sea</div>
-            <div data-sub="2" class="he-project-title">Projection</div>
-            <div data-sub="4" class="he-project-title">great gatsby</div>
-            <div data-sub="5" class="he-project-title">ROMAN PILLARS</div>
-            <div data-sub="6" class="he-project-title">ICE</div>
-            <div data-sub="7" class="he-project-title">harry potter</div>
-            <div data-sub="3" class="he-project-title rel">JAPANESE SPRING</div>
+            <div data-sub="0" class="he-project-title">sun</div>
+            <div data-sub="1" class="he-project-title">sea</div>
+            <div data-sub="2" class="he-project-title">rave</div>
+            <div data-sub="3" class="he-project-title">shōji</div>
+            <div data-sub="5" class="he-project-title">ivy</div>
+            <div data-sub="6" class="he-project-title">ice</div>
+            <div data-sub="7" class="he-project-title">space</div>
+            <div data-sub="4" class="he-project-title rel">gatsby</div>
+            
           </div>
           <div class="he-content-wrap right">
             <div data-sub="0" class="he-wrap abs">
@@ -1067,10 +1068,39 @@
       </div>
     </div>
   </div>
-  <!-- <script src="js/section.js" type="module"></script>
-  <script language="javascript" type="module" src="js/visor.js"></script>
-  <script src="js/subsection.js" type="module"></script>
-  <script src="js/articles.js" type="module"></script> -->
+  <div class='he-projections' style="display:none">
+    <video id="vid-sun" loop crossOrigin="anonymous" preload="auto" playsinline autoplay="true" muted="muted">
+      <source src="Videos/sun.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+    </video>
+
+    <video id="vid-sea" loop crossOrigin="anonymous" preload="auto" playsinline autoplay="true" muted="muted">
+      <source src="Videos/sea.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+    </video>
+
+    <video id="vid-rave" loop crossOrigin="anonymous" preload="auto" playsinline autoplay="true" muted="muted">
+      <source src="Videos/rave.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+    </video>
+
+    <video id="vid-shoji" loop crossOrigin="anonymous" preload="auto" playsinline autoplay="true" muted="muted">
+      <source src="Videos/shoji.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+    </video>
+
+    <video id="vid-gatsby" loop crossOrigin="anonymous" preload="auto" playsinline autoplay="true" muted="muted">
+      <source src="Videos/gatsby.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+    </video>
+
+    <video id="vid-ivy" loop crossOrigin="anonymous" preload="auto" playsinline autoplay="true" muted="muted">
+      <source src="Videos/ivy.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+    </video>
+
+    <video id="vid-ice" loop crossOrigin="anonymous" preload="auto" playsinline autoplay="true" muted="muted">
+      <source src="Videos/ice.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+    </video>
+
+    <video id="vid-space" loop crossOrigin="anonymous" preload="auto" playsinline autoplay="true" muted="muted">
+      <source src="Videos/space.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+    </video>
+  </div>
   <script src="js/main.js" type="module"></script>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>

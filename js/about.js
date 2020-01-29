@@ -6,16 +6,13 @@ import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js'
 import { OBJLoader } from '../jsm/loaders/OBJLoader.js'
 import { toRad, map, clamp, vWidth, vHeight} from './utils.js'
 
-let camera, scene, renderer, composer
+let canvas, camera, scene, renderer, composer
 
-let frameRequest
-let inFrame = true
-let canvas
+let timeline, frameRequest, inFrame = true
 
 let objects = [];
 
 let obj
-let timeline
 
 let axes = {
   x: 0,
@@ -104,7 +101,6 @@ function init(cvs, scrollWrap) {
   })
 
   renderer.setSize(canvas.offsetWidth, canvas.offsetHeight)
-  // renderer.toneMapping = THREE.ReinhardToneMapping
 
   let renderScene = new RenderPass(scene, camera)
 
