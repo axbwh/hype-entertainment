@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initScrollbars()
 
     Visor.init(canvasVisor, homeWrap.querySelector('.simplebar-content-wrapper'))
-    Logo.init(canvasLogo, homeWrap.querySelector('.simplebar-content-wrapper'))
+    // Logo.init(canvasLogo, homeWrap.querySelector('.simplebar-content-wrapper'))
     Proj.init(canvasProjects, homeWrap.querySelector('.simplebar-content-wrapper'), homeWrap.querySelector('.he-section'))
     About.init(canvasAbout, aboutWrap.querySelector('.simplebar-content-wrapper'))
 

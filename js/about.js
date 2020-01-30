@@ -1,18 +1,14 @@
 import * as THREE from '../build/three.module.js'
 import { EffectComposer } from '../jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from '../jsm/postprocessing/RenderPass.js'
-import { ShaderPass } from '../jsm/postprocessing/ShaderPass.js'
 import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js'
-import { OBJLoader } from '../jsm/loaders/OBJLoader.js'
-import { toRad, map, clamp, vWidth, vHeight} from './utils.js'
+import { toRad, map, clamp, vWidth, vHeight, loadOBJ} from './utils.js'
 
-let canvas, camera, scene, renderer, composer
+let canvas, camera, scene, renderer, composer, ambientLight
 
 let timeline, frameRequest, inFrame = true
 
-let objects = [];
-
-let obj
+let astro
 
 let axes = {
   x: 0,
@@ -50,8 +46,9 @@ function init(cvs, scrollWrap) {
   scene = new THREE.Scene()
   scene.fog = new THREE.Fog(0xcccccc, 100, 1500)
 
-  let ambient = new THREE.AmbientLight(0x101030)
-  scene.add(ambient)
+  ambientLight = new THREE.AmbientLight(0xffffff)
+  ambientLight.intensity = 0.12
+  scene.add(ambientLight)
 
   let directionalLight1 = new THREE.DirectionalLight(0xffeedd)
   directionalLight1.position.set(4, 0, 0)
@@ -67,32 +64,26 @@ function init(cvs, scrollWrap) {
   });
 
   //-------------------------------model 1-------------------------------//
-  let manager = new THREE.LoadingManager()
-  manager.onProgress = function (item, loaded, total) {
 
-  };
+  let promise = loadOBJ('Models/astrofloat.obj')
 
-  let loader = new OBJLoader(manager);
-  loader.load('Models/AstronautFloating.obj', function (object) {
-
+  promise.then(object => {
     object.traverse(function (child) {
-      if (child instanceof THREE.Mesh) {
-        child.material = material
-      }
-    });
-
-    object.position.x = axes.sx
-    object.position.y = axes.sy
-    object.position.z = axes.sz
-    object.scale.x = 10
-    object.scale.y = 10
-    object.scale.z = 10
-    obj = object
-    objects.push(obj) //Push required for RayCasting Detect
-    scene.add(obj)
-
-    render(true)
-  });
+        if (child instanceof THREE.Mesh) {
+          child.material = material
+        }
+      });
+  
+      object.position.x = axes.sx
+      object.position.y = axes.sy
+      object.position.z = axes.sz
+      object.scale.x = 10
+      object.scale.y = 10
+      object.scale.z = 10
+      astro = object
+      scene.add(astro)
+      render(true)
+  })
 
   //-------------------------------Renderer-------------------------------//
   renderer = new THREE.WebGLRenderer({
@@ -104,14 +95,10 @@ function init(cvs, scrollWrap) {
 
   let renderScene = new RenderPass(scene, camera)
 
-
-
   let bloomPass = new UnrealBloomPass(new THREE.Vector2(canvas.offsetWidth, canvas.offsetHeight), 1.5, 0.4, 0.85)
   bloomPass.threshold = 0.05
   bloomPass.strength = 0.4
   bloomPass.radius = 0.1
-
-
 
   composer = new EffectComposer( renderer );
   composer.addPass( renderScene );
@@ -216,6 +203,8 @@ function init(cvs, scrollWrap) {
   scrollWrap.addEventListener("mousemove", _mousemove)
 
   window.addEventListener('resize', onWindowResize, false)
+
+  return promise
 }
 
 function onWindowResize() {
@@ -252,12 +241,12 @@ function render(reset = false) {
     camera.position.y = axes.y + mouseAxes.y 
     camera.position.z = axes.z
 
-    obj.position.x = axes.sx
-    obj.position.y = axes.sy
-    obj.position.z = axes.sz
-    obj.rotation.x = toRad(axes.rx)
-    obj.rotation.y = toRad(axes.ry)
-    obj.rotation.z = toRad(axes.rz)
+    astro.position.x = axes.sx
+    astro.position.y = axes.sy
+    astro.position.z = axes.sz
+    astro.rotation.x = toRad(axes.rx)
+    astro.rotation.y = toRad(axes.ry)
+    astro.rotation.z = toRad(axes.rz)
 
   }else{
 
@@ -265,12 +254,12 @@ function render(reset = false) {
     camera.position.y += (axes.y + mouseAxes.y - camera.position.y) * .1
     camera.position.z += (axes.z - camera.position.z) * .1
 
-    obj.position.x += (axes.sx - obj.position.x) *.1
-    obj.position.y += (axes.sy - obj.position.y) *.1
-    obj.position.z += (axes.sz - obj.position.z) *.1
-    obj.rotation.x = map(.1, 0, 1, obj.rotation.x, toRad(axes.rx))
-    obj.rotation.y = map(.1, 0, 1, obj.rotation.y, toRad(axes.ry))
-    obj.rotation.z = map(.1, 0, 1, obj.rotation.z, toRad(axes.rz))
+    astro.position.x += (axes.sx - astro.position.x) *.1
+    astro.position.y += (axes.sy - astro.position.y) *.1
+    astro.position.z += (axes.sz - astro.position.z) *.1
+    astro.rotation.x = map(.1, 0, 1, astro.rotation.x, toRad(axes.rx))
+    astro.rotation.y = map(.1, 0, 1, astro.rotation.y, toRad(axes.ry))
+    astro.rotation.z = map(.1, 0, 1, astro.rotation.z, toRad(axes.rz))
   }
  
   camera.lookAt(axes.tx, axes.ty, axes.tz)

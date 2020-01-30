@@ -2,8 +2,7 @@ import * as THREE from '../build/three.module.js'
 import { EffectComposer } from '../jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from '../jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js'
-import { OBJLoader } from '../jsm/loaders/OBJLoader.js'
-import { toRad, map, clamp, vWidth, vHeight} from './utils.js'
+import { toRad, map, clamp, vWidth, vHeight, loadOBJ} from './utils.js'
 
 
 let canvas, camera, scene, renderer, composer
@@ -13,12 +12,12 @@ let timeline, frameRequest, inFrame = false
 let axes = {
     x: 0,
     y: 0,
-    z: 400,
+    z: 800,
     offX: 10,
     offY: 10,
     i: 0,
     bmax : 1.2,
-    bmin : 0.4
+    bmin : 0
   }
 
 let projects = []
@@ -27,10 +26,9 @@ let raycaster, mouse = {
     x: 0,
     y: 0
 }
-let bloomPass
+let bloomPass, defaultMaterial, intersects, ambientLight
 
 //SceneManagement Componenets
-var intersects;
 
 
 function init(cvs, scrollWrap, scrollTgt) {
@@ -55,7 +53,8 @@ function init(cvs, scrollWrap, scrollTgt) {
     camera.lookAt(scene.position)
     //-------------------------------Rendercalls & Lights-------------------------------// 
 
-    var ambientLight = new THREE.AmbientLight(0xffffff)
+    ambientLight = new THREE.AmbientLight(0xffffff)
+    ambientLight.intensity = 0.12
     scene.add(ambientLight)
 
     var directionalLight1 = new THREE.DirectionalLight(0xffeedd, 0.5)
@@ -81,7 +80,10 @@ function init(cvs, scrollWrap, scrollTgt) {
 
     window.addEventListener('mousemove', onMouseMove, false)
 
-    setupScene()
+    defaultMaterial = new THREE.MeshStandardMaterial({
+        metalness: 0.1,
+        roughness: 0.5
+      });
 
     timeline = anime.timeline({
         targets: axes,
@@ -89,42 +91,48 @@ function init(cvs, scrollWrap, scrollTgt) {
         easing: 'linear',
         autoplay: false
     }).add({
-        i:1,
-        x: 1000,
+        z: 400,
         duration: 200
-    }, 300).add({
+    }).add({
+        i:1,
+        x: 500,
+        duration: 200
+    }, '+=100').add({
         i:2,
-        x: 2000,
+        x: 1000,
         duration: 200
     }, '+=200').add({
         i:3,
-        x: 3000,
+        x: 1500,
         bmax: 0.4,
         duration: 200
     }, '+=200').add({
         i:4,
-        x: 4000,
+        x: 2000,
         bmax: 1.4,
         duration: 200
     }, '+=200').add({
         i:5,
-        x: 5000,
+        x: 2500,
         bmax: 0.1,
         duration: 200
     }, '+=200').add({
         i:6,
-        x: 6000,
+        x: 3000,
         bmax: 1.2,
         duration: 200
     }, '+=200').add({
         i:7,
-        x: 7000,
+        x: 3500,
         duration: 200
     }, '+=200').add({
-        x: 7000,
+        x: 4000,
         duration: 100
     })
     
+    let sPos = scrollWrap.scrollTop - scrollTarget.offsetTop
+    let sEnd = scrollTarget.offsetHeight - vHeight
+
     let _scroll = _.throttle(
         () => {
             sPos = scrollWrap.scrollTop - scrollTarget.offsetTop;
@@ -158,14 +166,16 @@ function init(cvs, scrollWrap, scrollTgt) {
     //     }
     // )
 
-    let sPos = scrollWrap.scrollTop - scrollTarget.offsetTop
-    let sEnd = scrollTarget.offsetHeight - vHeight
-
     scrollWrap.addEventListener("scroll", _scroll)
     // scrollWrap.addEventListener("mousemove", _mousemove)
 
     window.addEventListener('resize', onWindowResize, false)
 
+    let promise = setupScene()
+
+    // promise.then(render)
+
+    return promise
 
 }
 
@@ -182,33 +192,38 @@ class Project {
     }
 
     init() {
-        let vid = this.vid
-        this.vid.addEventListener("canplay", () => {
+
+        this.vid.play().then(() => {
+            this.vid.pause()
+            this.texture = new THREE.VideoTexture(this.vid)
+            this.material = new THREE.MeshStandardMaterial({
+                map: this.texture,
+                roughness: 0.5
+            })
             this.ready = true
-        }, true)
+        })
 
-        this.texture = new THREE.VideoTexture(this.vid)
+        // this.texture = new THREE.VideoTexture(this.vid)
 
-        setInterval(() => {
-            if (this.vid.readyState >= this.vid.HAVE_CURRENT_DATA) {
-                this.texture.needsUpdate = true;
-            }
-        }, 1000 / 24)
+        // setInterval(() => {
+        //     if (this.vid.readyState >= this.vid.HAVE_CURRENT_DATA) {
+        //         this.texture.needsUpdate = true;
+        //     }
+        // }, 1000 / 24)
 
-        this.material = new THREE.MeshStandardMaterial({
-            map: this.texture,
-            roughness: 0.5
-        });
+        // this.material = new THREE.MeshStandardMaterial({
+        //     map: this.texture,
+        //     roughness: 0.5
+        // })
 
         //--------------model--------------//
-        this.manager = new THREE.LoadingManager()
-
-        var loader = new OBJLoader(this.manager)
-
-        loader.load(`Models/proj/${this.id}.obj`, (obj) => {
+        this.promise = loadOBJ(`Models/proj/${this.id}.obj`)
+        
+        this.promise.then((obj) => {
 
             obj.traverse( (child) => {
-                child.material = this.material
+                this.child = child
+                this.child.material = defaultMaterial
             })
             obj.scale.x = this.scale
             obj.scale.y = this.scale
@@ -217,14 +232,14 @@ class Project {
             obj.rotation.y = this.r
             obj.position.y = this.y
             this.obj = obj
-            // objects.push(this.obj) //Push required for RayCasting Detect
             scene.add(this.obj)
         })
-
+        return this.promise
     }
 
     hoverIn() {
         if (this.ready && !this.playing) {
+            this.child.material = this.material ? this.material : defaultMaterial
             this.vid.play()
             this.playing = true
         }
@@ -232,6 +247,7 @@ class Project {
 
     hoverOut() {
         this.vid.pause()
+        this.child.material = defaultMaterial
         this.playing = false
     }
 }
@@ -251,7 +267,9 @@ function setupScene() {
     //--------------model: ?? --------------//
     projects[7] = new Project(7, 'space', 12, -100)
 
-    projects.forEach( p => p.init())
+    let promises = projects.map( p => p.init())
+
+    return Promise.all(promises)
 }
 
 function animate() {
@@ -282,6 +300,7 @@ function onMouseMove( event ) {
 }
 
 function render(reset = false) {
+    console.log('proj is render')
 
     if (reset) {
         camera.position.x = axes.x + mouse.x
@@ -309,21 +328,24 @@ function render(reset = false) {
 
     intersects = raycaster.intersectObjects( projects.map(p => p.obj) , true )
     
-    let bloomTo
+    let bloomTo, lightTo
 
     if(intersects.length >= 1){
         projects[Math.round(axes.i)].hoverIn()
         bloomTo = axes.bmax
+        lightTo = 1
     }else{
         projects.filter( p => p.playing).forEach( p => p.hoverOut())
         bloomTo = axes.bmin
+        lightTo = 0.12
     }
 
-    bloomPass.strength =  map(.05, 0, 1, bloomPass.strength, bloomTo);
-    bloomPass.radius =  map(.1, 0, 1, bloomPass.radius, bloomTo);
+    ambientLight.intensity = map(.5, 0, 1, ambientLight.intensity, lightTo);
 
+    bloomPass.strength =  map(.15, 0, 1, bloomPass.strength, bloomTo);
+    bloomPass.radius =  map(.15, 0, 1, bloomPass.radius, bloomTo);
 
-    composer.render();
+    composer.render()
        
 }  
 

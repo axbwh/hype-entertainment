@@ -1,33 +1,56 @@
 import * as THREE from '../build/three.module.js'
 import { EffectComposer } from '../jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from '../jsm/postprocessing/RenderPass.js'
-import { ShaderPass } from '../jsm/postprocessing/ShaderPass.js'
 import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js'
-import { OBJLoader } from '../jsm/loaders/OBJLoader.js'
-import { toRad, map, clamp, vWidth, vHeight} from './utils.js'
+import { toRad, map, clamp, vWidth, vHeight, loadOBJ} from './utils.js'
 
-let camera, scene, renderer, composer
+let camera, scene, renderer, composer, ambientLight
 
-let frameRequest
-let inFrame = false
+let frameRequest, inFrame = false
 let scrollWrap, scrollTarget
 
-let objects = [];
-
-let obj, obj2
+let astro, visor, logo
 let visorTl
 
-let visorAxes = {
+let logoAxes = {
   x: 0,
-  y: 120,
-  z: 65,
+  y: 200,
+  z: 20
+}
+
+
+let axes = {
+  x: 0,
+  y: logoAxes.y,
+  z: logoAxes.z + 250,
   r: 0,
   tx: 0,
-  ty: 60,
+  ty: logoAxes.y,
   tz: 0,
   ox: 10,
   oy: 10,
+  intensity: 0.75
 }
+
+let targetAxes= {
+  x: axes.tx,
+  y: axes.ty,
+  z: axes.tz
+}
+
+
+// let axes = {
+//   x: 0,
+//   y: 120,
+//   z: 65,
+//   r: 0,
+//   tx: 0,
+//   ty: 60,
+//   tz: 0,
+//   ox: 10,
+//   oy: 10,
+// }
+
 
 let mouseAxes = {
   x: 0,
@@ -47,8 +70,9 @@ function init(canvas, scrollWrap) {
   scene = new THREE.Scene()
   scene.fog = new THREE.Fog(0xcccccc, 100, 1500)
 
-  let ambient = new THREE.AmbientLight(0x101030)
-  scene.add(ambient)
+  ambientLight = new THREE.AmbientLight(0xffffff)
+  ambientLight.intensity = axes.intensity
+  scene.add(ambientLight)
 
   let directionalLight1 = new THREE.DirectionalLight(0xffeedd)
   directionalLight1.position.set(4, 0, 0)
@@ -63,47 +87,63 @@ function init(canvas, scrollWrap) {
     roughness: 0.5
   });
 
-  //-------------------------------model 1-------------------------------//
-  let manager = new THREE.LoadingManager()
-  manager.onProgress = function (item, loaded, total) {
+  //-------------------------------Astronaut-------------------------------//
 
-  };
 
-  let loader = new OBJLoader(manager);
-  loader.load('Models/AstronautIntro.obj', function (object) {
+  let astroPromise = loadOBJ('Models/astro.obj')
 
-    object.traverse(function (child) {
+  astroPromise.then(obj => {
+    obj.traverse(child => {
       if (child instanceof THREE.Mesh) {
         child.material = material
       }
-    });
+    })
 
-    object.position.y = -145
-    object.scale.x = 10
-    object.scale.y = 10
-    object.scale.z = 10
-    obj = object
-    objects.push(obj) //Push required for RayCasting Detect
-    scene.add(obj)
+    obj.position.y = -145
+    obj.scale.x = 10
+    obj.scale.y = 10
+    obj.scale.z = 10
+    astro = obj
+    scene.add(astro)
+  })
 
-    render(true)
-  });
+  //-------------------------------Visor-------------------------------//
 
-  //-------------------------------model 2-------------------------------//
-  let manager2 = new THREE.LoadingManager()
+  let visorPromise = loadOBJ('Models/visor.obj')
 
+  visorPromise.then(obj => {
+    obj.traverse(child => {
+      if (child instanceof THREE.Mesh) {
+        child.material = material
+      }
+    })
+    obj.position.y = 70
+    obj.position.x = -2
+    obj.scale.x = 10
+    obj.scale.y = 10
+    obj.scale.z = 10
+    visor = obj
+    scene.add(visor)
+  })
 
-  let loader2 = new OBJLoader(manager2)
-  loader2.load('Models/AstronautIntroVisor.obj', function (object2) {
-    object2.position.y = 70
-    object2.position.x = -2
-    object2.scale.x = 10
-    object2.scale.y = 10
-    object2.scale.z = 10
-    obj2 = object2
-    objects.push(obj2) //Push required for RayCasting Detect
-    scene.add(obj2)
-  });
+  //-------------------------------Logo-------------------------------//
+
+  let logoPromise = loadOBJ('Models/logo.obj')
+
+  logoPromise.then(obj => {
+    obj.traverse(child => {
+      if (child instanceof THREE.Mesh) {
+        child.material = material
+      }
+    })
+    obj.position.y = logoAxes.y - 50
+    obj.position.z = logoAxes.z
+    obj.scale.x = 10
+    obj.scale.y = 10
+    obj.scale.z = 10
+    logo = obj
+    scene.add(logo)
+  })
 
   //-------------------------------Renderer-------------------------------//
   renderer = new THREE.WebGLRenderer({
@@ -132,24 +172,39 @@ function init(canvas, scrollWrap) {
   canvas.appendChild(renderer.domElement)
 
   visorTl = anime.timeline({
-    targets: visorAxes,
+    targets: axes,
     duration: 250,
     easing: 'linear',
     autoplay: false
   }).add({
+    z: 100,
+    duration: 200
+  }, 0).add({
+    y: 120,
+    z: 65,
+    ty: 60,
+    tz: 0,
+    intensity: 0.12,
+    duration: 225
+  }, 175).add({
     y: 70,
     ty: 70,
     tz: -65,
     ox: 1,
     oy: 1,
     duration: 750
-  }, 0).add({
+  }, 0 + 400).add({
     r:-100,
     duration:350
-  }, 250).add({
+  }, 250 + 400).add({
     z:-10,
     duration:250
-  },600)
+  },600 + 400).add({
+    targets: '#canvas-projects',
+    opacity: 1,
+    scale: 1,
+    duration: 100
+  }, 700)
 
 
   let _scroll = _.throttle(
@@ -175,8 +230,8 @@ function init(canvas, scrollWrap) {
   let _mousemove = _.throttle(
     (e) => {
       if (sPos <= sEnd) {
-        mouseAxes.x = map(e.clientX, 0, vWidth, -visorAxes.ox, visorAxes.ox)
-        mouseAxes.y = map(e.clientY, 0, vHeight, -visorAxes.oy, visorAxes.oy)
+        mouseAxes.x = map(e.clientX, 0, vWidth, -axes.ox, axes.ox)
+        mouseAxes.y = map(e.clientY, 0, vHeight, -axes.oy, axes.oy)
       }
     },
     1, {
@@ -220,21 +275,36 @@ function stop() {
 }
 
 function render(reset = false) {
-  // console.log('visor is render')
+  console.log('visor is render')
 
-  if(reset){
-    camera.position.x = visorAxes.x + mouseAxes.x
-    camera.position.y = visorAxes.y + mouseAxes.y 
-    camera.position.z = visorAxes.z
-    obj2.rotation.x = toRad(visorAxes.r)
-  }else{
-    camera.position.x += (visorAxes.x + mouseAxes.x - camera.position.x) * .1
-    camera.position.y += (visorAxes.y + mouseAxes.y - camera.position.y) * .1
-    camera.position.z += (visorAxes.z - camera.position.z) * .1
-    obj2.rotation.x = map(.1, 0, 1, obj2.rotation.x, toRad(visorAxes.r))
+  if (reset) {
+    camera.position.x = axes.x + mouseAxes.x
+    camera.position.y = axes.y + mouseAxes.y 
+    camera.position.z = axes.z
+    camera.lookAt(axes.tx, axes.ty, axes.tz)
+    visor.rotation.x = toRad(axes.r)
+    ambientLight.intensity = axes.intensity
+} else {
+
+    camera.position.x += (axes.x + mouseAxes.x - camera.position.x) * .1
+    camera.position.y += (axes.y + mouseAxes.y - camera.position.y) * .1
+    camera.position.z += (axes.z - camera.position.z) * .1
+
+    visor.rotation.x = map(.1, 0, 1, visor.rotation.x, toRad(axes.r))
+
+    let target = {
+      x: map(.1, 0, 1, targetAxes.x, axes.tx),
+      y: map(.1, 0, 1, targetAxes.y, axes.ty),
+      z: map(.1, 0, 1, targetAxes.z, axes.tz)
   }
+
+  targetAxes = target
+
+    camera.lookAt(target.x, target.y, target.z)
+    ambientLight.intensity = map(.1, 0, 1, ambientLight.intensity, axes.intensity)
+}
  
-  camera.lookAt(visorAxes.tx, visorAxes.ty, visorAxes.tz)
+  camera.lookAt(axes.tx, axes.ty, axes.tz)
   renderer.render(scene, camera)
 }
 

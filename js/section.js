@@ -62,7 +62,7 @@ const navigateTo = (key, push) => {
     if(key !== current){
         if(current === 'home'){
             Visor.stop()
-            Logo.stop()
+            // Logo.stop()
             Proj.stop()
         }
 
@@ -72,7 +72,7 @@ const navigateTo = (key, push) => {
 
         if(key === 'home'){
             Visor.start()
-            Logo.start()
+            // Logo.start()
             Proj.start()
         }
 

@@ -272,7 +272,7 @@
 }
 
 .he-content-flex.first {
-  margin-top: -100vh;
+  margin-bottom: -100vh;
 }
 
 .he-about-title {
@@ -1006,6 +1006,7 @@
 #canvas-projects {
   left: 0;
   top: 0;
-  position: absolute;
+  position: fixed;
+  opacity: 0;
 }
 
