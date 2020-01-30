@@ -1,4 +1,5 @@
 import {map, clamp, vHeight, vWidth, setSize} from './utils.js'
+import * as Proj from './proj.js'
 
 class Sub {
     constructor(el, index, object, elements, nav, spacer, label, array, group) {
@@ -32,14 +33,16 @@ class Sub {
     initModal() {
         if (this.modal && this.modalOpen) {
             this.modalOpen.addEventListener("click", () => {
-                this.modal.style.display = "flex";
-            });
+                this.modal.style.display = "flex"
+                Proj.stop()
+            })
 
             this.modal
                 .querySelector(".he-cross")
                 .addEventListener("click", () => {
-                    this.modal.style.display = "none";
-                });
+                    this.modal.style.display = "none"
+                    Proj.start()
+                })
         }
     }
 
@@ -226,12 +229,12 @@ class Sub {
     }
 
     scroll(sPos) {
-        this.pPercent = map(clamp(sPos, this.pStart, this.pEnd), this.pStart, this.pEnd, 0, 100);
+        this.pPercent = map(sPos, this.pStart, this.pEnd, 0, 100);
         let ssPos = sPos + vHeight;
 
         this.animation.seek(this.animation.duration * (this.pPercent / 100));
 
-        if (this.pPercent > 0 && this.pPercent < 100) {
+        if (this.pPercent >= 0 && this.pPercent < 100) {
             this.object.index = this.index;
             anime.set(this.elements, {
                 pointerEvents: "auto"

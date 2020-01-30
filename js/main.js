@@ -70,25 +70,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initScrollbars()
 
-    Visor.init(canvasVisor, homeWrap.querySelector('.simplebar-content-wrapper'))
-    // Logo.init(canvasLogo, homeWrap.querySelector('.simplebar-content-wrapper'))
-    Proj.init(canvasProjects, homeWrap.querySelector('.simplebar-content-wrapper'), homeWrap.querySelector('.he-section'))
-    About.init(canvasAbout, aboutWrap.querySelector('.simplebar-content-wrapper'))
+    let promises = []
+
+    promises[0] = Visor.init(canvasVisor, homeWrap.querySelector('.simplebar-content-wrapper'))
+    promises[1] = Proj.init(canvasProjects, homeWrap.querySelector('.simplebar-content-wrapper'), homeWrap.querySelector('.he-section'))
+    promises[2] = About.init(canvasAbout, aboutWrap.querySelector('.simplebar-content-wrapper'))
 
     window.addEventListener('popstate', (event) => {
         Section.navigateTo(window.location.pathname.split('/').pop(), false)
     });
 
-    Section.navigateTo(window.location.pathname.split('/').pop(), true)
-
-    Section.init()
+    Promise.all(promises).then(() =>{
+        Section.navigateTo(window.location.pathname.split('/').pop(), true)
+        Section.init()
+    })
 
     initSub(aboutWrap, true, curInd.about)
     initSub(homeWrap, false, curInd.home)
     initArticles()
-
-    
-
 })
 
 export {sections, icons}

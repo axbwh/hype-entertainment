@@ -14,7 +14,7 @@ let visorTl
 
 let logoAxes = {
   x: 0,
-  y: 200,
+  y: 250,
   z: 20
 }
 
@@ -22,13 +22,13 @@ let logoAxes = {
 let axes = {
   x: 0,
   y: logoAxes.y,
-  z: logoAxes.z + 250,
+  z: logoAxes.z + 300,
   r: 0,
   tx: 0,
   ty: logoAxes.y,
   tz: 0,
-  ox: 10,
-  oy: 10,
+  ox: 20,
+  oy: 20,
   intensity: 0.75
 }
 
@@ -100,6 +100,7 @@ function init(canvas, scrollWrap) {
     })
 
     obj.position.y = -145
+    obj.position.x = 2
     obj.scale.x = 10
     obj.scale.y = 10
     obj.scale.z = 10
@@ -118,7 +119,7 @@ function init(canvas, scrollWrap) {
       }
     })
     obj.position.y = 70
-    obj.position.x = -2
+    obj.position.x = 0
     obj.scale.x = 10
     obj.scale.y = 10
     obj.scale.z = 10
@@ -184,6 +185,8 @@ function init(canvas, scrollWrap) {
     z: 65,
     ty: 60,
     tz: 0,
+    ox: 10,
+    oy: 10,
     intensity: 0.12,
     duration: 225
   }, 175).add({
@@ -202,9 +205,12 @@ function init(canvas, scrollWrap) {
   },600 + 400).add({
     targets: '#canvas-projects',
     opacity: 1,
-    scale: 1,
-    duration: 100
-  }, 700)
+    duration: 50
+  }, 1000).add({
+    targets: '#canvas-projects',
+    scale: [0.05, 1],
+    duration: 250
+  }, 1000)
 
 
   let _scroll = _.throttle(
@@ -246,6 +252,14 @@ function init(canvas, scrollWrap) {
   scrollWrap.addEventListener("mousemove", _mousemove)
 
   window.addEventListener('resize', onWindowResize, false)
+
+  let promises = Promise.all([astroPromise, visorPromise, logoPromise])
+
+  promises.then( () => {
+    render(true)
+  })
+
+  return promises
 }
 
 function onWindowResize() {
@@ -303,8 +317,7 @@ function render(reset = false) {
     camera.lookAt(target.x, target.y, target.z)
     ambientLight.intensity = map(.1, 0, 1, ambientLight.intensity, axes.intensity)
 }
- 
-  camera.lookAt(axes.tx, axes.ty, axes.tz)
+
   renderer.render(scene, camera)
 }
 

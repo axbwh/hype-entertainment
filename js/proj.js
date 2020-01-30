@@ -17,7 +17,7 @@ let axes = {
     offY: 10,
     i: 0,
     bmax : 1.2,
-    bmin : 0
+    bmin : 1.2
   }
 
 let projects = []
@@ -70,9 +70,9 @@ function init(cvs, scrollWrap, scrollTgt) {
 
     var renderScene = new RenderPass(scene, camera)
     bloomPass = new UnrealBloomPass(new THREE.Vector2(canvas.offsetWidth, canvas.offsetHeight), 1.5, 0.4, 0.85)
+    bloomPass.strength = axes.bmin
+    bloomPass.radius = axes.bmin
     bloomPass.threshold = 0.05
-    bloomPass.strength = 0.4
-    bloomPass.radius = 0.1
 
     composer = new EffectComposer(renderer)
     composer.addPass(renderScene)
@@ -92,41 +92,45 @@ function init(cvs, scrollWrap, scrollTgt) {
         autoplay: false
     }).add({
         z: 400,
+        bmin: 0,
+        bmax: 1,
         duration: 200
     }).add({
         i:1,
-        x: 500,
+        x: 1000,
+        bmax: 1.4,
         duration: 200
     }, '+=100').add({
         i:2,
-        x: 1000,
+        x: 2000,
+        bmax: 1.2,
         duration: 200
     }, '+=200').add({
         i:3,
-        x: 1500,
+        x: 3000,
         bmax: 0.4,
         duration: 200
     }, '+=200').add({
         i:4,
-        x: 2000,
+        x: 4000,
         bmax: 1.4,
         duration: 200
     }, '+=200').add({
         i:5,
-        x: 2500,
+        x: 5000,
         bmax: 0.1,
         duration: 200
     }, '+=200').add({
         i:6,
-        x: 3000,
+        x: 6000,
         bmax: 1.2,
         duration: 200
     }, '+=200').add({
         i:7,
-        x: 3500,
+        x: 7000,
         duration: 200
     }, '+=200').add({
-        x: 4000,
+        x: 7000,
         duration: 100
     })
     
@@ -139,7 +143,7 @@ function init(cvs, scrollWrap, scrollTgt) {
             sEnd = scrollTarget.offsetHeight - vHeight
             let pPercent = map(clamp(sPos, 0, sEnd), 0, sEnd, 0, 100)
             timeline.seek(timeline.duration * (pPercent / 100))
-            if (sPos > -vHeight && sPos <= sEnd) {
+            if (sPos > 0 && sPos <= sEnd) {
                 inFrame = true
                 start()
             } else {
@@ -173,7 +177,9 @@ function init(cvs, scrollWrap, scrollTgt) {
 
     let promise = setupScene()
 
-    // promise.then(render)
+    promise.then( () =>{
+        render(true)
+    })
 
     return promise
 
@@ -303,8 +309,8 @@ function render(reset = false) {
     console.log('proj is render')
 
     if (reset) {
-        camera.position.x = axes.x + mouse.x
-        camera.position.y = axes.y + mouse.y
+        camera.position.x = axes.x 
+        camera.position.y = axes.y
         camera.position.z = axes.z
         camera.lookAt(axes.x, axes.y, 0)
     } else {
@@ -330,7 +336,7 @@ function render(reset = false) {
     
     let bloomTo, lightTo
 
-    if(intersects.length >= 1){
+    if(intersects.length >= 1 && !reset){
         projects[Math.round(axes.i)].hoverIn()
         bloomTo = axes.bmax
         lightTo = 1
