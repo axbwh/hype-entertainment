@@ -1,5 +1,6 @@
 import {map, clamp, vHeight, vWidth, setSize} from './utils.js'
 import * as Proj from './proj.js'
+import initModal from './modal.js'
 
 class Sub {
     constructor(el, index, object, elements, nav, spacer, label, array, group) {
@@ -32,16 +33,31 @@ class Sub {
 
     initModal() {
         if (this.modal && this.modalOpen) {
+
             this.modalOpen.addEventListener("click", () => {
                 this.modal.style.display = "flex"
                 Proj.stop()
+                anime({
+                    targets : this.modal,
+                    opacity: 1,
+                    duration: 800,
+                    easing: 'easeInOutQuad'
+                })
             })
 
             this.modal
                 .querySelector(".he-cross")
                 .addEventListener("click", () => {
-                    this.modal.style.display = "none"
-                    Proj.start()
+                    anime({
+                        targets : this.modal,
+                        opacity: 0,
+                        duration: 800,
+                        easing: 'easeInOutQuad'
+                    }).finished.then( () =>{
+                        this.modal.style.display = "none"
+                        Proj.start()
+                    })
+                    
                 })
         }
     }

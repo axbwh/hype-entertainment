@@ -209,19 +209,6 @@ class Project {
             this.ready = true
         })
 
-        // this.texture = new THREE.VideoTexture(this.vid)
-
-        // setInterval(() => {
-        //     if (this.vid.readyState >= this.vid.HAVE_CURRENT_DATA) {
-        //         this.texture.needsUpdate = true;
-        //     }
-        // }, 1000 / 24)
-
-        // this.material = new THREE.MeshStandardMaterial({
-        //     map: this.texture,
-        //     roughness: 0.5
-        // })
-
         //--------------model--------------//
         this.promise = loadOBJ(`Models/proj/${this.id}.obj`)
         

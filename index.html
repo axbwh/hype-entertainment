@@ -8,11 +8,13 @@
   <meta content="Webflow" name="generator">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/webflow.css" rel="stylesheet" type="text/css">
-  <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
+  <link href="css/queries.css" rel="stylesheet" type="text/css">
   <link href="css/hype-entertainment.webflow.css" rel="stylesheet" type="text/css">
   <link href="css/main.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css">
+  <link rel="stylesheet" href="css/simplebar.css">
   <link href="css/scrollbar.css" rel="stylesheet" type="text/css">
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="images/webclip.png" rel="apple-touch-icon">
 
   <script src="https://use.typekit.net/fmw3gft.js" type="text/javascript"></script>
   <script type="text/javascript">
@@ -28,31 +30,33 @@
         t + "touch")
     }(window, document);
   </script>
-  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-  <link href="images/webclip.png" rel="apple-touch-icon">
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+  <script src="js/libraries/simplebar.min.js" type="text/javascript"></script>
+  <script src="js/libraries/anime.min.js" type="text/javascript"></script>
+  <script src="js/libraries/lodash.min.js" type="text/javascript"></script>
+  <script src="js/libraries/lottie.min.js" type="text/javascript"></script>
 </head>
 
 <body class="body">
+  <div id='preload'>
+    <div class='preload-lottie'>
+      <!-- <svg width="48" height="244" viewbox="0 0 12 61" class='he-fade' fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.09065 0.248535L4.24953 0.248535L4.24953 11.4713H0.00965786V14.3533H11.3745V11.5585H7.13464L7.09065 0.248535Z" fill="#F2F2F2"></path>
+        <path d="M11.3745 15.6199H4.29352L4.29352 26.9298H2.89478V15.6199H0.00965786V29.681H11.3745V26.8426H7.09065L7.09065 18.4583H11.3745V15.6199Z" fill="#F2F2F2"></path>
+        <path d="M11.3745 30.9912H8.57703V42.1264H5.8232L5.8232 30.9912H0.00965786V33.742H2.80714V45.0084H11.3745V30.9912Z" fill="#F2F2F2"></path>
+        <path d="M11.3745 60.2485V46.4058H8.62068V60.2485H11.3745Z" fill="#F2F2F2"></path>
+        <path d="M7.22168 60.2485L7.22168 46.4058H4.24927L4.24927 60.2485H7.22168Z" fill="#F2F2F2"></path>
+        <path d="M2.85059 60.2485L2.85059 46.4058H0.00945783L0.00945783 60.2485H2.85059Z" fill="#F2F2F2"></path>
+      </svg> -->
+    </div>
+  </div>
   <div class="he-nav-wrap">
     <div class="he-half top">
       <a data-section="home" href="#" class="he-social-wrap w-inline-block">
-        <div class="he-social-icon w-embed"><svg width="12" height="61" viewbox="0 0 12 61" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M7.09065 0.248535L4.24953 0.248535L4.24953 11.4713H0.00965786V14.3533H11.3745V11.5585H7.13464L7.09065 0.248535Z"
-              fill="#F2F2F2"></path>
-            <path
-              d="M11.3745 15.6199H4.29352L4.29352 26.9298H2.89478V15.6199H0.00965786V29.681H11.3745V26.8426H7.09065L7.09065 18.4583H11.3745V15.6199Z"
-              fill="#F2F2F2"></path>
-            <path
-              d="M11.3745 30.9912H8.57703V42.1264H5.8232L5.8232 30.9912H0.00965786V33.742H2.80714V45.0084H11.3745V30.9912Z"
-              fill="#F2F2F2"></path>
-            <path d="M11.3745 60.2485V46.4058H8.62068V60.2485H11.3745Z" fill="#F2F2F2"></path>
-            <path d="M7.22168 60.2485L7.22168 46.4058H4.24927L4.24927 60.2485H7.22168Z" fill="#F2F2F2"></path>
-            <path d="M2.85059 60.2485L2.85059 46.4058H0.00945783L0.00945783 60.2485H2.85059Z" fill="#F2F2F2"></path>
-          </svg></div>
+        <div id='logo'>
+          <div class='he-lottie-wrap'></div>
+          <div class='he-lottie-wrap'></div>
+          <div class='he-lottie-wrap'></div>
+        </div>
       </a>
     </div>
     <div class="he-link-super">
@@ -321,7 +325,6 @@
   </div>
   <div id="home-wrap" class="he-section-wrap">
     <div class="he-scroll">
-      <!-- <div id='canvas-logo' class="he-canvas"></div> -->
       <div id='canvas-projects' class="he-canvas"></div>
       <div class="he-canvas-wrap">
         <div id='canvas-visor' class="he-canvas"></div>

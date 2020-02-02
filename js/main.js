@@ -1,11 +1,11 @@
 import * as Section from './section.js'
 import initSub from './subsection.js'
 import initArticles from './articles.js'
-import * as Logo from './logo.js'
 import * as Visor from './visor.js'
 import * as About from './about.js'
 import * as Proj from './proj.js'
-import {initScrollbars} from './utils.js'
+import { initScrollbars } from './utils.js'
+import * as Lotty from './lotty.js'
 
 let aboutLink = document.getElementById('about-link'),
     articlesLink = document.getElementById('articles-link'),
@@ -49,10 +49,11 @@ let curInd = {
     }
 }
 
+Lotty.init()
+
 document.addEventListener("DOMContentLoaded", () => {
     let hidearray = [icons]
     let noneArray = []
-
     Object.keys(sections).forEach((s) => {
         hidearray.push(sections[s].wrap, sections[s].left, sections[s].right);
         noneArray.push(sections[s].wrap)
@@ -81,8 +82,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     Promise.all(promises).then(() =>{
-        Section.navigateTo(window.location.pathname.split('/').pop(), true)
-        Section.init()
+        Lotty.hide().then(() =>{
+            Section.navigateTo(window.location.pathname.split('/').pop(), true)
+            Section.init()
+        })
     })
 
     initSub(aboutWrap, true, curInd.about)
