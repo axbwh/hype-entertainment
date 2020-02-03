@@ -9,6 +9,8 @@ let canvas, camera, scene, renderer, composer
 
 let timeline, frameRequest, inFrame = false
 
+let titles = Array.from(document.querySelectorAll('.he-project-title')), hovered = false
+
 let axes = {
     x: 0,
     y: 0,
@@ -26,7 +28,7 @@ let raycaster, mouse = {
     x: 0,
     y: 0
 }
-let bloomPass, defaultMaterial, intersects, ambientLight
+let bloomPass, defaultMaterial, ambientLight, intersects = []
 
 //SceneManagement Componenets
 
@@ -77,8 +79,6 @@ function init(cvs, scrollWrap, scrollTgt) {
     composer = new EffectComposer(renderer)
     composer.addPass(renderScene)
     composer.addPass(bloomPass)
-
-    window.addEventListener('mousemove', onMouseMove, false)
 
     defaultMaterial = new THREE.MeshStandardMaterial({
         metalness: 0.1,
@@ -157,23 +157,34 @@ function init(cvs, scrollWrap, scrollTgt) {
         }
     )
 
-    // let _mousemove = _.throttle(
-    //     (e) => {
-    //         if (sPos <= sEnd) {
-    //             mouseAxes.x = map(e.clientX, 0, vWidth, -axes.ox, axes.ox)
-    //             mouseAxes.y = map(e.clientY, 0, vHeight, -axes.oy, axes.oy)
-    //         }
-    //     },
-    //     1, {
-    //         trailing: true,
-    //         leading: true
-    //     }
-    // )
+    let _mousemove = _.throttle(
+        (e) => {
+            if (sPos <= sEnd) {
+                mouse.x = map(e.clientX, 0, vWidth, -1, 1)
+                mouse.y = map(e.clientY, 0, vHeight, 1, -1)
+            }
+        },
+        1, {
+            trailing: true,
+            leading: true
+        }
+    )
+
+    // window.addEventListener('mousemove', onMouseMove, false)
+
 
     scrollWrap.addEventListener("scroll", _scroll)
-    // scrollWrap.addEventListener("mousemove", _mousemove)
+    scrollWrap.addEventListener("mousemove", _mousemove)
 
     window.addEventListener('resize', onWindowResize, false)
+
+    titles.forEach( t => {
+        t.addEventListener("mouseenter", () => hovered = true)
+    }) 
+
+    titles.forEach( t => {
+        t.addEventListener("mouseleave", () => hovered = false)
+    }) 
 
     let promise = setupScene()
 
@@ -222,7 +233,7 @@ class Project {
             obj.scale.y = this.scale
             obj.scale.z = this.scale
             obj.position.x = 1000 * this.index
-            obj.rotation.y = this.r
+            obj.rotation.y = toRad(this.r)
             obj.position.y = this.y
             this.obj = obj
             scene.add(this.obj)
@@ -246,7 +257,7 @@ class Project {
 }
 
 function setupScene() {
-    projects[0] = new Project(0, 'sun', 20, 0, -30)
+    projects[0] = new Project(0, 'sun', 20, 0, 90)
     //--------------model: https://free3d.com/3d-model/tentacle-v1--480565.html--------------//
     projects[1] = new Project(1, 'sea', 7, -40)
     //--------------female model: https://free3d.com/3d-model/genericwoman-v2--495262.html--------------//
@@ -285,12 +296,7 @@ function animate() {
   }
 
 
-function onMouseMove( event ) {    
-    event.preventDefault();
 
-    mouse.x = ( event.clientX /canvas.offsetWidth ) * 2 - 1;
-    mouse.y = - ( event.clientY / canvas.offsetHeight ) * 2 + 1;
-}
 
 function render(reset = false) {
     console.log('proj is render')
@@ -302,8 +308,8 @@ function render(reset = false) {
         camera.lookAt(axes.x, axes.y, 0)
     } else {
         let target = {
-            x: map(.1, 0, 1, camera.position.x, axes.x + mouse.x),
-            y: map(.1, 0, 1, camera.position.y, axes.y + mouse.y),
+            x: map(.1, 0, 1, camera.position.x, axes.x),
+            y: map(.1, 0, 1, camera.position.y, axes.y),
             z: map(.1, 0, 1, camera.position.z, axes.z)
         }
 
@@ -312,18 +318,27 @@ function render(reset = false) {
         camera.position.z = target.z
 
         camera.lookAt(target.x, target.y, 0)
+        
+        let rotate = {  
+            x: -toRad(mouse.y * 5),
+            y: toRad(projects[Math.round(axes.i)].r + mouse.x * 7.5),
+        }
+
+        projects[Math.round(axes.i)].obj.rotation.y =  map(.1, 0, 1, projects[Math.round(axes.i)].obj.rotation.y, rotate.y)
+        projects[Math.round(axes.i)].obj.rotation.x =  map(.1, 0, 1, projects[Math.round(axes.i)].obj.rotation.x, rotate.x)
+
     }
 
     renderer.render(scene, camera)
 
     //-----------------------Raycast-----------------------//
-    raycaster.setFromCamera( mouse, camera )
+    // raycaster.setFromCamera( mouse, camera )
 
-    intersects = raycaster.intersectObjects( projects.map(p => p.obj) , true )
+    // intersects = raycaster.intersectObjects( projects.map(p => p.obj) , true )
     
     let bloomTo, lightTo
 
-    if(intersects.length >= 1 && !reset){
+    if( (intersects.length >= 1 || hovered)  && !reset){
         projects[Math.round(axes.i)].hoverIn()
         bloomTo = axes.bmax
         lightTo = 1

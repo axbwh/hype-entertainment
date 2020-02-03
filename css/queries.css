@@ -54,6 +54,10 @@
         
     }
 
+    .he-video-modal .he-project-detail{
+        display: none;
+    }
+
 }
 
 @media only screen and (max-device-width : 480px) {

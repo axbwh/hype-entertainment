@@ -27,8 +27,8 @@ let axes = {
   tx: 0,
   ty: logoAxes.y,
   tz: 0,
-  ox: 20,
-  oy: 20,
+  ox: 30,
+  oy: 30,
   intensity: 0.75
 }
 
@@ -37,20 +37,6 @@ let targetAxes= {
   y: axes.ty,
   z: axes.tz
 }
-
-
-// let axes = {
-//   x: 0,
-//   y: 120,
-//   z: 65,
-//   r: 0,
-//   tx: 0,
-//   ty: 60,
-//   tz: 0,
-//   ox: 10,
-//   oy: 10,
-// }
-
 
 let mouseAxes = {
   x: 0,
