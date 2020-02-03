@@ -4,7 +4,7 @@
     --nav-offset-y: 52px;
 
     --content-padding-y: 18vh;
-    --content-padding-x: 260px;
+    --content-padding-x: 12.5vw;
 
     /* about page Astro */
     --about-cvs-w: 130vw;
@@ -24,6 +24,11 @@
 
     --subnav-x : 32px;
     --subnav-w : 124px;
+
+    --article-w : 290px;
+    --article-l: 0px;
+    --article-padding: 38px;
+    
     
 }
 
@@ -33,6 +38,7 @@
     --content-padding-x: 130px;
     --cvs-bright: 50%;
     --detail-o: 1;
+    --article-w: 250px;
 }
 }
 
@@ -47,10 +53,11 @@
         --about-title-fntsize: 28px;
         --about-cvs-w: 100vw;
 
-
         --title-fntsize: 6.6vw; 
         --about-title-fntsize: 6.6vw;
         --detail-fntsize: 18px;
+
+        --article-w: 250px;
         
     }
 
@@ -76,6 +83,10 @@
         --subnav-w : 100px;
         --subnav-x : 24px;
 
+        --article-l: 10px;
+        --article-w: 200px;
+        --article-padding: 30px;
+
     }
 
 }
@@ -89,6 +100,7 @@
         --about-title-fntsize: 22px;
         --p-fntsize : 14px;
         --detail-fntsize: 13px;
+        --article-w: 150px;
     }
 
 }

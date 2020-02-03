@@ -299,7 +299,6 @@ function animate() {
 
 
 function render(reset = false) {
-    console.log('proj is render')
 
     if (reset) {
         camera.position.x = axes.x 
@@ -320,16 +319,14 @@ function render(reset = false) {
         camera.lookAt(target.x, target.y, 0)
         
         let rotate = {  
-            x: -toRad(mouse.y * 5),
-            y: toRad(projects[Math.round(axes.i)].r + mouse.x * 7.5),
+            x: -toRad(mouse.y * 7.5),
+            y: toRad(projects[Math.round(axes.i)].r + mouse.x * 10),
         }
 
         projects[Math.round(axes.i)].obj.rotation.y =  map(.1, 0, 1, projects[Math.round(axes.i)].obj.rotation.y, rotate.y)
         projects[Math.round(axes.i)].obj.rotation.x =  map(.1, 0, 1, projects[Math.round(axes.i)].obj.rotation.x, rotate.x)
 
     }
-
-    renderer.render(scene, camera)
 
     //-----------------------Raycast-----------------------//
     // raycaster.setFromCamera( mouse, camera )
