@@ -4,7 +4,7 @@
 
 .he-nav-link {
     writing-mode: vertical-lr;
-    padding-bottom: calc(20px - 0.6em);
+    padding-bottom: calc(var(--nav-padding) - 0.6em);
 }
 
 .left .he-nav-link {
@@ -51,11 +51,19 @@
     z-index: 9;
   }
   
-  #canvas-about{
+  .about-overflow{
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
     position: fixed;
     right: 0;
     top: 0px;
-    width: 70%;
+  }
+
+  #canvas-about{
+    width: var(--about-cvs-w);
+    left: 0;
+    filter: brightness(var(--cvs-bright))
   }
   
   #canvas-projects {
@@ -68,7 +76,7 @@
   #logo {
     position: relative;
     width : 24px;
-    height : 120px;
+    height : 64px;
   }
   
   .he-lottie-wrap{

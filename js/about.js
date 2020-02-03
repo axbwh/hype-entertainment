@@ -38,7 +38,7 @@ let timer = 2
 
 function init(cvs, scrollWrap) {
     canvas = cvs
-  const scrollTarget = canvas.parentElement
+  const scrollTarget = canvas.parentElement.parentElement
   camera = new THREE.PerspectiveCamera(45, canvas.offsetWidth / canvas.offsetHeight, 1, 2000)
 
   //-------------------------------scene-------------------------------//

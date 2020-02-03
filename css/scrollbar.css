@@ -30,8 +30,8 @@
     width:31px;
     height: 150px;
     opacity: 0.35;
-    right: 58px;
-    bottom: 64px;
+    right: calc(var(--nav-offset-x) + var(--nav-padding) - 4px);
+    bottom: calc(var(--nav-offset-y) + 12px );
     top: auto;
     opacity: 1;
     pointer-events: all;

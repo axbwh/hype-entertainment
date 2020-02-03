@@ -52,7 +52,6 @@ const init = () => {
 
     anim.forEach( a => {
         a.addEventListener('complete', e => {
-            console.log(anim[logoI])
             if(played){
                 logoI = logoI >= anim.length - 1 ? 0 : logoI + 1
                 played = false
