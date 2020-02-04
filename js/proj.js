@@ -41,7 +41,6 @@ function init(cvs, scrollWrap, scrollTgt) {
         antialias: true
     })
 
-    renderer.setPixelRatio(window.devicePixelRatio)
     renderer.setSize(canvas.offsetWidth, canvas.offsetHeight)
 
     canvas.appendChild(renderer.domElement)
@@ -355,10 +354,13 @@ function render(reset = false) {
 }  
 
 function onWindowResize() {
-  camera.aspect =canvas.offsetWidth / canvas.offsetHeight;
-  camera.updateProjectionMatrix();
+    renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+    composer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+    camera.aspect = canvas.offsetWidth / canvas.offsetHeight;
 
-  renderer.setSize(canvas.offsetWidth, canvas.offsetHeight );
+    
+    camera.updateProjectionMatrix();
+  
 }
 
 export { init, stop, start }

@@ -1,12 +1,11 @@
 import * as THREE from '../build/three.module.js'
-import { EffectComposer } from '../jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from '../jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js'
 import { toRad, map, clamp, vWidth, vHeight, loadOBJ} from './utils.js'
 
-let camera, scene, renderer, composer, ambientLight
+let camera, scene, renderer, ambientLight, fov = 45
 
-let frameRequest, inFrame = false
+let frameRequest, inFrame = true
 let scrollWrap, scrollTarget
 
 let astro, visor, logo
@@ -27,8 +26,8 @@ let axes = {
   tx: 0,
   ty: logoAxes.y,
   tz: 0,
-  ox: 30,
-  oy: 30,
+  ox: 10,
+  oy: 10,
   intensity: 0.75
 }
 
@@ -38,7 +37,7 @@ let targetAxes= {
   z: axes.tz
 }
 
-let mouseAxes = {
+let mouse = {
   x: 0,
   y: 0
 }
@@ -49,7 +48,7 @@ let timer = 2
 
 function init(canvas, scrollWrap) {
   const scrollTarget = canvas.parentElement
-  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000)
+  camera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 1, 2000)
 
   //-------------------------------scene-------------------------------//
 
@@ -138,25 +137,19 @@ function init(canvas, scrollWrap) {
     alpha:true
   })
 
-  renderer.setSize(window.innerWidth, window.innerHeight)
+  // renderer.setSize(window.innerWidth, window.innerHeight)
   // renderer.toneMapping = THREE.ReinhardToneMapping
 
   let renderScene = new RenderPass(scene, camera)
-
-
 
   let bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85)
   bloomPass.threshold = 0.05
   bloomPass.strength = 0.4
   bloomPass.radius = 0.1
 
-
-
-  composer = new EffectComposer( renderer );
-  composer.addPass( renderScene );
-  composer.addPass( bloomPass );
-
   canvas.appendChild(renderer.domElement)
+
+  
 
   visorTl = anime.timeline({
     targets: axes,
@@ -222,8 +215,8 @@ function init(canvas, scrollWrap) {
   let _mousemove = _.throttle(
     (e) => {
       if (sPos <= sEnd) {
-        mouseAxes.x = map(e.clientX, 0, vWidth, -axes.ox, axes.ox)
-        mouseAxes.y = map(e.clientY, 0, vHeight, -axes.oy, axes.oy)
+        mouse.x = map(e.clientX, 0, vWidth, -axes.ox, axes.ox)
+        mouse.y = map(e.clientY, 0, vHeight, -axes.oy, axes.oy)
       }
     },
     1, {
@@ -242,6 +235,7 @@ function init(canvas, scrollWrap) {
   let promises = Promise.all([astroPromise, visorPromise, logoPromise])
 
   promises.then( () => {
+    onWindowResize()
     render(true)
   })
 
@@ -250,9 +244,18 @@ function init(canvas, scrollWrap) {
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight
+
+  const viewAspect = 1920 / 1080
+
+  const ratio = camera.aspect / viewAspect
+
+  logo.scale.x = 10 * ratio
+  logo.scale.y = 10 * ratio
+  logo.scale.z = 10 * ratio
+  logo.position.y = logoAxes.y - (50 * ratio)
+
   camera.updateProjectionMatrix()
   renderer.setSize(window.innerWidth, window.innerHeight)
-  composer.setSize(window.innerWidth, window.innerHeight)
 }
 
 function animate() {
@@ -275,22 +278,30 @@ function stop() {
 }
 
 function render(reset = false) {
-  console.log('visor is render')
 
   if (reset) {
-    camera.position.x = axes.x + mouseAxes.x
-    camera.position.y = axes.y + mouseAxes.y 
+    camera.position.x = axes.x + mouse.x
+    camera.position.y = axes.y + mouse.y 
     camera.position.z = axes.z
     camera.lookAt(axes.tx, axes.ty, axes.tz)
     visor.rotation.x = toRad(axes.r)
     ambientLight.intensity = axes.intensity
+    
 } else {
 
-    camera.position.x += (axes.x + mouseAxes.x - camera.position.x) * .1
-    camera.position.y += (axes.y + mouseAxes.y - camera.position.y) * .1
+    camera.position.x += (axes.x + mouse.x - camera.position.x) * .1
+    camera.position.y += (axes.y + mouse.y - camera.position.y) * .1
     camera.position.z += (axes.z - camera.position.z) * .1
 
     visor.rotation.x = map(.1, 0, 1, visor.rotation.x, toRad(axes.r))
+
+    let rotate = {
+      x: toRad(mouse.y*1.5),
+      y: toRad(mouse.x*1.5),
+    }
+
+    logo.rotation.y = map(.1, 0, 1, logo.rotation.y, rotate.y)
+    logo.rotation.x = map(.1, 0, 1, logo.rotation.x, rotate.x)
 
     let target = {
       x: map(.1, 0, 1, targetAxes.x, axes.tx),

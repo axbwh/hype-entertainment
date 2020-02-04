@@ -1,14 +1,13 @@
 import * as THREE from '../build/three.module.js'
-import { EffectComposer } from '../jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from '../jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js'
 import { toRad, map, clamp, vWidth, vHeight, loadOBJ} from './utils.js'
 
-let canvas, camera, scene, renderer, composer, ambientLight
+let canvas, camera, scene, renderer, ambientLight
 
 let timeline, frameRequest, inFrame = true
 
-let astro
+let astro, rocks = []
 
 let axes = {
   x: 0,
@@ -35,6 +34,57 @@ let mouseAxes = {
 //SceneManagement Componenets
 let SceneManager = 1
 let timer = 2
+
+class Rock {
+
+  constructor(index, scale, y, r = 0, radius = 100, material) {
+      this.index = index
+      this.scale = scale
+      this.r = r
+      this.y = y
+      this.radius = radius
+      this.material = material
+  }
+
+  init() {
+
+      //--------------model--------------//
+      this.promise = loadOBJ(`Models/rock0${this.index}.obj`)
+      
+      this.promise.then((obj) => {
+
+          obj.traverse((child) => {
+            if (child instanceof THREE.Mesh) {
+              this.child = child
+              this.child.material = this.material
+            }
+          })
+
+          obj.scale.x = this.scale
+          obj.scale.y = this.scale
+          obj.scale.z = this.scale
+          
+          obj.rotation.y = toRad(this.r)
+          obj.position.y = this.y
+
+          this.obj = obj
+          scene.add(this.obj)
+
+          this.rotate()
+      })
+
+      return this.promise
+  }
+
+  rotate(speed = 0) {
+    this.r += speed
+    this.obj.rotation.y = toRad(this.r)
+    this.obj.rotation.z = toRad(this.r)
+    this.obj.position.x = Math.sin(toRad(this.r)) * this.radius 
+    this.obj.position.z = Math.cos(toRad(this.r)) * this.radius 
+  }
+
+}
 
 function init(cvs, scrollWrap) {
     canvas = cvs
@@ -65,9 +115,9 @@ function init(cvs, scrollWrap) {
 
   //-------------------------------model 1-------------------------------//
 
-  let promise = loadOBJ('Models/astrofloat.obj')
+  let astroPromise = loadOBJ('Models/astrofloat.obj')
 
-  promise.then(object => {
+  astroPromise.then(object => {
     object.traverse(function (child) {
         if (child instanceof THREE.Mesh) {
           child.material = material
@@ -82,8 +132,19 @@ function init(cvs, scrollWrap) {
       object.scale.z = 10
       astro = object
       scene.add(astro)
-      render(true)
   })
+
+  rocks[0] = new Rock(0, 3, -50, 0, 120, material)
+  rocks[1] = new Rock(1, 4, -75, 45, 160, material)
+  rocks[2] = new Rock(2, 2, - 100, 130, 190, material)
+  rocks[3] = new Rock(3, 6, -25, 270, 210, material)
+
+  let promises = rocks.map( r => r.init())
+
+  promises.push(astroPromise)
+
+  let promise = Promise.all(promises)
+  promise.then( () => { render(true) })
 
   //-------------------------------Renderer-------------------------------//
   renderer = new THREE.WebGLRenderer({
@@ -99,10 +160,6 @@ function init(cvs, scrollWrap) {
   bloomPass.threshold = 0.05
   bloomPass.strength = 0.4
   bloomPass.radius = 0.1
-
-  composer = new EffectComposer( renderer );
-  composer.addPass( renderScene );
-  composer.addPass( bloomPass );
 
   canvas.appendChild(renderer.domElement)
 
@@ -178,7 +235,7 @@ function init(cvs, scrollWrap) {
         stop()
       } 
     },
-    1, {
+    10, {
       trailing: true,
       leading: true
     }
@@ -191,7 +248,7 @@ function init(cvs, scrollWrap) {
         mouseAxes.y = map(e.clientY, 0, vHeight, -axes.oy, axes.oy)
       }
     },
-    1, {
+    10, {
       trailing: true,
       leading: true
     }
@@ -211,7 +268,6 @@ function onWindowResize() {
   camera.aspect = canvas.offsetWidth / canvas.offsetHeight
   camera.updateProjectionMatrix()
   renderer.setSize(canvas.offsetWidth, canvas.offsetHeight)
-  composer.setSize(canvas.offsetWidth, canvas.offsetHeight)
 }
 
 function animate() {
@@ -260,6 +316,11 @@ function render(reset = false) {
     astro.rotation.x = map(.1, 0, 1, astro.rotation.x, toRad(axes.rx))
     astro.rotation.y = map(.1, 0, 1, astro.rotation.y, toRad(axes.ry))
     astro.rotation.z = map(.1, 0, 1, astro.rotation.z, toRad(axes.rz))
+
+    rocks[0].rotate(0.25)
+    rocks[1].rotate(0.3)
+    rocks[2].rotate(0.5)
+    rocks[3].rotate(0.45)
   }
  
   camera.lookAt(axes.tx, axes.ty, axes.tz)
