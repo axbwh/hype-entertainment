@@ -131,7 +131,12 @@ function init(cvs, scrollWrap, scrollTgt) {
     }, '+=200').add({
         x: 7000,
         duration: 100
-    })
+    }).add({
+        targets : document.querySelectorAll('.he-nav-label'),
+        translateX : ['-20%', '0%'],
+        opacity : [0, 1],
+        duration: 100
+    },'-=50')
     
     let sPos = scrollWrap.scrollTop - scrollTarget.offsetTop
     let sEnd = scrollTarget.offsetHeight - vHeight
