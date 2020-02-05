@@ -4,7 +4,7 @@ import initArticles from './articles.js'
 import * as Visor from './visor.js'
 import * as About from './about.js'
 import * as Proj from './proj.js'
-import { initScrollbars } from './utils.js'
+import { initScrollbars, setSize } from './utils.js'
 import * as Lotty from './lotty.js'
 
 let aboutLink = document.getElementById('about-link'),
@@ -18,7 +18,6 @@ let aboutWrap = document.getElementById('about-wrap'),
     articlesWrap = document.getElementById('articles-wrap'),
     homeWrap = document.getElementById('home-wrap'),
     canvasVisor = document.getElementById('canvas-visor'),
-    canvasLogo = document.getElementById('canvas-logo'),
     canvasProjects = document.getElementById('canvas-projects'),
     canvasAbout = document.getElementById('canvas-about')
 
@@ -48,6 +47,10 @@ let curInd = {
         index: 0
     }
 }
+
+setSize();
+
+window.addEventListener("resize", setSize);
 
 Lotty.init()
 

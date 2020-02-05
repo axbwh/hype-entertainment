@@ -134,7 +134,7 @@ function init(cvs, scrollWrap, scrollTgt) {
         x: 7000,
         duration: 100
     }).add({
-        targets : document.querySelectorAll('.he-nav-label'),
+        targets : document.querySelectorAll('#email-label'),
         translateX : ['-20%', '0%'],
         opacity : [0, 1],
         duration: 100
@@ -157,7 +157,7 @@ function init(cvs, scrollWrap, scrollTgt) {
                 stop()
             }
         },
-        1, {
+        10, {
             trailing: true,
             leading: true
         }
@@ -170,7 +170,7 @@ function init(cvs, scrollWrap, scrollTgt) {
                 mouse.y = map(e.clientY, 0, vHeight, 1, -1)
             }
         },
-        1, {
+        10, {
             trailing: true,
             leading: true
         }
@@ -182,7 +182,7 @@ function init(cvs, scrollWrap, scrollTgt) {
     scrollWrap.addEventListener("scroll", _scroll)
     scrollWrap.addEventListener("mousemove", _mousemove)
 
-    window.addEventListener('resize', onWindowResize, false)
+    
 
     titles.forEach( t => {
         t.addEventListener("mouseenter", () => hovered = true)
@@ -196,7 +196,7 @@ function init(cvs, scrollWrap, scrollTgt) {
 
     promise.then( () =>{
         onWindowResize()
-        // render(true)
+        window.addEventListener('resize', onWindowResize, false)
     })
 
     return promise

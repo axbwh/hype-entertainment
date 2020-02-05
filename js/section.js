@@ -52,11 +52,11 @@ const navigateTo = (key, push) => {
 
     let pathName = key == 'home' ? '' : key
 
-    // if (push !== false) {
-    //     history.pushState('', '', `./${pathName}`)
-    // } else {
-    //     history.replaceState('', '', `./${pathName}`)
-    // }
+    if (push !== false) {
+        history.pushState('', '', `./${pathName}`)
+    } else {
+        history.replaceState('', '', `./${pathName}`)
+    }
 
     if(key !== current){
         if(current === 'home'){

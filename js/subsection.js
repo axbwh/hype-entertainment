@@ -1,4 +1,4 @@
-import {map, clamp, vHeight, vWidth, setSize} from './utils.js'
+import {map, clamp, vHeight, vWidth} from './utils.js'
 import * as Proj from './proj.js'
 import initModal from './modal.js'
 
@@ -331,7 +331,6 @@ const addSub = (wrap, group, object) => {
     );
 
     const resizeNav = () => {
-        setSize();
         let currentPos = scrollWrap.scrollTop;
         let pPercent = map(currentPos, 0, scrollWrap.scrollHeight - vHeight, 0, 100);
         percentAnim.seek(percentAnim.duration * (pPercent / 100));

@@ -21,6 +21,10 @@ const init = () => {
         name: 'clocked',
     })
 
+    preAnim.addEventListener('DOMLoaded', () =>{
+        preloader.querySelector('.preload-svg').style.display = 'none';
+    })
+
     anim[0] = lottie.loadAnimation({
         container: animWrap[0],
         path: '../lottie/clock.json',

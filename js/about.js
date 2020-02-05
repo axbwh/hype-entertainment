@@ -144,7 +144,10 @@ function init(cvs, scrollWrap) {
   promises.push(astroPromise)
 
   let promise = Promise.all(promises)
-  promise.then( () => { render(true) })
+  promise.then( () => { 
+    window.addEventListener('resize', onWindowResize, false)
+    onWindowResize()
+  })
 
   //-------------------------------Renderer-------------------------------//
   renderer = new THREE.WebGLRenderer({
@@ -259,7 +262,7 @@ function init(cvs, scrollWrap) {
   scrollWrap.addEventListener("scroll", _scroll)
   scrollWrap.addEventListener("mousemove", _mousemove)
 
-  window.addEventListener('resize', onWindowResize, false)
+  
 
   return promise
 }
@@ -268,6 +271,7 @@ function onWindowResize() {
   camera.aspect = canvas.offsetWidth / canvas.offsetHeight
   camera.updateProjectionMatrix()
   renderer.setSize(canvas.offsetWidth, canvas.offsetHeight)
+  render(true) 
 }
 
 function animate() {

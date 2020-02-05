@@ -1,8 +1,5 @@
 import { OBJLoader } from '../jsm/loaders/OBJLoader.js'
 
-// let pathName = window.location.hash.substr(1) == 'home' ? '' : window.location.hash.substr(1)
-// history.replaceState('', '', `./${pathName}`)
-
 const loadOBJ = (url, onProgress) => {
     return new Promise((resolve, reject) => {
         new OBJLoader().load(url, resolve, onProgress, reject);
@@ -36,8 +33,9 @@ let vWidth = window.innerWidth || document.documentElement.clientWidth || docume
 
 const setSize = () => {
     vHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-
     vWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+    let vh = vHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
 export {map, clamp, toRad, vHeight, vWidth, setSize, initScrollbars, loadOBJ}

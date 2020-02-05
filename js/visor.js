@@ -218,7 +218,7 @@ function init(canvas, scrollWrap) {
         stop()
       } 
     },
-    1, {
+    10, {
       trailing: true,
       leading: true
     }
@@ -231,7 +231,7 @@ function init(canvas, scrollWrap) {
         mouse.y = map(e.clientY, 0, vHeight, -axes.oy, axes.oy)
       }
     },
-    1, {
+    10, {
       trailing: true,
       leading: true
     }
@@ -242,13 +242,13 @@ function init(canvas, scrollWrap) {
   scrollWrap.addEventListener("scroll", _scroll)
   scrollWrap.addEventListener("mousemove", _mousemove)
 
-  window.addEventListener('resize', onWindowResize, false)
+  
 
   let promises = Promise.all([astroPromise, visorPromise, logoPromise])
 
   promises.then( () => {
+    window.addEventListener('resize', onWindowResize, false)
     onWindowResize()
-    render(true)
   })
 
   return promises
@@ -268,6 +268,7 @@ function onWindowResize() {
 
   camera.updateProjectionMatrix()
   renderer.setSize(window.innerWidth, window.innerHeight)
+  render(true)
 }
 
 function animate() {
