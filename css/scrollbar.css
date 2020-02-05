@@ -12,7 +12,7 @@
     width: 1px;
     left: 15px;
     height: 100%;
-    background-color: #f2f2f2;
+    background-color: var(--white);
 }
 
 .simplebar-track.simplebar-vertical:before{
@@ -21,7 +21,7 @@
     width: 1px;
     height: 100%;
     left: 15px;
-    background-color: #f2f2f2;
+    background-color: var(--white);
     opacity: 0.35;
 }
 
@@ -36,3 +36,37 @@
     opacity: 1;
     pointer-events: all;
 }
+
+.he-scrolltip-wrap{
+    height: 150px;
+    pointer-events: none;
+    top: auto;
+    width: 10px;
+    right: calc(var(--nav-offset-x) + var(--nav-padding) - 4px + 27px);
+    bottom: calc(var(--nav-offset-y) + 12px );
+    position: fixed;
+    z-index: 14;
+}
+
+.he-scrolltip {
+    background-color: var(--white);
+    height: 2px;
+    animation: scrollTip 1.5s infinite cubic-bezier(.86, 0, .07, 1);
+}
+
+@keyframes scrollTip {
+    0% {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+
+    50%{ 
+        opacity: 1;
+    }
+
+    100%{
+        opacity: 0;
+        transform: translateY(148px);
+    }
+}
+  

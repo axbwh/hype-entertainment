@@ -11,18 +11,23 @@
     --content-padding-y: 18vh;
     --content-padding-x: 12.5vw;
 
-    /* about page Astro */
-    --about-cvs-w: 130vw;
-    --cvs-bright: 80%;
-
-    --about-title-w: 505px;
+    /* home page */
+    --intro-title-fntsize : 38px;
+    --proj-fntsize : 9vw;
 
     --detail-w: 300px;
     --detail-o: 0.35;
 
     --detail-fntsize: 18px;
 
-    --about-title-fntsize: 50px;
+    /* about page Astro */
+    --about-cvs-w: 130vw;
+    --cvs-bright: 80%;
+
+    --about-title-w: 505px;
+
+    --about-title-fntsize: 44px;
+
     --title-fntsize : 5vw;
 
     --p-fntsize : 18px;
@@ -30,11 +35,13 @@
     --subnav-x : 32px;
     --subnav-w : 124px;
 
+    /* article page */
+
     --article-w : 290px;
     --article-l: 0px;
     --article-padding: 38px;
 
-    --proj-fntsize : 9vw; 
+
     
 }
 
@@ -46,7 +53,9 @@
         --detail-o: 1;
         --article-w: 250px;
 
-        --proj-fntsize : 13vw; 
+        --proj-fntsize : 13vw;
+
+        --intro-title-fntsize : 32px;
 
     }
 }
@@ -57,19 +66,25 @@
         --nav-offset-x: 20px;
         --nav-padding: 20px;
         --nav-offset-y: 30px;
+
         --content-padding-y: 18vh;
         --content-padding-x: 100px;
+
+        --intro-title-fntsize : 4.5vw;
+
+
         --about-title-fntsize: 28px;
         --about-cvs-w: 100vw;
 
         --title-fntsize: 6.6vw; 
-        --about-title-fntsize: 6.6vw;
+        --about-title-fntsize: 6vw;
+
         --detail-fntsize: 18px;
 
         --article-w: 250px;     
     }
 
-    .he-video-modal .he-project-detail, .he-nav-label{
+    .he-video-modal .he-project-detail, .he-nav-label, .dsk-br{
         display: none;
     }
 
@@ -77,11 +92,14 @@
 
 @media only screen and (max-device-width : 480px) {
     :root {
+
         --nav-offset-x: 12px;
         --nav-padding: 8px;
         --nav-offset-y: 30px;
         --content-padding-y: calc(var(--nav-offset-y) + 12px);
         --content-padding-x: calc((var(--nav-offset-x) * 2) + 22px + (var(--nav-padding) * 2));
+
+        --intro-title-fntsize : 22px;
 
         --detail-w : calc(100vw - (var(--content-padding-x) * 2 + 30px));
         --detail-fntsize: 14px;
@@ -114,7 +132,7 @@
         --nav-offset-y: 16px;
         --about-title-fntsize: 22px;
         --p-fntsize : 14px;
-        --detail-fntsize: 13px;
+        --detail-fntsize: 12.5px;
         --article-w: 150px;
     }
 

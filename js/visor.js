@@ -175,13 +175,13 @@ function init(canvas, scrollWrap) {
     ox: 1,
     oy: 1,
     duration: 750
-  }, 0 + 400).add({
+  }, 400).add({
     r:-100,
     duration:350
-  }, 250 + 400).add({
+  }, 650).add({
     z:-10,
     duration:250
-  },600 + 400).add({
+  },1000).add({
     targets: '#canvas-projects',
     opacity: 1,
     duration: 50
@@ -189,7 +189,19 @@ function init(canvas, scrollWrap) {
     targets: '#canvas-projects',
     scale: [0.05, 1],
     duration: 250
-  }, 1000)
+  }, 1000).add({
+    targets: '.he-scrolltip-wrap',
+    opacity: [1, 0],
+    duration: 100
+  }, 1150).add({
+    targets : '.he-intro-wrap',
+    opacity: [0, 1],
+    duration: 125
+  }, 200).add({
+    targets : '.he-intro-wrap',
+    opacity: 0,
+    duration: 100
+  }, 550)
 
 
   let _scroll = _.throttle(

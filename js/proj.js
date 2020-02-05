@@ -15,6 +15,7 @@ let axes = {
     x: 0,
     y: 0,
     z: 800,
+    sclZoom: 0.5, //sun scale multiply
     offX: 10,
     offY: 10,
     i: 0,
@@ -91,6 +92,7 @@ function init(cvs, scrollWrap, scrollTgt) {
         autoplay: false
     }).add({
         z: 400,
+        sclZoom: 1,
         bmin: 0,
         bmax: 1,
         duration: 200
@@ -193,7 +195,8 @@ function init(cvs, scrollWrap, scrollTgt) {
     let promise = setupScene()
 
     promise.then( () =>{
-        render(true)
+        onWindowResize()
+        // render(true)
     })
 
     return promise
@@ -205,6 +208,8 @@ class Project {
         this.index = index
         this.id = id
         this.scale = scale
+        this.sclmult = 1
+        this.zoom = 1
         this.y = y
         this.r = r
         this.vid = document.getElementById(`vid-${this.id}`)
@@ -243,6 +248,13 @@ class Project {
             scene.add(this.obj)
         })
         return this.promise
+    }
+
+    setScale(){
+        this.obj.scale.x = this.scale * this.sclmult * this.zoom
+        this.obj.scale.y = this.scale * this.sclmult * this.zoom
+        this.obj.scale.z = this.scale * this.sclmult * this.zoom
+        this.obj.position.y = this.y * this.sclmult * this.zoom
     }
 
     hoverIn() {
@@ -309,6 +321,10 @@ function render(reset = false) {
         camera.position.y = axes.y
         camera.position.z = axes.z
         camera.lookAt(axes.x, axes.y, 0)
+
+        projects[0].zoom = axes.sclZoom
+        projects[0].setScale()
+
     } else {
         let target = {
             x: map(.1, 0, 1, camera.position.x, axes.x),
@@ -329,6 +345,9 @@ function render(reset = false) {
 
         projects[Math.round(axes.i)].obj.rotation.y =  map(.1, 0, 1, projects[Math.round(axes.i)].obj.rotation.y, rotate.y)
         projects[Math.round(axes.i)].obj.rotation.x =  map(.1, 0, 1, projects[Math.round(axes.i)].obj.rotation.x, rotate.x)
+
+        projects[0].zoom = map(.1, 0 , 1, projects[0].zoom, axes.sclZoom)
+        projects[0].setScale()
 
     }
 
@@ -363,9 +382,21 @@ function onWindowResize() {
     composer.setSize(canvas.offsetWidth, canvas.offsetHeight);
     camera.aspect = canvas.offsetWidth / canvas.offsetHeight;
 
-    
+    const viewAspect = 1920 / 1080
+
+    const ratio = canvas.offsetWidth < 786 ? 0.5 : 1
+
+    projects.forEach(p => {
+        if (p.id !== 'ivy' && p.id !== 'space') {
+            p.sclmult = ratio
+            p.setScale()
+        }
+    })
+
     camera.updateProjectionMatrix();
-  
+
+    render(true)
+
 }
 
 export { init, stop, start }

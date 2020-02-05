@@ -56,6 +56,7 @@ a:hover, a:visited, a:link, a:active {
 .he-canvas {
   width: 100%;
   height: 100vh;
+  pointer-events: none;
 }
 
 #canvas-visor {
@@ -105,14 +106,34 @@ a:hover, a:visited, a:link, a:active {
   width: 100vw;
   height: 100vh;
   display: flex;
+  position: fixed;
   justify-content: center;
   align-items: center;
-  z-index: -10;
+  z-index: 100;
+  background-color: #000;
+}
+
+.he-intro-wrap{
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: var(--content-padding-y) var(--content-padding-x);
+}
+
+.he-intro-wrap p{
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: var(--intro-title-fntsize);
+  letter-spacing: 0.08em;
+  line-height: 1em;
+  font-weight: 600;
 }
 
 .preload-lottie {
   width: 48px;
-
 }
 
 .he-fade {
