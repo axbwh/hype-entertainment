@@ -107,11 +107,24 @@ a:hover, a:visited, a:link, a:active {
   height: calc(100 * var(--vh, 1vh));
   display: flex;
   position: fixed;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 100;
   background-color: #000;
 }
+
+#preload p{
+  color: var(--white);
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0.6em;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-top: 1em;
+}
+
+
 
 .he-intro-wrap{
   display: flex;
@@ -134,13 +147,14 @@ a:hover, a:visited, a:link, a:active {
 
 .preload-lottie {
   width: 48px;
+  height: 154px;
 }
 
 .preload-svg {
   position: absolute;
   fill: var(--white);
   width: 48px;
-  transform: translateY(-3px);
+  height: 154px;
 }
 
 

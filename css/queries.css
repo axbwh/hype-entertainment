@@ -86,7 +86,8 @@
 
         --detail-fntsize: 18px;
 
-        --article-w: 250px;     
+        --article-w: 250px;
+        --about-title-w: calc(100vw - var(--content-padding-x) * 2);     
     }
 
     .he-video-modal .he-project-detail, .he-nav-label, .dsk-br{

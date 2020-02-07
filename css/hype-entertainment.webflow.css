@@ -742,6 +742,7 @@
   -ms-flex-align: center;
   align-items: center;
   opacity: 0;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.24), 0 1px 2px rgba(0,0,0,0.24) !important;
 }
 
 .he-vid {
@@ -756,7 +757,9 @@
 
 .he-video-caption {
   position: relative;
-  max-width: 310px;
+  max-width: 400px;
+  
+  
 }
 
 .he-cross {
@@ -768,10 +771,11 @@
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  opacity: 0.35;
+  opacity: 0.7;
   -webkit-transition: opacity 400ms var(--ease);
   transition: opacity 400ms var(--ease);
   cursor: pointer;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
 }
 
 .he-cross:hover {

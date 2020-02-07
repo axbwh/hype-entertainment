@@ -284,7 +284,7 @@ function setupScene() {
     projects[5] = new Project(5, 'ivy', 15, -120)
     //--------------model: https://free3d.com/3d-model/icicle-v3--899600.html#--------------//
     projects[6] = new Project(6, 'ice', 12, -80)
-    //--------------model: ?? --------------//
+    //--------------model: https://nasa3d.arc.nasa.gov/detail/aces --------------//
     projects[7] = new Project(7, 'space', 12, -100)
 
     let promises = projects.map( p => p.init())
