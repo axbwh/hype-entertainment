@@ -73,7 +73,6 @@ function init(canvas, scrollWrap) {
   });
 
   //-------------------------------Astronaut-------------------------------//
-  // https://sketchfab.com/3d-models/astronaut-287589e324b942b8be57dbd6c539b2ab
 
 
   let astroPromise = loadOBJ('Models/astro.obj')

@@ -26,7 +26,7 @@ let axes = {
   sz:0
 }
 
-let mouse = {
+let mouseAxes = {
   x: 0,
   y: 0
 }
@@ -113,8 +113,7 @@ function init(cvs, scrollWrap) {
     roughness: 0.5
   });
 
-  //-------------------------------Astronaut-------------------------------//
-  // https://sketchfab.com/3d-models/astronaut-287589e324b942b8be57dbd6c539b2ab
+  //-------------------------------model 1-------------------------------//
 
   let astroPromise = loadOBJ('Models/astrofloat.obj')
 
@@ -192,23 +191,31 @@ function init(cvs, scrollWrap) {
       ry: 25,
       z: 130,
       y: 60,
+      ox: 20,
+      oy: 20,
       duration: 200
   }, '+=200').add({
       ry: 40,
       z: 200,
       y: 60,
       sy: 30,
+      ox:30,
+      oy:30,
       duration: 200
   }, '+=200').add({
       ry: 50,
       z: 400,
       y: 100,
       sy: 75,
+      ox:60,
+      oy:60,
       duration: 200
   }, '+=200').add({
       ry: 180,
       z: 10,
       y: 500,
+      ox: 2,
+      oy: 2,
       sy: 0,
       duration: 200
   }, '+=200').add({
@@ -240,8 +247,8 @@ function init(cvs, scrollWrap) {
   let _mousemove = _.throttle(
     (e) => {
       if (sPos <= sEnd) {
-        mouse.x = map(e.clientX, 0, vWidth, -axes.ox, axes.ox)
-        mouse.y = map(e.clientY, 0, vHeight, -axes.oy, axes.oy)
+        mouseAxes.x = map(e.clientX, 0, vWidth, -axes.ox, axes.ox)
+        mouseAxes.y = map(e.clientY, 0, vHeight, -axes.oy, axes.oy)
       }
     },
     10, {
@@ -290,35 +297,28 @@ function render(reset = false) {
 //   console.log('about is render')
 
   if(reset){
-    camera.position.x = axes.x + mouse.x
-    camera.position.y = axes.y + mouse.y 
+    camera.position.x = axes.x + mouseAxes.x
+    camera.position.y = axes.y + mouseAxes.y 
     camera.position.z = axes.z
 
     astro.position.x = axes.sx
     astro.position.y = axes.sy
     astro.position.z = axes.sz
-
-    astro.rotation.x = toRad(axes.rx + mouse.x*1.5)
-    astro.rotation.y = toRad(axes.ry + mouse.y*1.5)
+    astro.rotation.x = toRad(axes.rx)
+    astro.rotation.y = toRad(axes.ry)
     astro.rotation.z = toRad(axes.rz)
 
   }else{
 
-    camera.position.x += (axes.x - camera.position.x) * .1
-    camera.position.y += (axes.y - camera.position.y) * .1
+    camera.position.x += (axes.x + mouseAxes.x - camera.position.x) * .1
+    camera.position.y += (axes.y + mouseAxes.y - camera.position.y) * .1
     camera.position.z += (axes.z - camera.position.z) * .1
 
     astro.position.x += (axes.sx - astro.position.x) *.1
     astro.position.y += (axes.sy - astro.position.y) *.1
     astro.position.z += (axes.sz - astro.position.z) *.1
-
-    let rotate = {
-      x: toRad(axes.rx + mouse.y*1.5),
-      y: toRad(axes.ry + mouse.x*1.5),
-    }
-
-    astro.rotation.x = map(.1, 0, 1, astro.rotation.x, rotate.x)
-    astro.rotation.y = map(.1, 0, 1, astro.rotation.y, rotate.y)
+    astro.rotation.x = map(.1, 0, 1, astro.rotation.x, toRad(axes.rx))
+    astro.rotation.y = map(.1, 0, 1, astro.rotation.y, toRad(axes.ry))
     astro.rotation.z = map(.1, 0, 1, astro.rotation.z, toRad(axes.rz))
 
     rocks[0].rotate(0.25)
