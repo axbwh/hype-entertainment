@@ -4537,7 +4537,7 @@ Object.assign( Matrix4.prototype, {
 
 	makeRotationAxis: function ( axis, angle ) {
 
-		// Based on http://www.gamedev.net/reference/articles/article1199.asp
+		// Based on http://www.gamedev.net/reference/article/article1199.asp
 
 		var c = Math.cos( angle );
 		var s = Math.sin( angle );
@@ -11869,7 +11869,7 @@ Geometry.prototype = Object.assign( Object.create( EventDispatcher.prototype ), 
 		if ( areaWeighted ) {
 
 			// vertex normals weighted by triangle areas
-			// http://www.iquilezles.org/www/articles/normals/normals.htm
+			// http://www.iquilezles.org/www/article/normals/normals.htm
 
 			var vA, vB, vC;
 			var cb = new Vector3(), ab = new Vector3();
@@ -16560,7 +16560,7 @@ function flatten( array, nBlocks, blockSize ) {
 
 	if ( firstElem <= 0 || firstElem > 0 ) return array;
 	// unoptimized: ! isNaN( firstElem )
-	// see http://jacksondunstan.com/articles/983
+	// see http://jacksondunstan.com/article/983
 
 	var n = nBlocks * blockSize,
 		r = arrayCacheF32[ n ];

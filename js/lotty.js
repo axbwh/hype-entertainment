@@ -89,10 +89,17 @@ const hide = () => {
         setTimeout(() => {
             preAnim.stop()
             anime({
+                targets: preloader.querySelector('.preload-wrap'),
+                delay: 500,
+                translateY: '-20%',
+                duration: 800,
+                easing: 'easeInOutQuad'
+            })
+
+            anime({
                 targets: preloader,
                 delay: 500,
                 opacity: 0,
-                translateY: '-20%',
                 duration: 800,
                 easing: 'easeInOutQuad'
             }).finished.then(() => {
