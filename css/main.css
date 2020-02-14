@@ -26,15 +26,6 @@ a:hover, a:visited, a:link, a:active {
   transform: rotate(180deg);
 }
 
-.body::-webkit-scrollbar {
-  display: none;
-}
-
-.body {
-  -ms-overflow-style: none;
-  opacity: 0;
-}
-
 .he-drop-spacer {
   transition: transform 0.3s ease-out;
   transform-origin: center left;
@@ -102,29 +93,6 @@ a:hover, a:visited, a:link, a:active {
   opacity: 0;
 }
 
-#preload {
-  width: 100vw;
-  height: calc(100 * var(--vh, 1vh));
-  display: flex;
-  position: fixed;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  background-color: #000;
-}
-
-#preload p{
-  color: var(--white);
-  font-weight: 400;
-  text-align: center;
-  letter-spacing: 0.6em;
-  text-decoration: none;
-  text-transform: uppercase;
-  margin-top: 1em;
-}
-
-
 
 .he-intro-wrap{
   display: flex;
@@ -145,29 +113,6 @@ a:hover, a:visited, a:link, a:active {
   font-weight: 600;
 }
 
-.preload-lottie {
-  width: 48px;
-  height: 154px;
-}
-
-.preload-svg {
-  position: absolute;
-  fill: var(--white);
-  width: 48px;
-  height: 154px;
-}
-
-
-.he-fade {
-  opacity: 1;
-  animation: fadeIn 1s infinite alternate;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-}
 
 .he-ps-logo {
   position: fixed;

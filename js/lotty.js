@@ -2,28 +2,14 @@ let logoI = 0
 let started = false
 let played = false
 let logoWrap = document.querySelector('#logo')
-let preloader = document.querySelector('#preload'),
-    preAnimWrap = preloader.querySelector('.preload-lottie'),
-    preAnim
+
+
 let animWrap = Array.from(logoWrap.querySelectorAll('.he-lottie-wrap'))
 
 
 let anim = []
 
 const init = () => {
-
- preAnim = lottie.loadAnimation({
-        container: preAnimWrap,
-        renderer: 'svg',
-        autoplay: true,  
-        loop: true,
-        path: '../lottie/clock.json', 
-        name: 'clocked',
-    })
-
-    preAnim.addEventListener('DOMLoaded', () =>{
-        preloader.querySelector('.preload-svg').style.display = 'none';
-    })
 
     anim[0] = lottie.loadAnimation({
         container: animWrap[0],
