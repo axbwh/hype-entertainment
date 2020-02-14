@@ -73,6 +73,7 @@
         --nav-offset-x: 20px;
         --nav-padding: 20px;
         --nav-offset-y: 30px;
+        --content-padding-y: calc(var(--nav-offset-y) + 20px);
 
         --content-padding-x: 100px;
 
@@ -94,6 +95,12 @@
     .he-video-modal .he-project-detail, .he-nav-label, .dsk-br{
         display: none;
     }
+
+    .he-click-proj{
+        padding-bottom: calc(var(--content-padding-y) + 10vh);
+    }
+
+    
 
 }
 
@@ -133,6 +140,8 @@
         border-color: hsla(0, 0%, 94.9%, 0.35) !important;
         box-shadow:  0 1px 6px rgba(0,0,0,0.06);
       }
+
+
 
 }
 

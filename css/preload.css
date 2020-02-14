@@ -1,10 +1,13 @@
-body{
-    padding: 0;
-    margin: 0;
-    -ms-overflow-style: none;
+.body, body {
+  padding: 0;
+  margin: 0;
+  -ms-overflow-style: none;
+  background-color: #000;
+  font-family: poynter-gothic-text-condense, sans-serif;
+  color: var(--white);
 }
 
-.body::-webkit-scrollbar {
+.body::-webkit-scrollbar, body::-webkit-scrollbar {
     display: none;
   }
 
@@ -29,7 +32,7 @@ body{
     text-transform: uppercase;
     margin-top: 20px;
     opacity: var(--fnt-o);
-    transition: opacity 1s var(--ease) 0.3s;
+    transition: opacity 1s var(--ease) 0.1s;
     height: 20px;
     line-height: 20px;
 

@@ -34,12 +34,6 @@
   opacity: 0;
 }
 
-.body {
-  background-color: #000;
-  font-family: poynter-gothic-text-condense, sans-serif;
-  color: var(--white);
-}
-
 .he-intro-text {
   position: relative;
   max-width: 750px;
@@ -144,22 +138,6 @@
   grid-template-columns: 1fr;
   -ms-grid-rows: auto;
   grid-template-rows: auto;
-}
-
-.he-social-wrap:hover {
-  opacity: 1;
-}
-
-.he-social-icon {
-  padding: 12px;
-  opacity: 0.35;
-  -webkit-transition: opacity 400ms var(--ease);
-  transition: opacity 400ms var(--ease);
-  color: var(--white);
-}
-
-.he-social-icon:hover {
-  opacity: 1;
 }
 
 .he-half {
@@ -757,9 +735,7 @@
 
 .he-video-caption {
   position: relative;
-  max-width: 400px;
-  
-  
+  max-width: 400px; 
 }
 
 .he-cross {

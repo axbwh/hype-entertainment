@@ -146,3 +146,79 @@ a:hover, a:visited, a:link, a:active {
   transform: translateX(0%);
   opacity: 1;
 }
+
+.he-social-wrap:hover {
+  opacity: 1;
+}
+
+.he-social-icon {
+  padding: 12px;
+  opacity: 0.35;
+  -webkit-transition: opacity 400ms var(--ease), transform 400ms var(--ease);
+  transition: opacity 400ms var(--ease), transform 400ms var(--ease);
+  color: var(--white);
+}
+
+.he-social-icon:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.he-call{
+  position: absolute;
+  top: var(--nav-offset-y);
+  left: var(--nav-offset-x);
+  padding-left: var(--nav-padding);
+  line-height: 1.3em;
+  z-index: 100;
+}
+
+
+.he-call a, .he-call p, .he-video-caption a{
+  position: relative;
+  width: fit-content;
+  text-transform: uppercase;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+}
+
+a .line{
+  position: absolute;
+  width: 100%;
+  transform-origin: left center;
+  transform: translateX(-5%) scaleX(0);
+  transition: transform 400ms var(--ease);
+  height: 1px;
+  background-color: var(--white);
+}
+
+a:hover .line{
+  transform: translateX(-5%) scaleX(1.1);
+}
+
+
+.blink{
+  animation: blink 1s var(--ease) infinite alternate;
+}
+
+.he-click-proj{
+  position: absolute;
+  bottom: var(--content-padding-y);
+  text-transform: uppercase;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}

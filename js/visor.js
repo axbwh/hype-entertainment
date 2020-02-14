@@ -156,8 +156,19 @@ function init(canvas, scrollWrap) {
     targets: axes,
     duration: 250,
     easing: 'linear',
-    autoplay: false
+    autoplay: false,
+    update: (anim) => {
+      if(anim.currentTime > 100){
+        document.getElementById('email').classList.add('blink')
+      }else{
+        document.getElementById('email').classList.remove('blink')
+      }
+    }
   }).add({
+    targets: '.he-call',
+    opacity: [1, 0],
+    duration: 100,
+  }, 100).add({
     z: 100,
     duration: 200
   }, 0).add({

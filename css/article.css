@@ -196,9 +196,9 @@
 
 .he-article-link .he-title {
     position: relative;
-    -webkit-text-stroke: 0.25px var(--white); 
-    opacity: 0.35;
-    color: #00000000;
+    /* -webkit-text-stroke: 1px var(--white);  */
+    /* opacity: 0.35; */
+    /* color: #00000000; */
     margin-bottom: 0px;
     margin-left: 40px;
 
