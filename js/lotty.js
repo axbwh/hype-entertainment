@@ -73,6 +73,7 @@ const hide = () => {
     
     return new Promise((resolve) => {
         setTimeout(() => {
+            if(typeof preCount !== 'undefined') { clearInterval(preCount) }
             preAnim.stop()
             anime({
                 targets: preloader.querySelector('.preload-wrap'),

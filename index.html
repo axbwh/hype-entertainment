@@ -35,14 +35,20 @@
       <div class='preload-lottie'>
       </div>
     </div>
-    <p>loading</p>
+    <p>0%</p>
   </div>
 
     <script type="text/javascript">
+    let preCount
       try {
         Typekit.load({
           active: () => {
             document.documentElement.style.setProperty('--fnt-o', '1')
+            let precent = 0
+            preCount = setInterval( ()=> {
+              document.querySelector('#preload p').textContent = precent <= 100 ? precent + '%' : '100%'
+              precent = precent < 130 ? precent + 1 : 0
+            }, 210)
           }
         });
       } catch (e) {}

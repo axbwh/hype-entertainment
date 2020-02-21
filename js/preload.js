@@ -10,6 +10,7 @@ let preAnim = lottie.loadAnimation({
     name: 'clocked',
 })
 
+
 preAnim.addEventListener('DOMLoaded', () =>{
     preloader.querySelector('.preload-svg').style.display = 'none';
 })
