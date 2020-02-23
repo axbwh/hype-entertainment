@@ -54,7 +54,7 @@ window.addEventListener("resize", setSize);
 
 Lotty.init()
 
-document.addEventListener("DOMContentLoaded", () => {
+let onReady = () => {
     let hidearray = [icons]
     let noneArray = []
     Object.keys(sections).forEach((s) => {
@@ -94,6 +94,12 @@ document.addEventListener("DOMContentLoaded", () => {
     initSub(aboutWrap, true, curInd.about)
     initSub(homeWrap, false, curInd.home)
     initArticles()
-})
+}
+
+if( document.readyState !== 'loading' ) {
+    onReady();
+} else {
+    document.addEventListener('DOMContentLoaded', onReady);
+}
 
 export {sections, icons}
