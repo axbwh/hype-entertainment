@@ -1,7 +1,7 @@
-let preloader = document.querySelector('#preload'),
+window.preloader = document.querySelector('#preload'),
     preAnimWrap = preloader.querySelector('.preload-lottie')
 
-let preAnim = lottie.loadAnimation({
+window.preAnim = lottie.loadAnimation({
     container: preAnimWrap,
     renderer: 'svg',
     autoplay: true,  

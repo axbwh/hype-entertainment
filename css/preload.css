@@ -35,7 +35,10 @@
     transition: opacity 1s var(--ease) 0.1s;
     height: 20px;
     line-height: 20px;
+  }
 
+  #preload .slow-network{
+    opacity: var(--slow-o);
   }
   
   .preload-lottie {
