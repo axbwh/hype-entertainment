@@ -155,8 +155,10 @@ function init(cvs, scrollWrap) {
     antialias: true,
     alpha:true
   })
-
+  
+  renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize(canvas.offsetWidth, canvas.offsetHeight)
+  
 
   let renderScene = new RenderPass(scene, camera)
 

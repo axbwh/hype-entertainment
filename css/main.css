@@ -7,16 +7,6 @@ a:hover, a:visited, a:link, a:active {
   font-weight: 900 !important;
 }
 
-
-.he-nav-label{
-  position: absolute;
-  white-space: nowrap;
-  left: 50px;
-  line-height: 18px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
 .he-nav-link {
   writing-mode: vertical-lr;
   padding-bottom: calc(var(--nav-padding) - 0.6em);
@@ -48,6 +38,7 @@ a:hover, a:visited, a:link, a:active {
   width: 100%;
   height: calc(100 * var(--vh, 1vh));
   pointer-events: none;
+  overflow: hidden;
 }
 
 #canvas-visor {
@@ -99,9 +90,10 @@ a:hover, a:visited, a:link, a:active {
   position: fixed;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: calc(100 * var(--vh, 1vh));
   padding: var(--content-padding-y) var(--content-padding-x);
+  pointer-events: none;
 }
 
 .he-intro-wrap p{
@@ -113,40 +105,6 @@ a:hover, a:visited, a:link, a:active {
   font-weight: 600;
 }
 
-
-.he-ps-logo {
-  position: fixed;
-  fill: var(--white);
-  top: var(--nav-offset-y);
-  left: var(--nav-offset-x);
-  /* width: 26px; */
-  opacity: 0.35;
-  transition: opacity 400ms var(--ease);
-  display: flex;
-  align-items: center;
-  padding: calc(var(--nav-padding) - 1px);
-}
-
-.he-ps-logo svg{
-  width: 24px;
-  height: 24px;
-}
-
-.he-ps-logo .he-nav-label{
-  opacity: 0;
-  transform: translateX(-20%);
-  transition: transform 600ms var(--ease) , opacity 600ms  var(--ease);
-}
-
-.he-ps-logo:hover{
-  opacity: 1;
-}
-
-.he-ps-logo:hover .he-nav-label{
-  transform: translateX(0%);
-  opacity: 1;
-}
-
 .he-social-wrap:hover {
   opacity: 1;
 }
@@ -154,9 +112,40 @@ a:hover, a:visited, a:link, a:active {
 .he-social-icon {
   padding: 12px;
   opacity: 0.35;
+  fill: var(--white);
   -webkit-transition: opacity 400ms var(--ease), transform 400ms var(--ease);
   transition: opacity 400ms var(--ease), transform 400ms var(--ease);
   color: var(--white);
+}
+
+.he-nav-label{
+  position: absolute;
+  white-space: nowrap;
+  right: 50px;
+  line-height: 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  opacity: 0;
+  transform: translateX(20%);
+  transition: transform 600ms var(--ease) , opacity 600ms  var(--ease);
+  pointer-events: none;
+}
+
+.blink .he-nav-label{
+  transform: translateX(0%);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.he-social-icon:hover .he-nav-label{
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.he-social-icon svg{
+  width: 18px;
+  height: 18px;
 }
 
 .he-social-icon:hover {
@@ -205,20 +194,19 @@ a:hover .line{
 }
 
 .he-click-proj{
-  position: absolute;
   bottom: var(--content-padding-y);
   text-transform: uppercase;
   font-weight: 400;
-  display: flex;
-  align-items: center;
   font-size: 14px;
+  line-height: 1em;
   letter-spacing: 0.2em;
-  text-align: center;
+  padding-top: calc( var(--proj-fntsize) * 0.2);
+  padding-right: calc( var(--proj-fntsize) * 0.2);
 }
 
 @keyframes blink {
   from {
     opacity: 1;
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 }

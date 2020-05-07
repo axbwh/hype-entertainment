@@ -69,6 +69,13 @@ class Sub {
             autoplay: false
         });
 
+        console.log(this.spacer)
+        if(this.spacer){
+            this.spacer.parentElement.addEventListener('click', () => {
+            console.log(this.index)
+            })
+        }
+
         let distToNav =
             this.index == this.array.length - 1 ?
             0 :

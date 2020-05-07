@@ -53,6 +53,10 @@
     
 }
 
+.mobile{
+      display: none;  
+}
+
 
 @media only screen and (max-device-width : 1052px) {
     :root {
@@ -96,12 +100,14 @@
     .he-video-modal .he-project-detail, .he-nav-label, .dsk-br{
         display: none;
     }
-
-    .he-click-proj{
-        padding-bottom: calc(var(--content-padding-y) + 10vh);
+    
+    .desk{
+        display: none;
     }
 
-    
+    .mobile{
+        display: unset;
+    }
 
 }
 

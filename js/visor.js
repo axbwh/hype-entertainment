@@ -137,6 +137,8 @@ function init(canvas, scrollWrap) {
     antialias: true,
     alpha:true
   })
+  
+  renderer.setPixelRatio( window.devicePixelRatio );
 
   // renderer.setSize(window.innerWidth, window.innerHeight)
   // renderer.toneMapping = THREE.ReinhardToneMapping
@@ -158,10 +160,10 @@ function init(canvas, scrollWrap) {
     easing: 'linear',
     autoplay: false,
     update: (anim) => {
-      if(anim.currentTime > 100){
-        document.getElementById('email').classList.add('blink')
-      }else{
+      if(anim.currentTime > 1150){
         document.getElementById('email').classList.remove('blink')
+      }else{
+        document.getElementById('email').classList.add('blink')
       }
     }
   }).add({
