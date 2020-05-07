@@ -3,7 +3,7 @@ import * as Proj from './proj.js'
 import initModal from './modal.js'
 
 class Sub {
-    constructor(el, index, object, elements, nav, spacer, label, array, group) {
+    constructor(el, index, object, elements, nav, spacer, label, array, group, scrollWrap) {
         this.section = el
         this.index = index;
         this.elements = elements;
@@ -19,6 +19,7 @@ class Sub {
         this.modalOpen = document.querySelector(
             `.he-project-title[data-sub='${this.index}']`
         );
+        this.scrollWrap = scrollWrap
     }
 
     scrollPos() {
@@ -69,12 +70,10 @@ class Sub {
             autoplay: false
         });
 
-        console.log(this.spacer)
-        if(this.spacer){
-            this.spacer.parentElement.addEventListener('click', () => {
-            console.log(this.index)
-            })
-        }
+        this.nav.parentElement.parentElement.addEventListener('click', () => {
+            this.scrollTo()
+        })
+
 
         let distToNav =
             this.index == this.array.length - 1 ?
@@ -251,6 +250,12 @@ class Sub {
         );
     }
 
+    scrollTo() {
+        const rect = this.section.getBoundingClientRect()
+        const toScroll = rect.top + this.scrollWrap.scrollTop + rect.height / 2
+        this.scrollWrap.scrollTo(0, toScroll)
+    }
+
     scroll(sPos) {
         this.pPercent = map(sPos, this.pStart, this.pEnd, 0, 100);
         let ssPos = sPos + vHeight;
@@ -295,7 +300,8 @@ const addSub = (wrap, group, object) => {
             navSpacer[i],
             navLabel[i],
             subs,
-            group
+            group,
+            scrollWrap
         );
     });
 

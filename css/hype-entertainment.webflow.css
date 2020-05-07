@@ -499,6 +499,7 @@
   height: 100%;
   background-color: var(--white);
   opacity: 0.35;
+  transition: transform 400ms var(--ease), opacity 400ms var(--ease), width 400ms var(--ease);
 }
 
 .he-subnav-spacer-wrap {
@@ -510,6 +511,13 @@
   flex: 1;
   display: flex;
   align-items: center;
+  cursor: pointer;
+}
+
+.he-subnav-spacer-wrap:hover .he-subnav-idle{
+  opacity: 1;
+  transform: scale(1.25);
+  width: 2px;
 }
 
 .he-subnav-spacer {
