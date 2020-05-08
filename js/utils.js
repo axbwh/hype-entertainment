@@ -38,4 +38,10 @@ const setSize = () => {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
-export {map, clamp, toRad, vHeight, vWidth, setSize, initScrollbars, loadOBJ}
+let isMobile = false;
+
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+ isMobile = true;
+}
+
+export {map, clamp, toRad, vHeight, vWidth, setSize, initScrollbars, loadOBJ, isMobile}

@@ -19,6 +19,7 @@ class Sub {
         this.modalOpen = document.querySelector(
             `.he-project-title[data-sub='${this.index}']`
         );
+        this.slug = this.section.dataset.slug
         this.scrollWrap = scrollWrap
     }
 
@@ -44,6 +45,7 @@ class Sub {
                     duration: 800,
                     easing: 'easeInOutQuad'
                 })
+                history.replaceState('', '', `/projects/${this.slug}`)
             })
 
             this.modal
@@ -58,6 +60,7 @@ class Sub {
                         this.modal.style.display = "none"
                         Proj.start()
                     })
+                    history.replaceState('', '', `/`)
                     
                 })
         }
@@ -71,7 +74,9 @@ class Sub {
         });
 
         this.nav.parentElement.parentElement.addEventListener('click', () => {
-            this.scrollTo()
+            const rect = this.section.getBoundingClientRect()
+            const toScroll = rect.top + this.scrollWrap.scrollTop + rect.height / 2
+            this.scrollWrap.scrollTo(0, toScroll)
         })
 
 
@@ -248,12 +253,6 @@ class Sub {
             },
             0
         );
-    }
-
-    scrollTo() {
-        const rect = this.section.getBoundingClientRect()
-        const toScroll = rect.top + this.scrollWrap.scrollTop + rect.height / 2
-        this.scrollWrap.scrollTo(0, toScroll)
     }
 
     scroll(sPos) {

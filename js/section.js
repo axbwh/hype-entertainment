@@ -47,10 +47,35 @@ const slideOut = (e, t, d, s, callback) => {
 
 }
 
-const navigateTo = (key, push) => {
-    key = key in sections ? key : 'home'
+const navigateTo = (ky, push) => {
+
+    let key = ky in sections ? ky : 'home'
 
     let pathName = key == 'home' ? '' : key
+
+    if(ky.includes('projects')){
+        let defaultSection = sections.home.wrap.querySelector('[data-slug]')
+        let subSection
+
+        try{
+            let slugKey = ky.replace('projects/', '').replace('projects', '')
+            subSection = sections.home.wrap.querySelector(`[data-slug = ${slugKey}]`)
+        }catch(err){}
+
+        if(ky === 'projects' || ky === 'projects/' || !subSection){
+            subSection = defaultSection
+            pathName = 'projects'
+        }else{
+            pathName = ky
+        }
+
+        let scrollWrap = sections.home.wrap.querySelector('.simplebar-content-wrapper')
+
+        const rect = subSection.getBoundingClientRect()
+        const toScroll = rect.top + scrollWrap.scrollTop
+        scrollWrap.scrollTo(0, toScroll)
+        
+    }
 
     if (push !== false) {
         history.pushState('', '', `./${pathName}`)
@@ -105,6 +130,8 @@ const navigateTo = (key, push) => {
         })
         slideIn(inList, 1000, 500, 150)
 
+    }else if( key === current){
+        sections[current].wrap.querySelector('.simplebar-content-wrapper').scrollTo(0, 0)
     }
     current = key
 }

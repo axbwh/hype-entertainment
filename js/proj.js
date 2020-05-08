@@ -2,7 +2,7 @@ import * as THREE from '../build/three.module.js'
 import { EffectComposer } from '../jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from '../jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js'
-import { toRad, map, clamp, vWidth, vHeight, loadOBJ} from './utils.js'
+import { toRad, map, clamp, vWidth, vHeight, loadOBJ, isMobile} from './utils.js'
 
 
 let canvas, camera, scene, renderer, composer
@@ -172,11 +172,31 @@ function init(cvs, scrollWrap, scrollTgt) {
         }
     )
 
-    // window.addEventListener('mousemove', onMouseMove, false)
+    let _orient = _.throttle(
+        (e) => {
+            e.stopPropagation()
+            e = e || window.event
+            if (sPos <= sEnd) {
+                let beta = clamp(e.beta, -45, 45)
+                let gamma = clamp(e.gamma, -45, 45)
+                mouse.x = map(beta, -45, 45, -1, 1)
+                mouse.y = map(gamma, -45, 45, 1, -1)
+            }
+        },
+        10, {
+            trailing: true,
+            leading: true
+        }
+    )
 
 
     scrollWrap.addEventListener("scroll", _scroll)
-    scrollWrap.addEventListener("mousemove", _mousemove)
+    
+    if(isMobile){
+        window.addEventListener('deviceorientation', _orient);
+    }else{
+        scrollWrap.addEventListener("mousemove", _mousemove)
+    }
 
     
 
@@ -346,11 +366,6 @@ function render(reset = false) {
         projects[0].setScale()
 
     }
-
-    //-----------------------Raycast-----------------------//
-    // raycaster.setFromCamera( mouse, camera )
-
-    // intersects = raycaster.intersectObjects( projects.map(p => p.obj) , true )
     
     let bloomTo, lightTo
 

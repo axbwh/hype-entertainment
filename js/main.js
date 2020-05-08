@@ -81,12 +81,13 @@ let onReady = () => {
     promises[2] = About.init(canvasAbout, aboutWrap.querySelector('.simplebar-content-wrapper'))
 
     window.addEventListener('popstate', (event) => {
-        Section.navigateTo(window.location.pathname.split('/').pop(), false)
+        Section.navigateTo(window.location.pathname.replace('/', ''), false)
     });
 
-    Promise.all(promises).then(() =>{
+    Promise.all(promises).then(() => {
         Lotty.hide().then(() =>{
-            Section.navigateTo(window.location.pathname.split('/').pop(), true)
+            Section.navigateTo(window.location.pathname.replace('/', ''), true)
+            Section.navigateTo(testPath.replace('/', ''), true)
             Section.init()
         })
     })
