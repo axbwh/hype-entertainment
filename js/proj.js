@@ -145,7 +145,7 @@ function init(cvs, scrollWrap, scrollTgt) {
             sEnd = scrollTarget.offsetHeight - vHeight
             let pPercent = map(clamp(sPos, 0, sEnd), 0, sEnd, 0, 100)
             timeline.seek(timeline.duration * (pPercent / 100))
-            if (sPos > 0 && sPos <= sEnd) {
+            if (sPos > 0 && sPos <= sEnd + vHeight) {
                 inFrame = true
                 start()
             } else {

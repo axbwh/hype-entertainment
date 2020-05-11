@@ -130,7 +130,11 @@
         <div class="he-nav-link">articles</div>
       </a>
     </div>
-    <div class="he-half"></div>
+    <div class="he-half">
+      <a href='#' class='he-to-top'>
+        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" height="24" width="24"><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/></svg>
+      </a>
+    </div> 
   </div>
   <div class="he-nav-wrap left">
     <div class="he-half top">
@@ -370,13 +374,26 @@
     </div>
   </div>
   <div id="home-wrap" class="he-section-wrap">
-    <div class='he-scrolltip-wrap'><div class='he-scrolltip'></div></div>
-    <div class="he-scroll">
-      <div class='he-intro-wrap'><p>We design & produce immersive <br class='dsk-br'> audiovisual events that connect <br class='dsk-br'> and inspire people</p></div>
-      <div id='canvas-projects' class="he-canvas"></div>
-      <div class="he-canvas-wrap">
-        <div id='canvas-visor' class="he-canvas"></div>
+    <div class='he-scrolltip-wrap'>
+      <div class='he-scrolltip'>
       </div>
+    </div>
+    <div class="he-scroll">
+      <div class='he-home-section'>
+      <div class="he-canvas-wrap">
+        <div id='canvas-visor' class="he-canvas">
+          <div class='he-intro-wrap'><p>We design & produce immersive <br class='dsk-br'> audiovisual events that connect <br class='dsk-br'> and inspire people</p></div>
+          <div class='he-chevron-wrap'><a class='blink'>
+            <p>Scroll to explore</p><svg xmlns="http://www.w3.org/2000/svg" height="40" width="40"
+              viewBox="0 0 24 24">
+              <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
+              <path d="M0 0h24v24H0z" fill="none"></path>
+            </svg>
+          </a>
+        </div>
+        </div>
+      </div>
+      <div id='canvas-projects' class="he-canvas"></div>
       <div class="he-content-flex first">
         <div class="he-sub">
           <div class="he-wrap-center">
@@ -586,6 +603,31 @@
         </div>
         <div data-slug='space' class="he-anim-dummy">
           <div class="he-intro-text">space</div>
+        </div>
+      </div>
+    </div>
+      <div class='he-content'>
+        <a data-section="about" class="he-about-link">
+          <div class='he-centraline'></div>
+          <p class="he-title"><span class="desk">Click</span><span class="mobile">Tap</span> to Learn About Us</p>
+        </a>
+        <div class='he-gallery-wrap'>
+          <div><img src='/images/article/concept_03.jpg'></div>
+          <div><img src='/images/article/concept_04.jpg'></div>
+          <div><img src='/images/article/concept_01.jpg'></div>
+          <div><img src='/images/article/concept_02.jpg'></div>
+          <div><img src='/images/article/showtime_02.jpg'></div>
+          <div><img src='/images/article/discovery_03.jpg'></div>
+          <div><img src='/images/article/process_02.jpg'></div>
+          <div><img src='/images/article/process_01.jpg'></div>
+          <div><img src='/images/article/process_02.jpg'></div>
+          <div><img src='/images/article/development_03.jpg'></div>
+          <div><img src='/images/article/development_02.jpg'></div>
+          <div><img src='/images/article/development_01.jpg'></div>
+          <div><img src='/images/article/vision_02.jpg'></div>
+          <div><img src='/images/article/vision_03.jpg'></div>
+          <div><img src='/images/article/vision_04.jpg'></div>
+          <div><img src='/images/article/vision_01.jpg'></div>
         </div>
       </div>
     </div>
@@ -934,7 +976,7 @@
     <video id="vid-sun" loop crossOrigin="anonymous" preload="auto" playsinline autoplay="true" muted="muted">
       <source src="videos/proj/sun.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
     </video>
-    
+
     <video id="vid-sea" loop crossOrigin="anonymous" preload="auto" playsinline autoplay="true" muted="muted">
       <source src="videos/proj/sea.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
     </video>

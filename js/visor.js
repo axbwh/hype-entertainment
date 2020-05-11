@@ -152,7 +152,12 @@ function init(canvas, scrollWrap) {
 
   canvas.appendChild(renderer.domElement)
 
-  
+  let chevWrap = document.querySelector('.he-chevron-wrap a')
+
+  chevWrap.addEventListener('click', () => {
+    scrollWrap.scrollTo(0, scrollWrap.scrollTop + vHeight * 0.75)
+  })
+
 
   visorTl = anime.timeline({
     targets: axes,
@@ -160,6 +165,13 @@ function init(canvas, scrollWrap) {
     easing: 'linear',
     autoplay: false,
     update: (anim) => {
+      
+      if(anim.currentTime > 600){
+        chevWrap.style.display = 'none';
+      }else{
+        chevWrap.style.display = '';
+      }
+
       if(anim.currentTime > 1150){
         document.getElementById('email').classList.remove('blink')
       }else{
@@ -212,11 +224,10 @@ function init(canvas, scrollWrap) {
     opacity: [0, 1],
     duration: 125
   }, 200).add({
-    targets : '.he-intro-wrap',
-    opacity: 0,
+    targets : '.he-intro-wrap, .he-chevron-wrap',
+    opacity: [1, 0],
     duration: 100
   }, 550)
-
 
   let _scroll = _.throttle(
     () => {

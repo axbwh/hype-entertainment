@@ -42,7 +42,7 @@
     --subnav-w : 124px;
 
     /* article page */
-
+    --img-w: 30%;
     --article-w : 290px;
     --article-l: 0px;
     --article-padding: 38px;
@@ -68,6 +68,7 @@
         --proj-fntsize : 13vw;
 
         --intro-title-fntsize : 32px;
+        --img-w: 50%;
 
     }
 }
@@ -94,7 +95,8 @@
         --detail-fntsize: 18px;
 
         --article-w: 250px;
-        --about-title-w: calc(100vw - var(--content-padding-x) * 2);     
+        --about-title-w: calc(100vw - var(--content-padding-x) * 2);
+        --img-w: 100%;   
     }
 
     .he-video-modal .he-project-detail, .he-nav-label, .dsk-br{

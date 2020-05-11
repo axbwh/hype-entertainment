@@ -251,8 +251,7 @@
 }
 
 .he-content-flex.first {
-  margin-top: calc(-50 * var(--vh, 1vh));
-  margin-bottom: calc(-150 * var(--vh, 1vh));
+  /* margin-top: calc(-50 * var(--vh, 1vh)); */
 }
 
 .he-about-title {
@@ -351,6 +350,7 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
@@ -384,7 +384,8 @@
   font-size: var(--title-fntsize);
   line-height: 1em;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: calc(var(--title-fntsize) * 0.1);
+  margin-right: calc(var(--title-fntsize) * -0.1);
   text-transform: uppercase;
 }
 

@@ -124,11 +124,20 @@ const navigateTo = (ky, push) => {
     }else if( key === current){
         sections[current].wrap.querySelector('.simplebar-content-wrapper').scrollTo(0, 0)
     }
+    
     current = key
+
 }
 
 const init = () => {
     let navLinks = Array.from(document.querySelectorAll('[data-section]'));
+
+
+    document.querySelector('.he-to-top').addEventListener('click', () => {
+        if(current){
+            sections[current].wrap.querySelector('.simplebar-content-wrapper').scrollTo(0, 0)
+        }
+    })
 
     navLinks.forEach(nl => {
         nl.addEventListener('click', e => {
