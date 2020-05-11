@@ -52,30 +52,21 @@ const navigateTo = (ky, push) => {
     let key = ky in sections ? ky : 'home'
 
     let pathName = key == 'home' ? '' : key
+    
+    try {
+      if (sections.home.wrap.querySelector(`[data-slug = ${ky}]`)) {
+        let subSection = sections.home.wrap.querySelector(`[data-slug = ${ky}]`)
+        pathName = ky
 
-    if(ky.includes('projects')){
-        let defaultSection = sections.home.wrap.querySelector('[data-slug]')
-        let subSection
-
-        try{
-            let slugKey = ky.replace('projects/', '').replace('projects', '')
-            subSection = sections.home.wrap.querySelector(`[data-slug = ${slugKey}]`)
-        }catch(err){}
-
-        if(ky === 'projects' || ky === 'projects/' || !subSection){
-            subSection = defaultSection
-            pathName = 'projects'
-        }else{
-            pathName = ky
-        }
-
-        let scrollWrap = sections.home.wrap.querySelector('.simplebar-content-wrapper')
+        let scrollWrap = sections.home.wrap.querySelector(
+          '.simplebar-content-wrapper'
+        )
 
         const rect = subSection.getBoundingClientRect()
         const toScroll = rect.top + scrollWrap.scrollTop
         scrollWrap.scrollTo(0, toScroll)
-        
-    }
+      }
+    }catch (e) {}
 
     if (push !== false) {
         history.pushState('', '', `./${pathName}`)

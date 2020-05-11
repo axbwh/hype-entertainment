@@ -1,7 +1,7 @@
 import * as THREE from '../build/three.module.js'
 import { RenderPass } from '../jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js'
-import { toRad, map, clamp, vWidth, vHeight, loadOBJ} from './utils.js'
+import { toRad, map, clamp, vWidth, vHeight, loadOBJ, isMobile} from './utils.js'
 
 let canvas, camera, scene, renderer, ambientLight
 
@@ -251,13 +251,34 @@ function init(cvs, scrollWrap) {
       leading: true
     }
   )
+
+  let _orient = _.throttle(
+    (e) => {
+        e.stopPropagation()
+        e = e || window.event
+        if (sPos <= sEnd) {
+            let beta = clamp(e.beta, -30, 30)
+            let gamma = clamp(e.gamma, -30, 30)
+            mouse.x = map(gamma, -30, 30, -axes.ox, axes.ox)
+            mouse.y = map(beta, -30, 30, -axes.oy, axes.oy)
+        }
+    },
+    10, {
+        trailing: true,
+        leading: true
+    }
+)
+
   let sPos = scrollWrap.scrollTop - scrollTarget.offsetTop
   let sEnd = scrollTarget.offsetHeight - vHeight
 
   scrollWrap.addEventListener("scroll", _scroll)
-  scrollWrap.addEventListener("mousemove", _mousemove)
 
-  
+  if (isMobile) {
+    window.addEventListener('deviceorientation', _orient)
+  } else {
+    scrollWrap.addEventListener('mousemove', _mousemove)
+  }
 
   return promise
 }

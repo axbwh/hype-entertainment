@@ -210,3 +210,24 @@ a:hover .line{
     transform: scale(1.1);
   }
 }
+
+.he-cursor{
+  width: 40px;
+  height: 40px;
+  left: -20px;
+  top: -20px;
+  z-index: 10000;
+  position: fixed;
+  pointer-events: none;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  transition: width 600ms var(--ease), height 600ms var(--ease), left 600ms var(--ease), top 600ms var(--ease);
+}
+
+.he-cursor.hovering{
+  width: 8px;
+  height: 8px;
+  left: -4px;
+  top: -4px;
+}

@@ -45,7 +45,7 @@ class Sub {
                     duration: 800,
                     easing: 'easeInOutQuad'
                 })
-                history.replaceState('', '', `/projects/${this.slug}`)
+                history.replaceState('', '', `/${this.slug}`)
             })
 
             this.modal

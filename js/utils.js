@@ -18,6 +18,10 @@ const toRad = (degrees) => {
     return degrees * (Math.PI / 180);
 }
 
+const lerp = (from, to, speed) => {
+    return (1 - speed) * from + speed * to;
+};
+
 const initScrollbars = () => {
     Array.prototype.forEach.call(
         document.querySelectorAll(".he-scroll"),
@@ -38,10 +42,6 @@ const setSize = () => {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
 
-let isMobile = false;
+let isMobile = window.matchMedia("only screen and (max-width: 768px)").matches;
 
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
- isMobile = true;
-}
-
-export {map, clamp, toRad, vHeight, vWidth, setSize, initScrollbars, loadOBJ, isMobile}
+export {map, clamp, toRad, vHeight, vWidth, setSize, initScrollbars, loadOBJ, isMobile, lerp}

@@ -177,10 +177,10 @@ function init(cvs, scrollWrap, scrollTgt) {
             e.stopPropagation()
             e = e || window.event
             if (sPos <= sEnd) {
-                let beta = clamp(e.beta, -45, 45)
-                let gamma = clamp(e.gamma, -45, 45)
-                mouse.x = map(beta, -45, 45, -1, 1)
-                mouse.y = map(gamma, -45, 45, 1, -1)
+                let beta = clamp(e.beta, -30, 30)
+                let gamma = clamp(e.gamma, -30, 30)
+                mouse.x = map(gamma, -30, 30, -1, 1)
+                mouse.y = map(beta, -30, 30, 1, -1)
             }
         },
         10, {
@@ -369,7 +369,7 @@ function render(reset = false) {
     
     let bloomTo, lightTo
 
-    if( (intersects.length >= 1 || hovered)  && !reset){
+    if( (intersects.length >= 1 || hovered || isMobile)  && !reset){
         projects[Math.round(axes.i)].hoverIn()
         bloomTo = axes.bmax
         lightTo = 1
