@@ -201,11 +201,17 @@ function init(cvs, scrollWrap, scrollTgt) {
     
 
     titles.forEach( t => {
-        t.addEventListener("mouseenter", () => hovered = true)
+        t.addEventListener("mouseenter", () => {
+            document.querySelector('.he-video-caption.desk').classList.add('hovering')
+            hovered = true
+        })
     }) 
 
     titles.forEach( t => {
-        t.addEventListener("mouseleave", () => hovered = false)
+        t.addEventListener("mouseleave", () => {
+            document.querySelector('.he-video-caption.desk').classList.remove('hovering')
+            hovered = false
+        })
     }) 
 
     let promise = setupScene()

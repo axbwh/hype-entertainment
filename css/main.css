@@ -7,15 +7,6 @@ a:hover, a:visited, a:link, a:active {
   font-weight: 900 !important;
 }
 
-.he-nav-link {
-  writing-mode: vertical-lr;
-  padding-bottom: calc(var(--nav-padding) - 0.6em);
-}
-
-.left .he-nav-link {
-  transform: rotate(180deg);
-}
-
 .he-drop-spacer {
   transition: transform 0.3s ease-out;
   transform-origin: center left;
@@ -112,54 +103,6 @@ a:hover, a:visited, a:link, a:active {
   font-weight: 600;
 }
 
-.he-social-wrap:hover {
-  opacity: 1;
-}
-
-.he-social-icon {
-  padding: 12px;
-  opacity: 0.35;
-  fill: var(--white);
-  -webkit-transition: opacity 400ms var(--ease), transform 400ms var(--ease);
-  transition: opacity 400ms var(--ease), transform 400ms var(--ease);
-  color: var(--white);
-}
-
-.he-nav-label{
-  position: absolute;
-  white-space: nowrap;
-  right: 50px;
-  line-height: 18px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-
-  opacity: 0;
-  transform: translateX(20%);
-  transition: transform 600ms var(--ease) , opacity 600ms  var(--ease);
-  pointer-events: none;
-}
-
-.blink .he-nav-label{
-  transform: translateX(0%);
-  opacity: 1;
-  pointer-events: all;
-}
-
-.he-social-icon:hover .he-nav-label{
-  transform: translateX(0%);
-  opacity: 1;
-}
-
-.he-social-icon svg{
-  width: 18px;
-  height: 18px;
-}
-
-.he-social-icon:hover {
-  opacity: 1;
-  transform: scale(1.2);
-}
-
 .he-call{
   position: absolute;
   top: var(--nav-offset-y);
@@ -196,10 +139,6 @@ a:hover .line{
 }
 
 
-.blink{
-  animation: blink 1.5s cubic-bezier(.86, 0, .07, 1) infinite alternate;
-}
-
 .he-click-proj{
   bottom: var(--content-padding-y);
   text-transform: uppercase;
@@ -209,13 +148,6 @@ a:hover .line{
   letter-spacing: 0.2em;
   padding-top: calc( var(--proj-fntsize) * 0.2);
   padding-right: calc( var(--proj-fntsize) * 0.2);
-}
-
-@keyframes blink {
-  from {
-    opacity: 1;
-    transform: scale(1.1);
-  }
 }
 
 .he-cursor{
@@ -342,4 +274,23 @@ a:hover .line{
 
 .he-to-top:hover{
   opacity: 1;
+}
+
+.he-video-caption.desk{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity 600ms;
+}
+
+.he-video-caption.hovering{
+  opacity: 1;
+}
+
+.he-video-modal .he-content-flex{
+  background: linear-gradient( to top, rgba(0, 0, 0, 0.8) 0%, rgba( 0, 0, 0, 0.4) 30%,  rgba( 0, 0, 0, 0) 50% );
 }

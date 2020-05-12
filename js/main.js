@@ -12,7 +12,7 @@ let aboutLink = document.getElementById('about-link'),
     articlesLink = document.getElementById('articles-link'),
     homeLinkL = document.getElementById('home-link-left'),
     homeLinkR = document.getElementById('home-link-right'),
-    icons = document.querySelectorAll('.he-social-wrap'),
+    icons = document.querySelectorAll('#logo-wrap, .he-to-top'),
     subEL = document.querySelectorAll('[data-sub]')
 
 let aboutWrap = document.getElementById('about-wrap'),

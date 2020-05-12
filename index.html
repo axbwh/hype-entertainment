@@ -23,6 +23,10 @@
 
 <body class="body">
   <div id='preload'>
+    <div>
+      <p> We're Hype Entertainment</p>
+      <p> We design & produce immersive <br class='dsk-br'> audiovisual events that connect <br class='dsk-br'> and inspire people</P>
+    </div>
     <div class="preload-wrap">
       <svg viewbox="0 0 350 1080" class='preload-svg' xmlns="http://www.w3.org/2000/svg">
         <path class="st0" d="M191.1,76h-44.2v172H83v43h174v-42h-65.9V76z" />
@@ -32,11 +36,9 @@
         <path class="st0" d="M256,1007V790.4h-42V1007H256z" />
         <path class="st0" d="M256.3,314.6H148v173.5h-22.3V314.6H81.9v215.2h174.4v-42h-66.5V356.7h66.5V314.6z" />
       </svg>
-      <div class='preload-lottie'>
-      </div>
+      <div class='preload-lottie'></div>
     </div>
-    <p class='precent'>0%</p>
-    <p class='slow-network'>Slow Network<br>Detected</p>
+      <div class='blink'><p>Loading <br> Experience</p></div>
   </div>
 
     <script type="text/javascript">
@@ -45,14 +47,6 @@
         Typekit.load({
           active: () => {
             document.documentElement.style.setProperty('--fnt-o', '1')
-            let precent = 0
-            preCount = setInterval( ()=> {
-              document.querySelector('#preload .precent').textContent = precent <= 100 ? precent + '%' : '100%'
-              if(precent > 115){
-                document.documentElement.style.setProperty('--slow-o', '1')
-              }
-              precent = precent < 120 ? precent + 1 : 0
-            }, 200)
           }
         });
       } catch (e) {}
@@ -63,7 +57,7 @@
 
   <div class="he-nav-wrap">
     <div class="he-half top">
-      <a href="mailto:andy@hypeentertainment.co.nz?subject=Website%20Inquiry" class="he-social-wrap w-inline-block">
+      <a href="mailto:andy@hypeentertainment.co.nz?subject=Website%20Inquiry" class="he-social-wrap">
         <div id='email' class="he-social-icon blink">
           <p id='email-label' class='he-nav-label'>Planning an Event? Make Contact</p>
           <svg  viewbox="0 0 18 15" fill="none"
@@ -77,7 +71,7 @@
           </svg>
         </div>
       </a>
-      <a href="https://www.instagram.com/hypeentertainmentnz/" target="_blank" class="he-social-wrap w-inline-block">
+      <a href="https://www.instagram.com/hypeentertainmentnz/" target="_blank" class="he-social-wrap">
         <div class="he-social-icon">
           <p class='he-nav-label'>follow us on instagram</p>
           <svg viewbox="0 0 18 18" fill="none"
@@ -90,7 +84,7 @@
               fill="#F2F2F2"></path>
           </svg></div>
       </a>
-      <a href="https://www.facebook.com/HypeEntertainmentNZ/" target="_blank" class="he-social-wrap w-inline-block">
+      <a href="https://www.facebook.com/HypeEntertainmentNZ/" target="_blank" class="he-social-wrap">
         <div class="he-social-icon">
           <p class='he-nav-label'>follow us on facebook</p>
           <svg viewbox="0 0 18 18" fill="none"
@@ -100,7 +94,7 @@
               fill="#F2F2F2"></path>
           </svg></div>
       </a>
-      <a href="https://www.psychoactive.co.nz/" class="he-social-wrap w-inline-block">
+      <a href="https://www.psychoactive.co.nz/" class="he-social-wrap">
         <div class="he-social-icon">
           <p class='he-nav-label'>powered by psychoactive</p>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260">
@@ -123,10 +117,10 @@
       </a>
     </div>
     <div class="he-link-super">
-      <a id="home-link-right" data-section="home" href="#" class="he-nav-link-wrap w-inline-block">
+      <a id="home-link-right" data-section="home" href="#" class="he-nav-link-wrap">
         <div class="he-nav-link">home</div>
       </a>
-      <a id="articles-link" data-section="articles" href="#" class="he-nav-link-wrap rel w-inline-block">
+      <a id="articles-link" data-section="articles" href="#" class="he-nav-link-wrap rel">
         <div class="he-nav-link">articles</div>
       </a>
     </div>
@@ -138,7 +132,7 @@
   </div>
   <div class="he-nav-wrap left">
     <div class="he-half top">
-      <a data-section="home" href="#" class="he-social-wrap w-inline-block">
+      <a id='logo-wrap' data-section="home" href="#" class="he-social-wrap">
         <div id='logo'>
           <div class='he-lottie-wrap'></div>
           <div class='he-lottie-wrap'></div>
@@ -268,7 +262,7 @@
                 <a data-sub="7" href="mailto:andy@hypeentertainment.co.nz?subject=Website%20Inquiry"
                   class="he-drop-link w-inline-block">
                   <div class="he-drop-spacer"></div>
-                  <div class="he-paragraph rel">Drop us a line</div>
+                  <div class="he-paragraph rel mobile">Drop us a line</div>
                 </a>
                 <div data-sub="4" class="he-paragraph rel">With all this info, our crew can start iterating on our
                   initial concepts to design riveting visuals and prototype ingenious ways to bring them to life. We
@@ -471,6 +465,16 @@
               <div class="he-subnav-percent">00.0%</div>
             </div>
           </div>
+          <div class="he-video-caption desk">
+            <div data-sub="1" class="he-paragraph">Rising from the deep, these mesmerising tentacles shift from seaweed to seamonster as 400+ digital layers change dynamically through the night. This spellbinding stage display was projected on custom made canvases to plunge audiences into a vivid aquatic environment.</div>
+            <div data-sub="2" class="he-paragraph">This interactive installation utilises motion sensors to transpose human movement into a kinetic wall projection. Participants get lost in the moment as their collective actions affect the environment around them in real time. <br><a target="_blank" href="https://www.sidbardiya.com/"><div class="line"></div>Created By sidbardiya.com</a></div>
+            <div data-sub="3" class="he-paragraph">Constructed, designed and mapped in house, these Shoji Door open to gracefully reveal iconic Japanese landmarks and natural imagery. As the night progresses, the circular canvas fills with stunning swirls of colors, transporting audiences to Tokyo’s neon-lit streets</div>
+            <div data-sub="4" class="he-paragraph">Crafted to recreate the glam of the roaring 20’s, this art deco stage display takes audiences through an infinitely evolving architectural odyssey.</div>
+            <div data-sub="5" class="he-paragraph">Combining large-scale props design, powerful projection mapping and custom animation, Te Papa’s main foyer is transformed into Greek ruins as its towering granite pillars are overgrown with ivy. </div>
+            <div data-sub="6" class="he-paragraph">Cleverly positioned and calibrated projectors transform a multitude of custom-built triangular props into glimmering icicles, whilst keeping clear of the DJ and any potential shadow.</div>
+            <div data-sub="7" class="he-paragraph">Audiences are launched into outer space as this CNC-cut astronaut is brought to life with an animated spacesuit and hyperspace visor. Spaceman Illustration by James Gilleard</div>
+            <div data-sub="0" class="he-paragraph rel">Using a combination of prop design, discreet rigging and advanced projection mapping, this immersive installation brings the sun within arms reach. Procedurally generated sun flares are projected from three separate angles to transform a custom built plastic sphere into a stunning glowing centerpiece for the mix and mingle zone.</div>
+          </div>
           <div class="he-content-wrap right">
             <div data-sub="0" class="he-wrap abs">
               <div class="he-wrap">
@@ -537,7 +541,7 @@
                 <div class="he-project-detail client">Victoria University of Wellington</div>
               </div>
             </div>
-            <div data-sub="5" class="he-wrap">
+            <div data-sub="5" class="he-wrap abs">
               <div class="he-wrap">
                 <div class="he-project-detail">2019</div>
                 <div class="he-project-detail light">/</div>
@@ -563,7 +567,7 @@
                 <div class="he-project-detail client">Hutt Valley High School</div>
               </div>
             </div>
-            <div data-sub="7" class="he-wrap abs">
+            <div data-sub="7" class="he-wrap">
               <div class="he-wrap">
                 <div class="he-project-detail">2019</div>
                 <div class="he-project-detail light">/</div>
@@ -609,7 +613,7 @@
       <div class='he-content'>
         <a data-section="about" class="he-about-link">
           <div class='he-centraline'></div>
-          <p class="he-title"><span class="desk">Click</span><span class="mobile">Tap</span> to Learn About Us</p>
+          <p class="he-title blink"><span class="desk">Click</span><span class="mobile">Tap</span> to Learn About Us</p>
         </a>
         <div class='he-gallery-wrap'>
           <div><img src='/images/article/concept_03.jpg'></div>
@@ -793,7 +797,7 @@
   </div>
 </div>
       <div class="he-video-caption">
-        <div class="he-paragraph rel">Using a combination of prop design, discreet rigging and advanced projection mapping, this immersive installation brings the sun within arms reach. Procedurally generated sun flares are projected from three separate angles to transform a custom built plastic sphere into a stunning glowing centerpiece for the mix and mingle zone.</div>
+        <div class="he-paragraph rel mobile">Using a combination of prop design, discreet rigging and advanced projection mapping, this immersive installation brings the sun within arms reach. Procedurally generated sun flares are projected from three separate angles to transform a custom built plastic sphere into a stunning glowing centerpiece for the mix and mingle zone.</div>
       </div>
     </div>
   </div>
@@ -818,7 +822,7 @@
         </div>
       </div>
       <div class="he-video-caption">
-        <div class="he-paragraph rel">Rising from the deep, these mesmerising tentacles shift from seaweed to seamonster as 400+ digital layers change dynamically through the night. This spellbinding stage display was projected on custom made canvases to plunge audiences into a vivid aquatic environment.</div>
+        <div class="he-paragraph rel mobile">Rising from the deep, these mesmerising tentacles shift from seaweed to seamonster as 400+ digital layers change dynamically through the night. This spellbinding stage display was projected on custom made canvases to plunge audiences into a vivid aquatic environment.</div>
       </div>
     </div>
   </div>
@@ -843,7 +847,7 @@
         </div>
       </div>
       <div class="he-video-caption">
-        <div class="he-paragraph rel">This interactive installation utilises motion sensors to transpose human movement into a kinetic wall projection. Participants get lost in the moment as their collective actions affect the environment around them in real time. <br><a target="_blank" href="https://www.sidbardiya.com/"><div class="line"></div>Created By sidbardiya.com</a></div>
+        <div class="he-paragraph rel mobile">This interactive installation utilises motion sensors to transpose human movement into a kinetic wall projection. Participants get lost in the moment as their collective actions affect the environment around them in real time. <br><a target="_blank" href="https://www.sidbardiya.com/"><div class="line"></div>Created By sidbardiya.com</a></div>
       </div>
     </div>
   </div>
@@ -868,7 +872,7 @@
         </div>
       </div>
       <div class="he-video-caption">
-        <div class="he-paragraph rel">Constructed, designed and mapped in house, these Shoji Door open to gracefully reveal iconic Japanese landmarks and natural imagery. As the night progresses, the circular canvas fills with stunning swirls of colors, transporting audiences to Tokyo’s neon-lit streets</div>
+        <div class="he-paragraph rel mobile">Constructed, designed and mapped in house, these Shoji Door open to gracefully reveal iconic Japanese landmarks and natural imagery. As the night progresses, the circular canvas fills with stunning swirls of colors, transporting audiences to Tokyo’s neon-lit streets</div>
       </div>
     </div>
   </div>
@@ -893,7 +897,7 @@
         </div>
       </div>
       <div class="he-video-caption">
-        <div class="he-paragraph rel">Crafted to recreate the glam of the roaring 20’s, this art deco stage display takes audiences through an infinitely evolving architectural odyssey.</div>
+        <div class="he-paragraph rel mobile">Crafted to recreate the glam of the roaring 20’s, this art deco stage display takes audiences through an infinitely evolving architectural odyssey.</div>
       </div>
     </div>
   </div>
@@ -918,7 +922,7 @@
         </div>
       </div>
       <div class="he-video-caption">
-        <div class="he-paragraph rel">Combining large-scale props design, powerful projection mapping and custom animation, Te Papa’s main foyer is transformed into Greek ruins as its towering granite pillars are overgrown with ivy. </div>
+        <div class="he-paragraph rel mobile">Combining large-scale props design, powerful projection mapping and custom animation, Te Papa’s main foyer is transformed into Greek ruins as its towering granite pillars are overgrown with ivy. </div>
       </div>
     </div>
   </div>
@@ -943,7 +947,7 @@
         </div>
       </div>
       <div class="he-video-caption">
-        <div class="he-paragraph rel">Cleverly positioned and calibrated projectors transform a multitude of custom-built triangular props into glimmering icicles, whilst keeping clear of the DJ and any potential shadow.</div>
+        <div class="he-paragraph rel mobile">Cleverly positioned and calibrated projectors transform a multitude of custom-built triangular props into glimmering icicles, whilst keeping clear of the DJ and any potential shadow.</div>
       </div>
     </div>
   </div>
@@ -968,7 +972,7 @@
         </div>
       </div>
       <div class="he-video-caption">
-        <div class="he-paragraph rel">Audiences are launched into outer space as this CNC-cut astronaut is brought to life with an animated spacesuit and hyperspace visor. Spaceman Illustration by James Gilleard</div>
+        <div class="he-paragraph rel mobile">Audiences are launched into outer space as this CNC-cut astronaut is brought to life with an animated spacesuit and hyperspace visor. Spaceman Illustration by James Gilleard</div>
       </div>
     </div>
   </div>

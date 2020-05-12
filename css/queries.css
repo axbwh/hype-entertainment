@@ -54,7 +54,7 @@
 }
 
 .mobile{
-      display: none;  
+      display: none !important;  
 }
 
 
@@ -99,16 +99,21 @@
         --img-w: 100%;   
     }
 
+    .he-cross{
+        left: var(--content-padding-x) !important;
+        top: var(--content-padding-y) !important;
+    }
+
     .he-video-modal .he-project-detail, .he-nav-label, .dsk-br{
         display: none;
     }
     
     .desk{
-        display: none;
+        display: none !important;
     }
 
     .mobile{
-        display: unset;
+        display: unset !important;
     }
 
 }
