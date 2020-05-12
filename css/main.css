@@ -17,14 +17,6 @@ a:hover, a:visited, a:link, a:active {
   transform: scaleX(3)
 }
 
-.he-nav-wrap {
-  pointer-events: none;
-}
-
-.he-nav-wrap a {
-  pointer-events: all;
-}
-
 .he-canvas {
   width: 100%;
   height: calc(100 * var(--vh, 1vh));
@@ -69,20 +61,6 @@ a:hover, a:visited, a:link, a:active {
   opacity: 0;
   margin-top: calc(-150 * var(--vh, 1vh));
 }
-
-#logo {
-  position: relative;
-  width: 24px;
-  height: 64px;
-}
-
-.he-lottie-wrap {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-}
-
 
 .he-intro-wrap{
   display: flex;

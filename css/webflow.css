@@ -37,11 +37,7 @@
 .w-icon-file-upload-icon:before {
   content: "\e903";
 }
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
+
 html {
   height: 100%;
 }

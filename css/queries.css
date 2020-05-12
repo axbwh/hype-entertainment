@@ -1,7 +1,7 @@
 :root {
 
     --ease : cubic-bezier(.86, 0, .07, 1);
-    --fnt-o : 0;
+    --fnt-o : 1;
     --slow-o : 0;
 
     --vh : 1vh;
