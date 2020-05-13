@@ -169,17 +169,32 @@ function init(cvs, scrollWrap) {
 
   canvas.appendChild(renderer.domElement)
 
+  let chevWrap = document.querySelector('#about-wrap .he-chevron-wrap a')
+
+  chevWrap.addEventListener('click', () => {
+    const rect = scrollWrap.querySelector('[data-slug = "process" ').getBoundingClientRect()
+    const toScroll = rect.top + scrollWrap.scrollTop + vHeight * 0.5
+    scrollWrap.scrollTo(0, toScroll)
+  })
+
   timeline = anime.timeline({
       targets: axes,
       duration: 100,
       easing: 'linear',
-      autoplay: false
+      autoplay: false,
+      update: (anim) => {
+        if(anim.currentTime > 500){
+          chevWrap.style.display = 'none';
+        }else{
+          chevWrap.style.display = '';
+        }
+      }
   }).add({
       ry: -65,
       z: 100,
       sy: 15,
-      duration: 200
-  }, 300).add({
+      duration: 500
+  }, 0).add({
       ry: -30,
       z: 85,
       sy: 10,
@@ -216,7 +231,11 @@ function init(cvs, scrollWrap) {
   }, '+=200').add({
       ry: 180,
       duration: 100
-  })
+  }).add({
+    targets : '#about-wrap .he-chevron-wrap',
+    opacity: [1, 0],
+    duration: 100
+  }, 400)
 
 
   let _scroll = _.throttle(

@@ -152,7 +152,7 @@ function init(canvas, scrollWrap) {
 
   canvas.appendChild(renderer.domElement)
 
-  let chevWrap = document.querySelector('.he-chevron-wrap a')
+  let chevWrap = document.querySelector('#home-wrap .he-chevron-wrap a')
 
   chevWrap.addEventListener('click', () => {
     scrollWrap.scrollTo(0, scrollWrap.scrollTop + vHeight * 0.75)
@@ -224,7 +224,7 @@ function init(canvas, scrollWrap) {
     opacity: [0, 1],
     duration: 125
   }, 200).add({
-    targets : '.he-intro-wrap, .he-chevron-wrap',
+    targets : '.he-intro-wrap, #home-wrap .he-chevron-wrap',
     opacity: [1, 0],
     duration: 100
   }, 550)

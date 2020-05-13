@@ -478,6 +478,11 @@
   text-decoration: none;
 }
 
+.he-drop-link p{
+  white-space: nowrap;
+  margin-bottom: 0;
+}
+
 .he-drop-spacer {
   position: relative;
   width: 62px;

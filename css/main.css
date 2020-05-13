@@ -272,3 +272,11 @@ a:hover .line{
 .he-video-modal .he-content-flex{
   background: linear-gradient( to top, rgba(0, 0, 0, 0.8) 0%, rgba( 0, 0, 0, 0.4) 30%,  rgba( 0, 0, 0, 0) 50% );
 }
+
+.he-about-p{
+  position: absolute;
+}
+
+.he-about-p a{
+  margin-top: 15px;
+}

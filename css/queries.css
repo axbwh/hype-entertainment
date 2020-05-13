@@ -100,8 +100,8 @@
     }
 
     .he-cross{
-        left: var(--content-padding-x) !important;
-        top: var(--content-padding-y) !important;
+        left: var(--content-padding-x) ;
+        top: var(--content-padding-y);
     }
 
     .he-video-modal .he-project-detail, .he-nav-label, .dsk-br{
@@ -153,6 +153,10 @@
     .he-project-title {
         border-color: hsla(0, 0%, 94.9%, 0.35) !important;
         box-shadow:  0 1px 6px rgba(0,0,0,0.06);
+      }
+
+      .about-sub{
+        padding-bottom: 70px;
       }
 
 
