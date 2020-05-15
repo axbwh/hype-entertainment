@@ -19,8 +19,8 @@ let axes = {
     offX: 10,
     offY: 10,
     i: 0,
-    bmax : 1.2,
-    bmin : 1.2
+    bmax : 1,
+    bmin : 1
   }
 
 let projects = []
@@ -252,7 +252,7 @@ class Project {
         })
 
         //--------------model--------------//
-        this.promise = loadOBJ(`Models/proj/${this.id}.obj`)
+        this.promise = this.id === 'space' ? loadOBJ(`Models/astrofloat.obj`) : loadOBJ(`Models/proj/${this.id}.obj`)
         
         this.promise.then((obj) => {
 
@@ -307,7 +307,7 @@ function setupScene() {
     //--------------model: https://free3d.com/3d-model/icicle-v3--899600.html#--------------//
     projects[6] = new Project(6, 'ice', 12, -80)
     //--------------model: https://nasa3d.arc.nasa.gov/detail/aces --------------//
-    projects[7] = new Project(7, 'space', 12, -100)
+    projects[7] = new Project(7, 'space', 10, 100)
 
     let promises = projects.map( p => p.init())
 
@@ -377,8 +377,8 @@ function render(reset = false) {
 
     if( (intersects.length >= 1 || hovered || isMobile)  && !reset){
         projects[Math.round(axes.i)].hoverIn()
-        bloomTo = axes.bmax
-        lightTo = 1
+        bloomTo = isMobile ? axes.bmax * 0.8 : axes.bmax
+        lightTo = isMobile ? 0.8 : 1
     }else{
         projects.filter( p => p.playing).forEach( p => p.hoverOut())
         bloomTo = axes.bmin

@@ -39,6 +39,7 @@ class Sub {
             this.modalOpen.addEventListener("click", () => {
                 this.modal.style.display = "flex"
                 Proj.stop()
+                this.modal.querySelector('video').play()
                 anime({
                     targets : this.modal,
                     opacity: 1,
@@ -59,6 +60,7 @@ class Sub {
                     }).finished.then( () =>{
                         this.modal.style.display = "none"
                         Proj.start()
+                        this.modal.querySelector('video').pause()
                     })
                     history.replaceState('', '', `/`)
                     

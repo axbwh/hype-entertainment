@@ -10,6 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
     initScrollbars()
     Lotty.hide()
 
+    setTimeout( () => {
+        document.querySelectorAll('.he-nav-link-wrap').forEach( e => {
+            e.style.opacity = 1;
+        })    
+    }, 800)
+    
     document.querySelector('.he-to-top').addEventListener('click', () => {
             document.querySelector('.simplebar-content-wrapper').scrollTo(0, 0)
     })

@@ -89,6 +89,7 @@ const hide = () => {
         easing: 'easeInOutQuad'
       })
 
+
       anime({
         targets: preloader,
         delay: 500,

@@ -212,8 +212,8 @@ p{
 }
 
 .he-nav-link-wrap{
-    opacity: 1;
     position: relative;
+    transition: opacity 600ms var(--ease);
 }
 
 .he-cross{
