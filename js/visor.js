@@ -1,7 +1,7 @@
 import * as THREE from '../build/three.module.js'
 import { RenderPass } from '../jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js'
-import { toRad, map, clamp, vWidth, vHeight, loadOBJ, isMobile} from './utils.js'
+import { toRad, map, clamp, vWidth, vHeight, loadOBJ, isMobile, hasTilt} from './utils.js'
 
 let camera, scene, renderer, ambientLight, fov = 45
 
@@ -10,6 +10,7 @@ let scrollWrap, scrollTarget
 
 let astro, visor, logo
 let visorTl
+let _orient
 
 let logoAxes = {
   x: 0,
@@ -252,7 +253,7 @@ function init(canvas, scrollWrap) {
   let _mousemove = _.throttle(
     (e) => {
       if (sPos <= sEnd) {
-        mouse.x = map(e.clientX, 0, vWidth, -axes.ox, axes.ox)
+        mouse.x = map(e.clientX, 0, vWidth, axes.ox, -axes.ox)
         mouse.y = map(e.clientY, 0, vHeight, -axes.oy, axes.oy)
       }
     },
@@ -262,7 +263,7 @@ function init(canvas, scrollWrap) {
     }
   )
 
-  let _orient = _.throttle(
+  _orient = _.throttle(
     (e) => {
         e.stopPropagation()
         e = e || window.event
@@ -284,7 +285,9 @@ function init(canvas, scrollWrap) {
 
   scrollWrap.addEventListener("scroll", _scroll)
   if (isMobile) {
-    window.addEventListener('deviceorientation', _orient)
+    if(hasTilt){
+      window.addEventListener('deviceorientation', _orient)
+    }
   } else {
     scrollWrap.addEventListener('mousemove', _mousemove)
   }
@@ -300,6 +303,10 @@ function init(canvas, scrollWrap) {
   })
 
   return promises
+}
+
+function addTilt(){
+    window.addEventListener('deviceorientation', _orient)
 }
 
 function onWindowResize() {
@@ -358,7 +365,7 @@ function render(reset = false) {
 
     let rotate = {
       x: toRad(mouse.y*1.5),
-      y: toRad(mouse.x*1.5),
+      y: toRad(mouse.x*-1.5),
     }
 
     logo.rotation.y = map(.1, 0, 1, logo.rotation.y, rotate.y)
@@ -379,4 +386,4 @@ function render(reset = false) {
   renderer.render(scene, camera)
 }
 
-export { init, stop, start }
+export { init, stop, start, addTilt }

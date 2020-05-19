@@ -1,9 +1,9 @@
 import * as THREE from '../build/three.module.js'
 import { RenderPass } from '../jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js'
-import { toRad, map, clamp, vWidth, vHeight, loadOBJ, isMobile} from './utils.js'
+import { toRad, map, clamp, vWidth, vHeight, loadOBJ, isMobile, hasTilt} from './utils.js'
 
-let canvas, camera, scene, renderer, ambientLight
+let canvas, camera, scene, renderer, ambientLight, _orient
 
 let timeline, frameRequest, inFrame = true
 
@@ -271,7 +271,7 @@ function init(cvs, scrollWrap) {
     }
   )
 
-  let _orient = _.throttle(
+  _orient = _.throttle(
     (e) => {
         e.stopPropagation()
         e = e || window.event
@@ -294,12 +294,18 @@ function init(cvs, scrollWrap) {
   scrollWrap.addEventListener("scroll", _scroll)
 
   if (isMobile) {
-    window.addEventListener('deviceorientation', _orient)
+    if(hasTilt){
+      window.addEventListener('deviceorientation', _orient)
+    }
   } else {
     scrollWrap.addEventListener('mousemove', _mousemove)
   }
 
   return promise
+}
+
+function addTilt(){
+  window.addEventListener('deviceorientation', _orient)
 }
 
 function onWindowResize() {
@@ -373,4 +379,4 @@ function render(reset = false) {
   renderer.render(scene, camera)
 }
 
-export { init, stop, start }
+export { init, stop, start, addTilt }

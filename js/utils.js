@@ -1,4 +1,7 @@
 import { OBJLoader } from '../jsm/loaders/OBJLoader.js'
+import * as Visor from './visor.js'
+import * as About from './about.js'
+import * as Proj from './proj.js'
 
 const loadOBJ = (url, onProgress) => {
     return new Promise((resolve, reject) => {
@@ -43,5 +46,10 @@ const setSize = () => {
 }
 
 let isMobile = window.matchMedia("only screen and (max-width: 768px)").matches;
+let hasTilt = isMobile
 
-export {map, clamp, toRad, vHeight, vWidth, setSize, initScrollbars, loadOBJ, isMobile, lerp}
+if(typeof(DeviceOrientationEvent) !== 'undefined' && typeof(DeviceOrientationEvent.requestPermission) === 'function'){
+        hasTilt = false
+}
+
+export {map, clamp, toRad, vHeight, vWidth, setSize, initScrollbars, loadOBJ, isMobile, hasTilt, lerp}
