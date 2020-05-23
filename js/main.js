@@ -4,7 +4,7 @@ import initArticles from './articles.js'
 import * as Visor from './visor.js'
 import * as About from './about.js'
 import * as Proj from './proj.js'
-import { initScrollbars, setSize, isMobile, hasTilt } from './utils.js'
+import { initScrollbars, setSize } from './utils.js'
 import * as Lotty from './lotty.js'
 import initCursor from './cursor.js'
 
@@ -90,19 +90,6 @@ let onReady = () => {
         Lotty.hide().then(() =>{
             Section.navigateTo(window.location.pathname.replace('/', ''), true)
             Section.init()
-
-            if(isMobile && !hasTilt){
-                document.body.addEventListener('click', () => {
-                    DeviceOrientationEvent.requestPermission().then(response => {
-                        if(response === 'granted'){
-                            Visor.addTilt()
-                            Proj.addTilt()
-                            About.addTilt()
-                        }
-                    }).catch(console.error)   
-        
-                }, {once : true})
-            }
         })
     })
 

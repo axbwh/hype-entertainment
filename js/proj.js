@@ -2,10 +2,10 @@ import * as THREE from '../build/three.module.js'
 import { EffectComposer } from '../jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from '../jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js'
-import { toRad, map, clamp, vWidth, vHeight, loadOBJ, isMobile, hasTilt} from './utils.js'
+import { toRad, map, clamp, vWidth, vHeight, loadOBJ, isMobile} from './utils.js'
 
 
-let canvas, camera, scene, renderer, composer, _orient
+let canvas, camera, scene, renderer, composer
 
 let timeline, frameRequest, inFrame = false
 
@@ -172,7 +172,7 @@ function init(cvs, scrollWrap, scrollTgt) {
         }
     )
 
-    _orient = _.throttle(
+    let _orient = _.throttle(
         (e) => {
             e.stopPropagation()
             e = e || window.event
@@ -193,9 +193,7 @@ function init(cvs, scrollWrap, scrollTgt) {
     scrollWrap.addEventListener("scroll", _scroll)
     
     if(isMobile){
-        if(hasTilt){
-            window.addEventListener('deviceorientation', _orient);
-        }
+        window.addEventListener('deviceorientation', _orient);
     }else{
         scrollWrap.addEventListener("mousemove", _mousemove)
     }
@@ -225,10 +223,6 @@ function init(cvs, scrollWrap, scrollTgt) {
 
     return promise
 
-}
-
-function addTilt(){
-    window.addEventListener('deviceorientation', _orient)
 }
 
 class Project {
@@ -422,4 +416,4 @@ function onWindowResize() {
 
 }
 
-export { init, stop, start, addTilt }
+export { init, stop, start }

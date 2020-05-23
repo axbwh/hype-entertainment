@@ -46,10 +46,12 @@ const setSize = () => {
 }
 
 let isMobile = window.matchMedia("only screen and (max-width: 768px)").matches;
-let hasTilt = isMobile
 
-if(typeof(DeviceOrientationEvent) !== 'undefined' && typeof(DeviceOrientationEvent.requestPermission) === 'function'){
-        hasTilt = false
+
+if(typeof(DeviceOrientationEvent) !== 'undefined' && typeof(DeviceOrientationEvent.requestPermission) === 'function' && !navigator.userAgent.match('CriOS')){
+        document.body.addEventListener('click', () => {
+            DeviceOrientationEvent.requestPermission().then(response => {}).catch(console.error)
+        }, {once : true})
 }
 
-export {map, clamp, toRad, vHeight, vWidth, setSize, initScrollbars, loadOBJ, isMobile, hasTilt, lerp}
+export {map, clamp, toRad, vHeight, vWidth, setSize, initScrollbars, loadOBJ, isMobile, lerp}
