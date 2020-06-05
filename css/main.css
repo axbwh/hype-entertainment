@@ -280,3 +280,7 @@ a:hover .line{
 .he-about-p a{
   margin-top: 15px;
 }
+
+.date-hide{
+  display:none;
+}
