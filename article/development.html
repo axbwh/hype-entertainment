@@ -69,7 +69,7 @@
       try {
         Typekit.load({
           active: () => {
-            document.documentElement.style.setProperty('--fnt-o', '1')
+            document.documentElement.style.setProperty('--fnt-o', 'var(--white)')
           }
         });
       } catch (e) {}

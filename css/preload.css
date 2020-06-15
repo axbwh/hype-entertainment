@@ -12,7 +12,7 @@ body {
   -ms-overflow-style: none;
   background-color: #000;
   font-family: poynter-gothic-text-condense, sans-serif;
-  color: var(--white);
+  color: var(--fnt-o);
 }
 
 .body::-webkit-scrollbar,
@@ -55,7 +55,6 @@ body::-webkit-scrollbar {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  opacity: var(--fnt-o);
   transition: opacity 1s var(--ease) 0.1s;
   z-index: 101;
 }
@@ -132,7 +131,6 @@ body::-webkit-scrollbar {
   text-transform: uppercase;
   margin-top: 20px;
   font-size: 14px;
-  opacity: var(--fnt-o);
   transition: opacity 1s var(--ease) 0.1s;
   line-height: 1.6em;
 }
