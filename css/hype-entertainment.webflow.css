@@ -516,6 +516,7 @@
   cursor: pointer;
   padding: calc( var(--proj-fntsize) * 0.2);
   padding-right: 0;
+  color: var(--fnt-o);
   border: 1px solid transparent;
   -webkit-transition: border-color 400ms var(--ease), text-shadow 400ms var(--ease);
   transition: border-color 400ms var(--ease), text-shadow 400ms var(--ease);
