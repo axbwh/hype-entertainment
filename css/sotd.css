@@ -19,7 +19,7 @@
     -moz-transition: all .25s cubic-bezier(.615,.19,.305,.91);
     transition: all .25s cubic-bezier(.615,.19,.305,.91);
     cursor: pointer;
-    z-index: 1000;
+    z-index: 101;
   }
   #cssda-badge:hover{
     -webkit-animation: bounce .75s linear both;
