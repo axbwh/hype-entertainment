@@ -335,6 +335,7 @@ function animate() {
 
 
 
+let t = 0
 
 function render(reset = false) {
 
@@ -383,7 +384,12 @@ function render(reset = false) {
         projects.filter( p => p.playing).forEach( p => p.hoverOut())
         bloomTo = axes.bmin
         lightTo = 0.12
+        
+        let wave = (Math.sin(t) / 2 + 0.5) 
+        lightTo += wave * 0.2
+        bloomTo += wave * 0.2
     }
+    
 
     ambientLight.intensity = map(.5, 0, 1, ambientLight.intensity, lightTo);
 
@@ -391,6 +397,8 @@ function render(reset = false) {
     bloomPass.radius =  map(.15, 0, 1, bloomPass.radius, bloomTo);
 
     composer.render()
+
+    t = t + Math.PI / 85
        
 }  
 
