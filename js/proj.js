@@ -96,6 +96,7 @@ function init(cvs, scrollWrap, scrollTgt) {
         sclZoom: 1,
         bmin: 0,
         bmax: 1,
+        i:0,
         duration: 200
     }).add({
         i:1,
@@ -374,12 +375,13 @@ function render(reset = false) {
 
     }
     
-    let bloomTo, lightTo
+    let bloomTo, lightTo, bloomRadius
 
     if( (intersects.length >= 1 || hovered || isMobile)  && !reset){
         projects[Math.round(axes.i)].hoverIn()
         bloomTo = isMobile ? axes.bmax * 0.8 : axes.bmax
         lightTo = isMobile ? 0.8 : 1
+        bloomRadius = bloomTo
     }else{
         projects.filter( p => p.playing).forEach( p => p.hoverOut())
         bloomTo = axes.bmin
@@ -387,14 +389,18 @@ function render(reset = false) {
         
         let wave = (Math.sin(t) / 2 + 0.5) 
         lightTo += wave * 0.2
-        bloomTo += wave * 0.2
+        bloomTo += wave * 0.3
+        bloomRadius = bloomTo  
+        if(axes.z < 450){
+            bloomRadius = 5 + bloomTo * 10
+        }
     }
     
 
     ambientLight.intensity = map(.5, 0, 1, ambientLight.intensity, lightTo);
 
     bloomPass.strength =  map(.15, 0, 1, bloomPass.strength, bloomTo);
-    bloomPass.radius =  map(.15, 0, 1, bloomPass.radius, bloomTo);
+    bloomPass.radius =  map(.15, 0, 1, bloomPass.radius, bloomRadius);
 
     composer.render()
 
