@@ -1,22 +1,34 @@
-import * as THREE from '../build/three.module.js'
-import { RenderPass } from '../jsm/postprocessing/RenderPass.js'
-import { UnrealBloomPass } from '../jsm/postprocessing/UnrealBloomPass.js'
-import { toRad, map, clamp, vWidth, vHeight, loadOBJ, isMobile} from './utils.js'
+import * as THREE from "../build/three.module.js";
+import { RenderPass } from "../jsm/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "../jsm/postprocessing/UnrealBloomPass.js";
+import {
+  toRad,
+  map,
+  clamp,
+  vWidth,
+  vHeight,
+  loadOBJ,
+  isMobile,
+} from "./utils.js";
 
-let camera, scene, renderer, ambientLight, fov = 45
+let camera,
+  scene,
+  renderer,
+  ambientLight,
+  fov = 45;
 
-let frameRequest, inFrame = true
-let scrollWrap, scrollTarget
+let frameRequest,
+  inFrame = true;
+let scrollWrap, scrollTarget;
 
-let astro, visor, logo
-let visorTl
+let astro, visor, logo;
+let visorTl;
 
 let logoAxes = {
   x: 0,
   y: 250,
-  z: 20
-}
-
+  z: 20,
+};
 
 let axes = {
   x: 0,
@@ -28,355 +40,410 @@ let axes = {
   tz: 0,
   ox: 10,
   oy: 10,
-  intensity: 0.75
-}
+  intensity: 0.75,
+};
 
-let targetAxes= {
+let targetAxes = {
   x: axes.tx,
   y: axes.ty,
-  z: axes.tz
-}
+  z: axes.tz,
+};
 
 let mouse = {
   x: 0,
-  y: 0
-}
+  y: 0,
+};
 
 //SceneManagement Componenets
-let SceneManager = 1
-let timer = 2
+let SceneManager = 1;
+let timer = 2;
 
 function init(canvas, scrollWrap) {
-  const scrollTarget = canvas.parentElement
-  camera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 1, 2000)
+  const scrollTarget = canvas.parentElement;
+  camera = new THREE.PerspectiveCamera(
+    fov,
+    window.innerWidth / window.innerHeight,
+    1,
+    2000
+  );
 
   //-------------------------------scene-------------------------------//
 
-  scene = new THREE.Scene()
-  scene.fog = new THREE.Fog(0xcccccc, 100, 1500)
+  scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0xcccccc, 100, 1500);
 
-  ambientLight = new THREE.AmbientLight(0xffffff)
-  ambientLight.intensity = axes.intensity
-  scene.add(ambientLight)
+  ambientLight = new THREE.AmbientLight(0xffffff);
+  ambientLight.intensity = axes.intensity;
+  scene.add(ambientLight);
 
-  let directionalLight1 = new THREE.DirectionalLight(0xffeedd)
-  directionalLight1.position.set(4, 0, 0)
-  scene.add(directionalLight1)
+  let directionalLight1 = new THREE.DirectionalLight(0xffeedd);
+  directionalLight1.position.set(4, 0, 0);
+  scene.add(directionalLight1);
 
-  let directionalLight2 = new THREE.DirectionalLight(0xffeedd)
-  directionalLight2.position.set(-4, 0, 0)
-  scene.add(directionalLight2)
+  let directionalLight2 = new THREE.DirectionalLight(0xffeedd);
+  directionalLight2.position.set(-4, 0, 0);
+  scene.add(directionalLight2);
 
   let material = new THREE.MeshStandardMaterial({
     metalness: 0.1,
-    roughness: 0.5
+    roughness: 0.5,
   });
 
   //-------------------------------Astronaut-------------------------------//
   // https://sketchfab.com/3d-models/astronaut-287589e324b942b8be57dbd6c539b2ab
 
+  let astroPromise = loadOBJ("Models/astro.obj");
 
-  let astroPromise = loadOBJ('Models/astro.obj')
-
-  astroPromise.then(obj => {
-    obj.traverse(child => {
+  astroPromise.then((obj) => {
+    obj.traverse((child) => {
       if (child instanceof THREE.Mesh) {
-        child.material = material
+        child.material = material;
       }
-    })
+    });
 
-    obj.position.y = -145
-    obj.position.x = 2
-    obj.scale.x = 10
-    obj.scale.y = 10
-    obj.scale.z = 10
-    astro = obj
-    scene.add(astro)
-  })
+    obj.position.y = -145;
+    obj.position.x = 2;
+    obj.scale.x = 10;
+    obj.scale.y = 10;
+    obj.scale.z = 10;
+    astro = obj;
+    scene.add(astro);
+  });
 
   //-------------------------------Visor-------------------------------//
 
-  let visorPromise = loadOBJ('Models/visor.obj')
+  let visorPromise = loadOBJ("Models/visor.obj");
 
-  visorPromise.then(obj => {
-    obj.traverse(child => {
+  visorPromise.then((obj) => {
+    obj.traverse((child) => {
       if (child instanceof THREE.Mesh) {
-        child.material = material
+        child.material = material;
       }
-    })
-    obj.position.y = 70
-    obj.position.x = 0
-    obj.scale.x = 10
-    obj.scale.y = 10
-    obj.scale.z = 10
-    visor = obj
-    scene.add(visor)
-  })
+    });
+    obj.position.y = 70;
+    obj.position.x = 0;
+    obj.scale.x = 10;
+    obj.scale.y = 10;
+    obj.scale.z = 10;
+    visor = obj;
+    scene.add(visor);
+  });
 
   //-------------------------------Logo-------------------------------//
 
-  let logoPromise = loadOBJ('Models/logo.obj')
+  let logoPromise = loadOBJ("Models/logo.obj");
 
-  logoPromise.then(obj => {
-    obj.traverse(child => {
+  logoPromise.then((obj) => {
+    obj.traverse((child) => {
       if (child instanceof THREE.Mesh) {
-        child.material = material
+        child.material = material;
       }
-    })
-    obj.position.y = logoAxes.y - 50
-    obj.position.z = logoAxes.z
-    obj.scale.x = 10
-    obj.scale.y = 10
-    obj.scale.z = 10
-    logo = obj
-    scene.add(logo)
-  })
+    });
+    obj.position.y = logoAxes.y - 50;
+    obj.position.z = logoAxes.z;
+    obj.scale.x = 10;
+    obj.scale.y = 10;
+    obj.scale.z = 10;
+    logo = obj;
+    scene.add(logo);
+  });
 
   //-------------------------------Renderer-------------------------------//
   renderer = new THREE.WebGLRenderer({
     antialias: true,
-    alpha:true
-  })
-  
-  renderer.setPixelRatio( window.devicePixelRatio );
+    alpha: true,
+  });
+
+  renderer.setPixelRatio(window.devicePixelRatio);
 
   // renderer.setSize(window.innerWidth, window.innerHeight)
   // renderer.toneMapping = THREE.ReinhardToneMapping
 
-  let renderScene = new RenderPass(scene, camera)
+  let renderScene = new RenderPass(scene, camera);
 
-  let bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85)
-  bloomPass.threshold = 0.05
-  bloomPass.strength = 0.4
-  bloomPass.radius = 0.1
+  let bloomPass = new UnrealBloomPass(
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    1.5,
+    0.4,
+    0.85
+  );
+  bloomPass.threshold = 0.05;
+  bloomPass.strength = 0.4;
+  bloomPass.radius = 0.1;
 
-  canvas.appendChild(renderer.domElement)
+  canvas.appendChild(renderer.domElement);
 
-  let chevWrap = document.querySelector('#home-wrap .he-chevron-wrap a')
+  let chevWrap = document.querySelector("#home-wrap .he-chevron-wrap a");
 
-  chevWrap.addEventListener('click', () => {
-    scrollWrap.scrollTo(0, scrollWrap.scrollTop + vHeight * 0.75)
-  })
+  chevWrap.addEventListener("click", () => {
+    scrollWrap.scrollTo(0, scrollWrap.scrollTop + vHeight * 0.75);
+  });
 
+  visorTl = anime
+    .timeline({
+      targets: axes,
+      duration: 250,
+      easing: "linear",
+      autoplay: false,
+      update: (anim) => {
+        if (anim.currentTime > 600) {
+          chevWrap.style.display = "none";
+        } else {
+          chevWrap.style.display = "";
+        }
 
-  visorTl = anime.timeline({
-    targets: axes,
-    duration: 250,
-    easing: 'linear',
-    autoplay: false,
-    update: (anim) => {
-      
-      if(anim.currentTime > 600){
-        chevWrap.style.display = 'none';
-      }else{
-        chevWrap.style.display = '';
-      }
-
-      if(anim.currentTime > 1150){
-        document.getElementById('email').classList.remove('blink')
-      }else{
-        document.getElementById('email').classList.add('blink')
-      }
-    }
-  }).add({
-    targets: '.he-call',
-    opacity: [1, 0],
-    duration: 100,
-  }, 100).add({
-    z: 100,
-    duration: 200
-  }, 0).add({
-    y: 120,
-    z: 65,
-    ty: 60,
-    tz: 0,
-    ox: 10,
-    oy: 10,
-    intensity: 0.12,
-    duration: 225
-  }, 175).add({
-    y: 70,
-    ty: 70,
-    tz: -65,
-    ox: 1,
-    oy: 1,
-    duration: 750
-  }, 400).add({
-    r:-100,
-    duration:350
-  }, 650).add({
-    z:-10,
-    duration:250
-  },1000).add({
-    targets: '#canvas-projects',
-    opacity: 1,
-    duration: 50
-  }, 1000).add({
-    targets: '#canvas-projects',
-    scale: [0.05, 1],
-    duration: 250
-  }, 1000).add({
-    targets: '.he-scrolltip-wrap',
-    opacity: [1, 0],
-    duration: 100
-  }, 1150).add({
-    targets : '.he-intro-wrap',
-    opacity: [0, 1],
-    duration: 125
-  }, 200).add({
-    targets : '.he-intro-wrap, #home-wrap .he-chevron-wrap',
-    opacity: [1, 0],
-    duration: 100
-  }, 550)
+        // if(anim.currentTime > 1150){
+        //   document.getElementById('email').classList.remove('blink')
+        // }else{
+        //   document.getElementById('email').classList.add('blink')
+        // }
+      },
+    })
+    .add(
+      {
+        targets: ".he-call",
+        opacity: [1, 0],
+        duration: 100,
+      },
+      100
+    )
+    .add(
+      {
+        z: 100,
+        duration: 200,
+      },
+      0
+    )
+    .add(
+      {
+        y: 120,
+        z: 65,
+        ty: 60,
+        tz: 0,
+        ox: 10,
+        oy: 10,
+        intensity: 0.12,
+        duration: 225,
+      },
+      175
+    )
+    .add(
+      {
+        y: 70,
+        ty: 70,
+        tz: -65,
+        ox: 1,
+        oy: 1,
+        duration: 750,
+      },
+      400
+    )
+    .add(
+      {
+        r: -100,
+        duration: 350,
+      },
+      650
+    )
+    .add(
+      {
+        z: -10,
+        duration: 250,
+      },
+      1000
+    )
+    .add(
+      {
+        targets: "#canvas-projects",
+        opacity: 1,
+        duration: 50,
+      },
+      1000
+    )
+    .add(
+      {
+        targets: "#canvas-projects",
+        scale: [0.05, 1],
+        duration: 250,
+      },
+      1000
+    )
+    .add(
+      {
+        targets: ".he-scrolltip-wrap",
+        opacity: [1, 0],
+        duration: 100,
+      },
+      1150
+    )
+    .add(
+      {
+        targets: ".he-intro-wrap",
+        opacity: [0, 1],
+        duration: 125,
+      },
+      200
+    )
+    .add(
+      {
+        targets: ".he-intro-wrap, #home-wrap .he-chevron-wrap",
+        opacity: [1, 0],
+        duration: 100,
+      },
+      550
+    );
 
   let _scroll = _.throttle(
     () => {
       sPos = scrollWrap.scrollTop - scrollTarget.offsetTop;
-      sEnd = scrollTarget.offsetHeight - vHeight
-      let pPercent = map(clamp(sPos, 0, sEnd), 0, sEnd, 0, 100)
-        visorTl.seek(visorTl.duration * (pPercent / 100))
-      if (sPos > -vHeight && sPos <= sEnd) { 
-        inFrame = true       
-        start()   
-      }else{
-        inFrame = false
-        stop()
-      } 
+      sEnd = scrollTarget.offsetHeight - vHeight;
+      let pPercent = map(clamp(sPos, 0, sEnd), 0, sEnd, 0, 100);
+      visorTl.seek(visorTl.duration * (pPercent / 100));
+      if (sPos > -vHeight && sPos <= sEnd) {
+        inFrame = true;
+        start();
+      } else {
+        inFrame = false;
+        stop();
+      }
     },
-    10, {
+    10,
+    {
       trailing: true,
-      leading: true
+      leading: true,
     }
-  )
+  );
 
   let _mousemove = _.throttle(
     (e) => {
       if (sPos <= sEnd) {
-        mouse.x = map(e.clientX, 0, vWidth, axes.ox, -axes.ox)
-        mouse.y = map(e.clientY, 0, vHeight, -axes.oy, axes.oy)
+        mouse.x = map(e.clientX, 0, vWidth, axes.ox, -axes.ox);
+        mouse.y = map(e.clientY, 0, vHeight, -axes.oy, axes.oy);
       }
     },
-    10, {
+    10,
+    {
       trailing: true,
-      leading: true
+      leading: true,
     }
-  )
+  );
 
   let _orient = _.throttle(
     (e) => {
-        e.stopPropagation()
-        e = e || window.event
-        if (sPos <= sEnd) {
-            let beta = clamp(e.beta, -30, 30)
-            let gamma = clamp(e.gamma, -30, 30)
-            mouse.x = map(gamma, -30, 30, -axes.ox, axes.ox)
-            mouse.y = map(beta, -30, 30, -axes.oy, axes.oy)
-        }
+      e.stopPropagation();
+      e = e || window.event;
+      if (sPos <= sEnd) {
+        let beta = clamp(e.beta, -30, 30);
+        let gamma = clamp(e.gamma, -30, 30);
+        mouse.x = map(gamma, -30, 30, -axes.ox, axes.ox);
+        mouse.y = map(beta, -30, 30, -axes.oy, axes.oy);
+      }
     },
-    10, {
-        trailing: true,
-        leading: true
+    10,
+    {
+      trailing: true,
+      leading: true,
     }
-)
+  );
 
-  let sPos = scrollWrap.scrollTop - scrollTarget.offsetTop
-  let sEnd = scrollTarget.offsetHeight - vHeight
+  let sPos = scrollWrap.scrollTop - scrollTarget.offsetTop;
+  let sEnd = scrollTarget.offsetHeight - vHeight;
 
-  scrollWrap.addEventListener("scroll", _scroll)
+  scrollWrap.addEventListener("scroll", _scroll);
   if (isMobile) {
-    window.addEventListener('deviceorientation', _orient)
+    window.addEventListener("deviceorientation", _orient);
   } else {
-    scrollWrap.addEventListener('mousemove', _mousemove)
+    scrollWrap.addEventListener("mousemove", _mousemove);
   }
 
+  let promises = Promise.all([astroPromise, visorPromise, logoPromise]);
 
-  
+  promises.then(() => {
+    window.addEventListener("resize", onWindowResize, false);
+    onWindowResize();
+  });
 
-  let promises = Promise.all([astroPromise, visorPromise, logoPromise])
-
-  promises.then( () => {
-    window.addEventListener('resize', onWindowResize, false)
-    onWindowResize()
-  })
-
-  return promises
+  return promises;
 }
 
 function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight
+  camera.aspect = window.innerWidth / window.innerHeight;
 
-  const viewAspect = 1920 / 1080
+  const viewAspect = 1920 / 1080;
 
-  const ratio = camera.aspect / viewAspect
+  const ratio = camera.aspect / viewAspect;
 
-  logo.scale.x = 10 * ratio
-  logo.scale.y = 10 * ratio
-  logo.scale.z = 10 * ratio
-  logo.position.y = logoAxes.y - (50 * ratio)
+  logo.scale.x = 10 * ratio;
+  logo.scale.y = 10 * ratio;
+  logo.scale.z = 10 * ratio;
+  logo.position.y = logoAxes.y - 50 * ratio;
 
-  camera.updateProjectionMatrix()
-  renderer.setSize(window.innerWidth, window.innerHeight)
-  render(true)
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  render(true);
 }
 
 function animate() {
-  frameRequest = requestAnimationFrame(animate)
-  render()
+  frameRequest = requestAnimationFrame(animate);
+  render();
 }
 
 function start() {
   if (!frameRequest && inFrame) {
-    animate()
+    animate();
   }
 }
 
 function stop() {
   if (frameRequest) {
-    cancelAnimationFrame(frameRequest)
-    frameRequest = undefined
-    render(true)
+    cancelAnimationFrame(frameRequest);
+    frameRequest = undefined;
+    render(true);
   }
 }
 
 function render(reset = false) {
-
   if (reset) {
-    camera.position.x = axes.x + mouse.x
-    camera.position.y = axes.y + mouse.y 
-    camera.position.z = axes.z
-    camera.lookAt(axes.tx, axes.ty, axes.tz)
-    visor.rotation.x = toRad(axes.r)
-    ambientLight.intensity = axes.intensity
-    
-} else {
+    camera.position.x = axes.x + mouse.x;
+    camera.position.y = axes.y + mouse.y;
+    camera.position.z = axes.z;
+    camera.lookAt(axes.tx, axes.ty, axes.tz);
+    visor.rotation.x = toRad(axes.r);
+    ambientLight.intensity = axes.intensity;
+  } else {
+    camera.position.x += (axes.x + mouse.x - camera.position.x) * 0.1;
+    camera.position.y += (axes.y + mouse.y - camera.position.y) * 0.1;
+    camera.position.z += (axes.z - camera.position.z) * 0.1;
 
-    camera.position.x += (axes.x + mouse.x - camera.position.x) * .1
-    camera.position.y += (axes.y + mouse.y - camera.position.y) * .1
-    camera.position.z += (axes.z - camera.position.z) * .1
-
-    visor.rotation.x = map(.1, 0, 1, visor.rotation.x, toRad(axes.r))
+    visor.rotation.x = map(0.1, 0, 1, visor.rotation.x, toRad(axes.r));
 
     let rotate = {
-      x: toRad(mouse.y*1.5),
-      y: toRad(mouse.x*-1.5),
-    }
+      x: toRad(mouse.y * 1.5),
+      y: toRad(mouse.x * -1.5),
+    };
 
-    logo.rotation.y = map(.1, 0, 1, logo.rotation.y, rotate.y)
-    logo.rotation.x = map(.1, 0, 1, logo.rotation.x, rotate.x)
+    logo.rotation.y = map(0.1, 0, 1, logo.rotation.y, rotate.y);
+    logo.rotation.x = map(0.1, 0, 1, logo.rotation.x, rotate.x);
 
     let target = {
-      x: map(.1, 0, 1, targetAxes.x, axes.tx),
-      y: map(.1, 0, 1, targetAxes.y, axes.ty),
-      z: map(.1, 0, 1, targetAxes.z, axes.tz)
+      x: map(0.1, 0, 1, targetAxes.x, axes.tx),
+      y: map(0.1, 0, 1, targetAxes.y, axes.ty),
+      z: map(0.1, 0, 1, targetAxes.z, axes.tz),
+    };
+
+    targetAxes = target;
+
+    camera.lookAt(target.x, target.y, target.z);
+    ambientLight.intensity = map(
+      0.1,
+      0,
+      1,
+      ambientLight.intensity,
+      axes.intensity
+    );
   }
 
-  targetAxes = target
-
-    camera.lookAt(target.x, target.y, target.z)
-    ambientLight.intensity = map(.1, 0, 1, ambientLight.intensity, axes.intensity)
+  renderer.render(scene, camera);
 }
 
-  renderer.render(scene, camera)
-}
-
-export { init, stop, start }
+export { init, stop, start };
