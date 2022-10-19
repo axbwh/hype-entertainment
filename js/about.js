@@ -296,7 +296,7 @@ function init(cvs, scrollWrap) {
       let pPercent = map(clamp(sPos, 0, sEnd), 0, sEnd, 0, 100);
       timeline.seek(timeline.duration * (pPercent / 100));
       if (sPos > -vHeight && sPos <= sEnd) {
-        console.log("Starting");
+        //console.log("Starting");
         inFrame = true;
         start();
       } else {
