@@ -376,7 +376,7 @@ a:hover .line {
 
 .superscript {
   position: absolute;
-  top: -10px;
+  top: 0;
   margin-left: 10px;
   display: inline-block;
   opacity: 0;
@@ -386,12 +386,14 @@ a:hover .line {
   letter-spacing: 2px;
   text-transform: uppercase;
   transition: opacity 400ms;
+  transition: top 300ms;
 }
 
 .nav-menu-item:hover {
   opacity: 1;
 }
 .nav-menu-item:hover .superscript {
+  top: -10px;
   opacity: 1;
 }
 
