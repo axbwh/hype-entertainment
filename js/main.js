@@ -10,7 +10,9 @@ import initCursor from "./cursor.js";
 import "./hamburger.js";
 
 let aboutLink = document.getElementById("about-link"),
-  articlesLink = document.getElementById("articles-link"),
+  // articlesLink = document.getElementById("articles-link"),
+  projectsLink = document.getElementById("projects-link"),
+  servicesLink = document.getElementById("services-link"),
   homeLinkL = document.getElementById("home-link-left"),
   homeLinkR = document.getElementById("home-link-right"),
   icons = document.querySelectorAll("#logo-wrap, .he-to-top"),
@@ -18,6 +20,8 @@ let aboutLink = document.getElementById("about-link"),
 
 let aboutWrap = document.getElementById("about-wrap"),
   articlesWrap = document.getElementById("articles-wrap"),
+  projectsWrap = document.getElementById("projects-wrap"),
+  servicesWrap = document.getElementById("services-wrap"),
   homeWrap = document.getElementById("home-wrap"),
   canvasVisor = document.getElementById("canvas-visor"),
   canvasProjects = document.getElementById("canvas-projects"),
@@ -26,18 +30,28 @@ let aboutWrap = document.getElementById("about-wrap"),
 let sections = {
   about: {
     left: homeLinkL,
-    right: articlesLink,
+    right: projectsLink,
     wrap: aboutWrap,
   },
   home: {
     left: aboutLink,
-    right: articlesLink,
+    right: projectsLink,
     wrap: homeWrap,
   },
   articles: {
     left: aboutLink,
     right: homeLinkR,
     wrap: articlesWrap,
+  },
+  projects: {
+    left: aboutLink,
+    right: homeLinkR,
+    wrap: projectsWrap,
+  },
+  services: {
+    left: aboutLink,
+    right: homeLinkR,
+    wrap: servicesWrap,
   },
 };
 
