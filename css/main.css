@@ -306,7 +306,7 @@ a:hover .line {
   padding: 0 10px;
   opacity: 0.35;
   transition: opacity 300ms;
-  z-index: 101;
+  z-index: 1001;
   cursor: pointer;
   transition: all 400ms;
 }
@@ -335,7 +335,7 @@ a:hover .line {
   position: fixed;
   left: 0;
   top: -100vh;
-  z-index: 100;
+  z-index: 1000;
   width: 100vw;
   height: calc(100 * var(--vh, 1vh));
   padding: var(--content-padding-y) var(--content-padding-x);
