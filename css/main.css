@@ -400,3 +400,76 @@ a:hover .line {
 .z-index-0 {
   z-index: 0;
 }
+
+.he-services {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--service-w), 1fr));
+}
+
+.he-services-title-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.he-services-title {
+  position: relative;
+}
+
+.he-services-buttons {
+  display: flex;
+}
+.he-services-title-link {
+  position: relative;
+  display: block;
+  padding: var(--nav-padding);
+  -webkit-align-self: flex-end;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  border: 1px solid transparent;
+  -webkit-transition: border-color 200ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: border-color 200ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  color: hsla(0, 0%, 94.9%, 0.35);
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0.6em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.with-border {
+  color: var(--white);
+  border-style: solid;
+  border-width: 1px;
+  border-color: hsla(0, 0%, 94.9%, 0.35);
+}
+
+.he-services-title-link:hover {
+  border-style: solid;
+  border-width: 1px;
+  border-color: hsla(0, 0%, 94.9%, 0.35);
+  color: var(--white);
+}
+
+.with-border:hover {
+  color: hsla(0, 0%, 94.9%, 0.35);
+}
+
+.he-services-number {
+  font-weight: 200;
+  margin-right: 10px;
+}
+
+.he-services-name {
+  font-weight: 400;
+}
+.he-services-descp {
+  font-weight: 100;
+  position: relative;
+  margin-bottom: 0px;
+  padding-top: 10px;
+  opacity: 1;
+  letter-spacing: 0.08em;
+}
