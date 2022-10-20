@@ -18,7 +18,7 @@ const initCursor = () => {
     });
 
     let cursorTriggers = document.querySelectorAll(
-      "a, .he-nav-link, .he-project-title,  .he-cross, .simplebar-track, .he-subnav-spacer-wrap, .hamburger-wrapper, .nav-item"
+      "a, .he-nav-link, .he-project-title,  .he-cross, .simplebar-track, .he-subnav-spacer-wrap, .hamburger-wrapper, .nav-item, .he-projects-wrap"
     );
 
     cursorTriggers.forEach((t) => {
