@@ -258,6 +258,29 @@ p {
   width: 100%;
 }
 
+.he-client-testimonial {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  text-align: right;
+  flex-direction: column;
+}
+.he-client-testimonial p {
+  max-width: 300px;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+.he-client-testimonial > div {
+  position: relative;
+}
+.he-client-testimonial img {
+  left: -40px;
+  top: -6px;
+  width: 30px;
+  position: absolute;
+  opacity: 1.2;
+}
+
 .he-project-bottom-section-wrap {
   margin-top: var(--content-padding-y);
   position: relative;
@@ -291,6 +314,10 @@ p {
 
   .he-article-bg-images .he-bg-parallax:nth-child(odd) {
     transform: translateZ(-0.2px) translateX(-10%) scale(1.2);
+  }
+
+  .he-client-testimonial img {
+    left: 0;
   }
 
   .he-cross {
