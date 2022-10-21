@@ -137,6 +137,7 @@ p {
 }
 
 .he-article-body-wrap {
+  margin-top: 50px;
   max-width: 700px;
   position: relative;
   display: block;
@@ -255,6 +256,17 @@ p {
 .he-hero-video {
   /* padding-left: 6.25vw; */
   width: 100%;
+}
+
+.he-project-bottom-section-wrap {
+  margin-top: var(--content-padding-y);
+  position: relative;
+  top: 0px;
+  z-index: 5;
+  display: block;
+  overflow: auto;
+  width: 100%;
+  height: calc(100 * var(--vh, 1vh));
 }
 
 @media only screen and (max-device-width: 480px) {
