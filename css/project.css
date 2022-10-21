@@ -280,6 +280,18 @@ p {
       width: calc(var(--content-padding-x) / 2);
   }
   */
+  .he-hero-video video {
+    /* padding-left: 6.25vw; */
+    width: 80vw;
+  }
+
+  .he-article-bg-images .he-bg-parallax:nth-child(even) {
+    transform: translateZ(-0.2px) translateX(10%) scale(1.2);
+  }
+
+  .he-article-bg-images .he-bg-parallax:nth-child(odd) {
+    transform: translateZ(-0.2px) translateX(-10%) scale(1.2);
+  }
 
   .he-cross {
     left: calc(var(--nav-offset-x) + 7.5px);

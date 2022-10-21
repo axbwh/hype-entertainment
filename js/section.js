@@ -47,7 +47,6 @@ const slideOut = (e, t, d, s, callback) => {
 };
 
 const navigateTo = (ky, push) => {
-  console.log("ROuting");
   let key = ky in sections ? ky : "home";
 
   let pathName = key == "home" ? "" : key;
