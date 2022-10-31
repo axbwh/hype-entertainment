@@ -269,7 +269,7 @@ a:hover .line {
 }
 
 .he-video-caption.hovering {
-  opacity: 1;
+  opacity: 0;
 }
 
 .he-video-modal .he-content-flex {
@@ -624,6 +624,25 @@ a:hover .line {
   animation: scroll 8s linear infinite;
 }
 
+.he-center-flex {
+  align-items: center;
+  gap: 50px;
+}
+
+.he-bottom-contact-buttons {
+  display: flex;
+  gap: 40px;
+}
+
+.show-opacity {
+  opacity: 1;
+}
+.he-projects-title-readmore {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 @media only screen and (max-device-width: 768px) {
   .he-nav-wrapper {
     padding-top: 15vh;
@@ -633,5 +652,15 @@ a:hover .line {
   }
   .he-projects-title {
     opacity: 1;
+    margin-top: 10px;
+  }
+  .he-projects-wrap {
+    padding: 0px;
+  }
+  .he-projects-title-readmore {
+    justify-content: space-between;
+  }
+  .he-projects-gallery-wrap img {
+    filter: grayscale(0);
   }
 }
