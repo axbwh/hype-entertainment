@@ -500,7 +500,7 @@ a:hover .line {
 }
 
 .he-projects-gallery-wrap img {
-  position: absolute;
+  position: relative;
   object-fit: cover;
   width: 100%;
   height: 100%;
@@ -512,25 +512,12 @@ a:hover .line {
   cursor: pointer;
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 140px;
-}
-.he-projects-wrap:hover {
-  border-style: solid;
-  border-width: 1px;
-  border-color: hsla(0, 0%, 94.9%, 0.35);
-  color: var(--white);
-}
-
-.he-projects-wrap:hover img {
-  width: 95%;
-  height: 90%;
-  filter: grayscale(0);
-}
-
-.he-projects-wrap:hover p {
-  opacity: 1;
+  padding: 15px;
+  /* max-height: 350px; */
 }
 
 .he-projects-title {
@@ -540,6 +527,23 @@ a:hover .line {
   font-weight: 700;
   opacity: 0;
   transition: opacity 200ms;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.he-projects-wrap:hover {
+  border-style: solid;
+  border-width: 1px;
+  border-color: hsla(0, 0%, 94.9%, 0.35);
+  color: var(--white);
+}
+
+.he-projects-wrap:hover img {
+  filter: grayscale(0);
+}
+
+.he-projects-wrap:hover p {
+  opacity: 1;
 }
 
 /* .clients-logos-carousel {
