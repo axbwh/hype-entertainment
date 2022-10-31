@@ -587,7 +587,6 @@ a:hover .line {
   margin: auto;
   overflow: hidden;
   position: relative;
-  margin-top: 50px;
 }
 .slider::before {
   top: 0;

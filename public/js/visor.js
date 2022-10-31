@@ -351,7 +351,7 @@ function init(canvas, scrollWrap) {
 
   scrollWrap.addEventListener("scroll", _scroll);
   if (isMobile) {
-    window.addEventListener("deviceorientation", _orient);
+    //window.addEventListener("deviceorientation", _orient);
   } else {
     scrollWrap.addEventListener("mousemove", _mousemove);
   }
