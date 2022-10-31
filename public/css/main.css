@@ -289,6 +289,10 @@ a:hover .line {
   margin-top: 15px;
 }
 
+.he-about-intro a {
+  margin-top: 15px;
+}
+
 .date-hide {
   display: none;
 }
@@ -613,6 +617,7 @@ a:hover .line {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  min-height: 105px;
 }
 .slide {
   width: auto;
@@ -646,6 +651,9 @@ a:hover .line {
   }
   .slider {
     height: 50px;
+  }
+  .slide-image {
+    min-height: auto;
   }
   .he-projects-title {
     opacity: 1;
