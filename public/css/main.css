@@ -455,10 +455,6 @@ a:hover .line {
   color: var(--white);
 }
 
-.with-border:hover {
-  color: hsla(0, 0%, 94.9%, 0.35);
-}
-
 .he-services-number {
   font-weight: 200;
   margin-right: 10px;
@@ -466,13 +462,14 @@ a:hover .line {
 
 .he-services-name {
   font-weight: 400;
+  text-transform: uppercase;
 }
 .he-services-descp {
   font-weight: 100;
   position: relative;
   margin-bottom: 0px;
   padding-top: 10px;
-  opacity: 1;
+  opacity: 0.6;
   letter-spacing: 0.08em;
 }
 
