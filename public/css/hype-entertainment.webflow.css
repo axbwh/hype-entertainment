@@ -810,3 +810,9 @@
   position: relative;
   height: calc(100 * var(--vh, 1vh));
 }
+
+@media only screen and (max-device-width: 768px) {
+  .he-project-title {
+    width: 80vw;
+  }
+}
