@@ -306,7 +306,8 @@ a:hover .line {
   align-items: center;
   pointer-events: all;
   height: 30px;
-  width: 45px;
+  gap: 3px;
+  width: 42px;
   padding: 0 10px;
   opacity: 0.35;
   transition: opacity 300ms;
@@ -331,8 +332,12 @@ a:hover .line {
 }
 
 .hamburger-clicked {
-  width: 30px;
+  gap: 0px;
+  width: 28px;
   transform: rotate(90deg);
+}
+.hamburger-clicked:hover .hamburger-line:nth-child(2) {
+  height: 100%;
 }
 
 .he-nav-wrapper {
