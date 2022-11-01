@@ -201,7 +201,14 @@ function init(cvs, scrollWrap) {
   let chevWrap = document.querySelector("#about-wrap .he-chevron-wrap a");
 
   chevWrap.addEventListener("click", () => {
-    console.log("CLicked");
+    const rect = scrollWrap
+      .querySelector('[data-slug = "process" ')
+      .getBoundingClientRect();
+    const toScroll = rect.top + scrollWrap.scrollTop + vHeight * 0.5;
+    scrollWrap.scrollTo(0, toScroll);
+  });
+
+  document.getElementById("explore-text").addEventListener("click", () => {
     const rect = scrollWrap
       .querySelector('[data-slug = "process" ')
       .getBoundingClientRect();

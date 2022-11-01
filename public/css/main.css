@@ -688,6 +688,10 @@ a:hover .line {
   opacity: 1;
 }
 
+#explore-text {
+  cursor: pointer;
+}
+
 @media only screen and (max-device-width: 768px) {
   .he-nav-wrapper {
     padding-top: 15vh;
