@@ -15,3 +15,10 @@ function toggleClasses() {
   document.getElementById("hamburger").classList.toggle("hamburger-clicked");
   //document.getElementById("nav-left-items").classList.toggle("z-index-0");
 }
+
+document.getElementById("logo").addEventListener("click", () => {
+  if (
+    document.getElementById("hamburger").classList.contains("hamburger-clicked")
+  )
+    toggleClasses();
+});
