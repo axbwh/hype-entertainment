@@ -36,7 +36,7 @@
 }
 
 .about-hero {
-  height: calc(10 * var(--vh, 1vh));
+  height: calc(200 * var(--vh, 1vh));
 }
 
 .he-intro-text {

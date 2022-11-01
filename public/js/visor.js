@@ -286,7 +286,7 @@ function init(canvas, scrollWrap) {
     )
     .add(
       {
-        targets: ".he-intro-wrap, #home-wrap .he-chevron-wrap",
+        targets: ".he-intro-wrap, #home-wrap .he-chevron-wrap ",
         opacity: [1, 0],
         duration: 100,
       },

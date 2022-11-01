@@ -185,9 +185,23 @@ function init(cvs, scrollWrap) {
 
   canvas.appendChild(renderer.domElement);
 
+  document
+    .getElementById("email-click-to-copy")
+    .addEventListener("click", () => {
+      console.log("Copied");
+      navigator.clipboard.writeText("andy@hypeentertainment.co.nz");
+
+      document.getElementById("copied-text").classList.add("blink");
+      setTimeout(
+        () => document.getElementById("copied-text").classList.remove("blink"),
+        1000
+      );
+    });
+
   let chevWrap = document.querySelector("#about-wrap .he-chevron-wrap a");
 
   chevWrap.addEventListener("click", () => {
+    console.log("CLicked");
     const rect = scrollWrap
       .querySelector('[data-slug = "process" ')
       .getBoundingClientRect();

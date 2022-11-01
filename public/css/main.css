@@ -446,7 +446,7 @@ a:hover .line {
 }
 
 .with-border {
-  color: var(--white);
+  /* color: var(--white); */
   border-style: solid;
   border-width: 1px;
   border-color: hsla(0, 0%, 94.9%, 0.35);
@@ -642,6 +642,45 @@ a:hover .line {
   position: absolute;
   bottom: 0;
   right: 0;
+  margin-bottom: 6px;
+  color: hsla(0, 0%, 94.9%, 0.45);
+}
+
+.he-social-wrap {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.he-contact-label {
+  position: relative;
+  font-size: var(--detail-fntsize);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: auto;
+}
+
+.he-social-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.contact-content-wrapper {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.copied-text {
+  margin-left: 10px;
+  opacity: 0;
+}
+
+.copied-text-show {
+  opacity: 1;
 }
 
 @media only screen and (max-device-width: 768px) {

@@ -22,6 +22,7 @@ let aboutWrap = document.getElementById("about-wrap"),
   articlesWrap = document.getElementById("articles-wrap"),
   projectsWrap = document.getElementById("projects-wrap"),
   servicesWrap = document.getElementById("services-wrap"),
+  contactWrap = document.getElementById("contact-wrap"),
   homeWrap = document.getElementById("home-wrap"),
   canvasVisor = document.getElementById("canvas-visor"),
   canvasProjects = document.getElementById("canvas-projects"),
@@ -52,6 +53,11 @@ let sections = {
     left: aboutLink,
     right: homeLinkR,
     wrap: servicesWrap,
+  },
+  contact: {
+    left: aboutLink,
+    right: homeLinkR,
+    wrap: contactWrap,
   },
 };
 
