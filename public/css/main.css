@@ -726,4 +726,13 @@ a:hover .line {
   .he-projects-gallery-wrap img {
     filter: grayscale(0);
   }
+  .he-projects-wrap {
+    border-style: solid;
+    border-width: 1px;
+    border-color: hsla(0, 0%, 94.9%, 0.35);
+    padding: 0 10px;
+  }
+  .he-projects-title-readmore {
+    right: 10px;
+  }
 }
