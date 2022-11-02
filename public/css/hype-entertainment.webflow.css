@@ -757,7 +757,7 @@
   border: 1px solid transparent;
   -webkit-transition: border-color 400ms 100ms var(--ease);
   transition: border-color 400ms 100ms var(--ease);
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .he-article:hover {
