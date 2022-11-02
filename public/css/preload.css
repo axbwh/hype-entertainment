@@ -174,7 +174,6 @@ body::-webkit-scrollbar {
   /* right: 50px; */
   line-height: 18px;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   transform: translateY(-10%);
   opacity: 0;
   transition: transform 600ms var(--ease), opacity 600ms var(--ease);
