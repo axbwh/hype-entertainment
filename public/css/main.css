@@ -692,6 +692,17 @@ a:hover .line {
   cursor: pointer;
 }
 
+::-moz-selection {
+  /* Code for Firefox */
+  color: rgb(0, 0, 0);
+  background: rgb(255, 255, 255);
+}
+
+::selection {
+  color: rgb(0, 0, 0);
+  background: rgb(255, 255, 255);
+}
+
 @media only screen and (max-device-width: 768px) {
   .he-nav-wrapper {
     padding-top: 15vh;
