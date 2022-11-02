@@ -116,7 +116,7 @@ body::-webkit-scrollbar {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  z-index: 100;
+  z-index: 1005;
   background-color: #000;
 }
 

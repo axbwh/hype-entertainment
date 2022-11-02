@@ -60,6 +60,7 @@
   <script src="/js/libraries/anime.min.js" type="text/javascript"></script>
   <script src="/js/libraries/lodash.min.js" type="text/javascript"></script>
   <script src="/js/libraries/lottie.min.js" type="text/javascript"></script>
+ 
 </head>
 
 <body>
@@ -103,11 +104,11 @@
 
   <div class="he-nav-wrap">
     <div class="he-half top">
-      <!-- <div id="hamburger" class="hamburger-wrapper">
+      <div id="hamburger" class="hamburger-wrapper">
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
-      </div> -->
+      </div>
     </div>
     <div class="he-link-super">
       <a
@@ -143,19 +144,19 @@
       </a>
     </div>
     <div id="he-nav-wrapper" class="he-nav-wrapper">
-      <a class="nav-menu-item" data-section="about">
+      <a href="/about" class="nav-menu-item" data-section="about">
         <div class="nav-item">About</div>
         <div class="superscript">1</div>
       </a>
-      <a class="nav-menu-item" data-section="projects">
+      <a href="/projects" class="nav-menu-item" data-section="projects">
         <div class="nav-item">Projects</div>
         <div class="superscript">2</div>
       </a>
-      <a class="nav-menu-item" data-section="services">
+      <a href="/services" class="nav-menu-item" data-section="services">
         <div class="nav-item">Services</div>
         <div class="superscript">3</div>
       </a>
-      <a class="nav-menu-item" data-section="contact">
+      <a href="/contact" class="nav-menu-item" data-section="contact">
         <div class="nav-item">Contact</div>
         <div class="superscript">4</div>
       </a>
@@ -170,7 +171,7 @@
           </div>
         </a>
       </div>
-      <div class="he-link-super">
+      <!-- <div class="he-link-super">
         <a
           id="about-link"
           href="/about"
@@ -178,7 +179,7 @@
         >
           <div class="he-nav-link">about</div>
         </a>
-      </div>
+      </div> -->
       <div class="he-half"></div>
     </div>
   </div>
@@ -468,4 +469,6 @@
     crossorigin="anonymous"
   ></script>
   <script src="/js/webflow.js" type="text/javascript"></script>
+  
+  <script src="/js/hamburger.js" type="text/javascript"></script>
 </body>

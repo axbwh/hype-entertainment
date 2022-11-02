@@ -56,6 +56,7 @@ class Sub {
           duration: 800,
           easing: "easeInOutQuad",
         });
+
         history.replaceState("", "", `/${this.slug}`);
       });
 
