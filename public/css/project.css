@@ -1,6 +1,7 @@
 .body,
 body {
   color: var(--white);
+  background-color: #000;
 }
 
 .he-title.article {
