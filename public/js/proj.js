@@ -178,16 +178,8 @@ function init(cvs, scrollWrap, scrollTgt) {
       },
       "+=200"
     )
-    .add(
-      {
-        i: 7,
-        x: 7000,
-        duration: 200,
-      },
-      "+=200"
-    )
     .add({
-      x: 7000,
+      x: 6000,
       duration: 100,
     });
 
@@ -363,10 +355,8 @@ function setupScene() {
   projects[3] = new Project(3, "shoji", 15, 0);
   projects[4] = new Project(4, "gatsby", 12, -100);
   projects[5] = new Project(5, "ivy", 15, -120);
-  //--------------model: https://free3d.com/3d-model/icicle-v3--899600.html#--------------//
-  projects[6] = new Project(6, "ice", 12, -80);
   //--------------model: https://nasa3d.arc.nasa.gov/detail/aces --------------//
-  projects[7] = new Project(7, "space", 10, 100);
+  projects[6] = new Project(6, "space", 10, 100);
 
   let promises = projects.map((p) => p.init());
 
