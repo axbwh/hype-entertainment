@@ -9,6 +9,7 @@ import * as Lotty from "./lotty.js";
 import initCursor from "./cursor.js";
 import "./hamburger.js";
 
+
 let aboutLink = document.getElementById("about-link"),
   // articlesLink = document.getElementById("articles-link"),
   projectsLink = document.getElementById("projects-link"),

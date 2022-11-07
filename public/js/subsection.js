@@ -1,6 +1,8 @@
 import { map, clamp, vHeight, vWidth } from "./utils.js";
 import * as Proj from "./proj.js";
 import initModal from "./modal.js";
+import { sections } from "./main.js";
+import { slideOut } from "./section.js";
 
 class Sub {
   constructor(
@@ -45,33 +47,13 @@ class Sub {
   }
 
   initModal() {
-    if (this.modal && this.modalOpen) {
+    if (this.modalOpen) {
       this.modalOpen.addEventListener("click", () => {
-        this.modal.style.display = "flex";
-        Proj.stop();
-        this.modal.querySelector("video").play();
-        anime({
-          targets: this.modal,
-          opacity: 1,
-          duration: 800,
-          easing: "easeInOutQuad",
-        });
+        console.log('here')
 
-        history.replaceState("", "", `/${this.slug}`);
-      });
-
-      this.modal.querySelector(".he-cross").addEventListener("click", () => {
-        anime({
-          targets: this.modal,
-          opacity: 0,
-          duration: 800,
-          easing: "easeInOutQuad",
-        }).finished.then(() => {
-          this.modal.style.display = "none";
-          Proj.start();
-          this.modal.querySelector("video").pause();
-        });
-        history.replaceState("", "", `/`);
+        slideOut(sections.home.wrap, 1000, 0 ,150, () => {
+          window.location.href = `/projects/${this.slug}.html`
+        } )
       });
     }
   }

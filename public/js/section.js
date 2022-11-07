@@ -142,4 +142,4 @@ const init = () => {
   });
 };
 
-export { init, navigateTo };
+export { init, navigateTo, slideOut };

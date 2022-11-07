@@ -1,5 +1,6 @@
 import initModal from './modal.js'
-
+import { sections } from './main.js'
+import { slideOut } from './section.js'
 const toggleExpand = el => {
     if (!el.style.height || el.style.height == "0px") {
         el.style.height =
@@ -31,6 +32,16 @@ const initArticles = () => {
         if(modal){
             initModal(a, modal, modal.querySelector(".he-scroll"), modal.querySelector('.he-cross'))
         }
+    })
+
+    Array.from(document.querySelectorAll(".he-projects-wrap")).forEach(a => {
+        a.addEventListener("click", (e) =>{
+            e.preventDefault()
+            slideOut(sections.projects.wrap, 1000, 0, 150, () =>{
+                window.location.href = a.href
+            })
+
+        })
     })
 }
 
