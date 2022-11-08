@@ -49,8 +49,8 @@ class Sub {
   initModal() {
     if (this.modalOpen) {
       this.modalOpen.addEventListener("click", () => {
-        console.log('here')
-
+        window.sessionStorage.origin = "home"
+        console.log(window.sessionStorage.origin)
         slideOut(sections.home.wrap, 1000, 0 ,150, () => {
           window.location.href = `/projects/${this.slug}.html`
         } )

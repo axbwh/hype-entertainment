@@ -37,6 +37,7 @@ const initArticles = () => {
     Array.from(document.querySelectorAll(".he-projects-wrap")).forEach(a => {
         a.addEventListener("click", (e) =>{
             e.preventDefault()
+            window.sessionStorage.origin = "projects"
             slideOut(sections.projects.wrap, 1000, 0, 150, () =>{
                 window.location.href = a.href
             })
