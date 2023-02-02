@@ -67,6 +67,7 @@ a:active {
 
 .he-intro-wrap {
   display: flex;
+  flex-direction: column;
   position: absolute;
   justify-content: center;
   align-items: center;
@@ -82,6 +83,18 @@ a:active {
   letter-spacing: 0.08em;
   line-height: 1em;
   font-weight: 600;
+}
+
+.he-intro-wrap .he-intro-subtitle{
+  position: relative;
+    display: inline-block;
+    opacity: 0.35;
+    padding-top: 0.5em;
+    font-size: var(--detail-fntsize);
+    line-height: 1em;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 .he-call {

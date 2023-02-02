@@ -11,6 +11,8 @@
   width: 100%;
 }
 
+
+
 .he-anim-dummy {
   position: relative;
   display: -webkit-box;
@@ -38,6 +40,7 @@
 .about-hero {
   height: calc(200 * var(--vh, 1vh));
 }
+
 
 .he-intro-text {
   position: relative;
@@ -170,7 +173,7 @@
 }
 
 .he-about-title {
-  max-width: var(--about-title-w);
+  /* max-width: var(--about-title-w); */
   margin-bottom: 15px;
   font-size: var(--about-title-fntsize);
   line-height: 1em;
@@ -437,6 +440,10 @@
   width: 2px;
 }
 
+.he-subnav-label-wrap{
+  position: relative;
+}
+
 .he-subnav-spacer {
   position: relative;
   width: 100%;
@@ -450,6 +457,8 @@
 }
 
 .he-subnav-label {
+  right: 0;
+  top: 0;
   position: absolute;
   font-size: var(--detail-fntsize);
   letter-spacing: 1px;
