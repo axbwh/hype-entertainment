@@ -540,6 +540,12 @@ a:hover .line {
   /* max-height: 350px; */
 }
 
+.he-projects-wrap img{
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  object-position: 0%;
+}
+
 .he-projects-title {
   position: relative;
   text-transform: uppercase;
