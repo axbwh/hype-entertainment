@@ -155,12 +155,14 @@ p {
 
 .he-article-modal img {
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .he-bg-parallax {
   z-index: -1;
   transform: translateZ(-0.2px) scale(1.2);
+  max-height: min-content;
+  object-fit: contain;
 }
 
 .he-article-bg-images .he-bg-parallax:nth-child(even) {
@@ -258,6 +260,13 @@ p {
 .he-hero-video {
   /* padding-left: 6.25vw; */
   width: 100%;
+}
+
+.he-hero-video img {
+  /* padding-left: 6.25vw; */
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: contain;
 }
 .he-hero-video video {
   width: 100%;

@@ -298,6 +298,13 @@ a:hover .line {
 .he-about-p {
   position: absolute;
 }
+.he-paragraph {
+  font-weight: 100;
+  margin-bottom: 0px;
+  padding-top: 10px;
+  opacity: 0.6;
+  letter-spacing: 0.08em;
+}
 
 .he-about-p a {
   margin-top: 15px;
