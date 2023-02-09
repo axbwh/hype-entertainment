@@ -176,7 +176,7 @@ function init(canvas, scrollWrap) {
   let chevWrap = document.querySelector("#home-wrap .he-chevron-wrap a");
 
   chevWrap.addEventListener("click", () => {
-    scrollWrap.scrollTo(0, scrollWrap.scrollTop + vHeight * 0.75);
+    scrollWrap.scrollTo({left: 0, top: scrollWrap.scrollTop + vHeight * 0.75, behavior: 'smooth'});
   });
 
   visorTl = anime
