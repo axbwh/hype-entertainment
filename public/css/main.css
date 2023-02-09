@@ -525,6 +525,10 @@ a:hover .he-paragraph{
   font-weight: 200;
   margin-right: 10px;
 }
+.he-article-wrap .he-wrap{
+  display: flex;
+  flex-wrap: nowrap;
+}
 
 .he-services-name {
   font-weight: 400;
