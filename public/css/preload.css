@@ -224,7 +224,9 @@ body::-webkit-scrollbar {
   -webkit-box-flex: 50%;
   -webkit-flex: 50%;
   -ms-flex: 50%;
+  align-content: center;
   flex: 50%;
+  width: 31px;
 }
 
 .he-half.top {
@@ -232,6 +234,7 @@ body::-webkit-scrollbar {
   -webkit-justify-content: flex-start;
   -ms-flex-pack: start;
   justify-content: flex-start;
+  align-content: center;
 }
 
 @keyframes fadeIn {

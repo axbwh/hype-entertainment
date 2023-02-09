@@ -30,7 +30,7 @@
     width:31px;
     height: 150px;
     opacity: 0.35;
-    right: calc(var(--nav-offset-x) + var(--nav-padding) - 4px);
+    right: var(--nav-offset-x);
     bottom: calc(var(--nav-offset-y) + 12px + 24px );
     top: auto;
     opacity: 1;
@@ -42,7 +42,7 @@
     pointer-events: none;
     top: auto;
     width: 10px;
-    right: calc(var(--nav-offset-x) + var(--nav-padding) - 4px + 27px);
+    right: calc(var(--nav-offset-x) + 27px);
     bottom: calc(var(--nav-offset-y) + 12px );
     position: fixed;
     z-index: 14;

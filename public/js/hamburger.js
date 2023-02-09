@@ -12,13 +12,13 @@ for (var i = 0; i < navItem.length; i++) {
 
 function toggleClasses() {
   document.getElementById("he-nav-wrapper").classList.toggle("nav-show");
-  document.getElementById("hamburger").classList.toggle("hamburger-clicked");
+  document.querySelector("#hamburger .hamburger-wrapper").classList.toggle("hamburger-clicked");
   //document.getElementById("nav-left-items").classList.toggle("z-index-0");
 }
 
 document.getElementById("logo").addEventListener("click", () => {
   if (
-    document.getElementById("hamburger").classList.contains("hamburger-clicked")
+    document.querySelector("#hamburger .hamburger-wrapper").classList.contains("hamburger-clicked")
   )
     toggleClasses();
 });

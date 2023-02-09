@@ -204,16 +204,16 @@ function init(cvs, scrollWrap) {
     const rect = scrollWrap
       .querySelector('[data-slug = "process" ')
       .getBoundingClientRect();
-    const toScroll = rect.top + scrollWrap.scrollTop + vHeight * 0.5;
-    scrollWrap.scrollTo(0, toScroll);
+    const toScroll = rect.top + scrollWrap.scrollTop + vHeight * 0.75;
+    scrollWrap.scrollTo({left: 0, top: toScroll, behavior: 'smooth'});
   });
 
   document.getElementById("explore-text").addEventListener("click", () => {
     const rect = scrollWrap
       .querySelector('[data-slug = "process" ')
       .getBoundingClientRect();
-    const toScroll = rect.top + scrollWrap.scrollTop + vHeight * 0.5;
-    scrollWrap.scrollTo(0, toScroll);
+    const toScroll = rect.top + scrollWrap.scrollTop + vHeight * 0.75;
+    scrollWrap.scrollTo({left: 0, top: toScroll, behavior: 'smooth'});
   });
 
   timeline = anime

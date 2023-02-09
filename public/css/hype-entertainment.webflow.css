@@ -760,6 +760,7 @@
 }
 
 .he-article {
+  box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
