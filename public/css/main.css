@@ -251,7 +251,7 @@ a:hover .line {
 
 .he-gallery-wrap img {
   position: absolute;
-  object-fit: cover;
+  object-fit: contain;
   aspect-ratio: 16/9;
   width: 100%;
   height: 100%;
@@ -589,19 +589,20 @@ a:hover .he-paragraph{
 
 .he-projects-wrap img{
   aspect-ratio: 16/9;
-  object-fit: cover;
-  object-position: 0%;
+  object-fit: contain;
+  object-position: 50% 50%;
 }
 
 .he-projects-title {
   position: relative;
   text-transform: uppercase;
-  font-size: var(--about-title-fntsize);
+  font-size: calc(var(--about-title-fntsize) *0.8 );
   font-weight: 700;
   opacity: 0;
   transition: opacity 200ms;
   margin-top: 30px;
   width: 100%;
+  line-height: 0.8em;
 }
 
 .he-projects-wrap:hover {
