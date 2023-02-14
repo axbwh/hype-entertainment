@@ -115,12 +115,13 @@ p {
 
 .he-article-body-paragraph-wrap {
   padding: var(--article-p-padding);
-  color: #333333;
-  background-color: var(--white);
+  color: var(--white);
+  background-color: #000;
   box-shadow: -20px 26px 55px rgba(0, 0, 0, 0.5);
   font-size: var(--p-fntsize);
   line-height: 1.2em;
   margin-bottom: var(--article-space);
+  border : 1px solid #fff;
 }
 
 .he-article-body-paragraph-wrap p:not(:last-child),
@@ -133,7 +134,7 @@ p {
 }
 
 .he-article-body-paragraph-wrap a {
-  color: #333;
+  color: var(--white);
   font-weight: 600;
 }
 
