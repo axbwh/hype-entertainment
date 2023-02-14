@@ -115,8 +115,8 @@ p {
 
 .he-article-body-paragraph-wrap {
   padding: var(--article-p-padding);
-  color: #333333;
-  background-color: var(--white);
+  color:var(--white);
+  background-color: #333;
   box-shadow: -20px 26px 55px rgba(0, 0, 0, 0.5);
   font-size: var(--p-fntsize);
   line-height: 1.2em;
